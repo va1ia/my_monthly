@@ -13,7 +13,7 @@
 页面选择器可切换当前页装饰，背景选择器可检查 Footer 三种变体。index.html、scripts/preview/ 和 styles/preview/ 仅用于组件预览，正式首页内容等待 Figma。
 
 ## 当前状态
-导航和 Footer 已按参考站及用户截图实现；使用上传的 Logo、插画、社交图标和字体。导航/Footer 以外的页面尚未实现，未配置部署。Newsletter 已连接 Supabase 保存名单（仅本地预览来源）；尚未接入邮件发送服务。共享链接配置见 content/shared/README.md。
+导航和 Footer 已按参考站及用户截图实现；使用上传的 Logo、插画、社交图标和字体。导航/Footer 以外的页面尚未实现，未配置部署。Newsletter 已连接 Supabase 保存名单（本地预览与 GitHub Pages 来源）；尚未接入邮件发送服务。共享链接配置见 content/shared/README.md。
 
 ## 文件结构
 ```text
@@ -55,4 +55,4 @@ docs/                        结构、设计接入、组件索引等说明
 
 新增页面和命名规则见 [架构规范](docs/architecture.md)；组件查找见 [组件索引](docs/components.md)。
 
-Supabase 订阅接口已部署并通过本地预览真实提交验证，正式域名待配置；接入步骤见 [部署说明](docs/newsletter.md)。
+Supabase 订阅接口已部署并通过本地预览真实提交验证，GitHub Pages 公开网页也已验证通过；接入步骤见 [部署说明](docs/newsletter.md)。

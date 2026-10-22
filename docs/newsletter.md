@@ -11,7 +11,7 @@
 
 已从网页真实提交 newsletter-test-20261022@example.com，两次提交均成功，后台只有一条记录。测试记录保留并明确标记，不是真实订阅者。公开密钥读取名单返回 HTTP 401。项目另有 Newsletter Subscription 表，本次未修改；当前表单连接 newsletter_subscribers。
 
-正式域名尚未加入；正式上线前仍需防滥用措施。以下部署步骤供维护参考，已完成项目不必重复建表。
+GitHub Pages 来源 https://va1ia.github.io 已加入 NEWSLETTER_ALLOWED_ORIGINS（不含 /my_monthly/ 路径），保留本地来源。已从公开网页真实提交 newsletter-live-test-20261022@example.com 并在后台确认新增记录；原测试邮箱重复提交也成功。仍需补充防滥用措施。以下部署步骤供维护参考，已完成项目不必重复建表。
 
 ## 部署步骤
 1. 在 Supabase 项目 gfeutgwgqjsgegravjxk 的 SQL Editor 执行 supabase/migrations/202610220001_newsletter.sql。若已有同名表，先核对结构，不直接重复执行或覆盖。
@@ -27,3 +27,5 @@
 这一步只保存订阅请求，不发送邮件，不验证邮箱归属，也不创建 Supabase Auth 用户。正式 Newsletter 发送需配置邮件服务、退订及按需要启用确认邮件。发布前补充 CAPTCHA 或持久化限流；公开 key 和 CORS 都不能防止自动化滥用。当前服务不应在这些防护完成前作为正式公开入口。重复请求统一回复成功，不暴露邮箱是否已存在。
 
 官方参考：https://supabase.com/docs/guides/functions/auth
+
+2026-10-22：新增 https://mymonthly.io 到来源列表，保留 GitHub Pages 和两项本地来源。OPTIONS 验证返回 204，Access-Control-Allow-Origin 正确；此变更不自动替换现有 mymonthly.io 表单的提交逻辑。

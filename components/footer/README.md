@@ -32,4 +32,4 @@ footer.setVariant('light');
 ## 订阅接口
 未传 subscribe 时仅显示尚未连接服务的提示，不发送、不存储邮箱，不伪造订阅成功。提供适配器后使用浏览器邮箱校验，等待期间禁用提交，成功/失败通过 aria-live 公告。适配器需以真实服务的确认结果 resolve/reject，并可使用传入的 AbortSignal。后端验证、限流和服务凭据应在实际接入时配置。
 
-Supabase 订阅接口已部署并通过本地预览真实提交验证，正式域名待配置；接入步骤见 [部署说明](../../docs/newsletter.md)。
+Supabase 订阅接口已部署并通过本地预览真实提交验证，GitHub Pages 公开网页也已验证通过；接入步骤见 [部署说明](../../docs/newsletter.md)。
