@@ -1,0 +1,15 @@
+/* 目录：1. 正文 2. 标题 3. 文字工具类 */
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: var(--leading-heading);
+}
+.text-title { font-size: var(--text-title); }
+.text-body { font-size: var(--text-body); }
+.text-small { font-size: var(--text-small); }

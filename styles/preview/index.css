@@ -1,0 +1,9 @@
+/* 目录：1. 组件预览留白 2. 预览控件；不作为正式首页设计 */
+.shell-preview { min-height: 66svh; padding: 180px 7vw 100px; color: var(--color-menu); }
+.shell-preview__eyebrow { font-size: 11px; letter-spacing: .14em; }
+.shell-preview h1 { font-size: clamp(32px, 5vw, 64px); font-weight: 500; margin: 20px 0; }
+.shell-preview > p:not(.shell-preview__eyebrow) { font-size: 14px; }
+.shell-preview__controls { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 38px; }
+.shell-preview__controls label { display: grid; gap: 8px; font-size: 12px; }
+.shell-preview select { background: transparent; border: 1px solid var(--color-menu); border-radius: 4px; padding: 10px; color: inherit; }
+@media(max-width: 767px) { .shell-preview { padding-top: 140px; min-height: 70svh; } }

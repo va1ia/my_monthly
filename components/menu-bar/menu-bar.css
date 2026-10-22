@@ -1,0 +1,43 @@
+/* 目录：1. 桌面悬浮导航 2. 当前页与交互 3. 手机/平板菜单 4. 短屏与减少动画 */
+.site-header { position: fixed; z-index: 100; top: clamp(16px, 3.2vw, 46px); left: 0; width: 100%; color: var(--color-linen); font-family: var(--font-body); }
+.menu-bar { width: min(76%, 1120px); min-height: 47px; margin-inline: auto; padding: 8px 12px 8px 26px; border-radius: 999px; background: var(--color-menu); box-shadow: 0 5px 14px #16382326; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.menu-bar__brand { flex: 0 0 auto; position: relative; z-index: 2; }
+.menu-bar__brand img { width: 96px; height: auto; }
+.menu-bar__links { list-style: none; margin: 0; padding: 0; display: flex; gap: 32px; align-items: center; }
+.menu-bar__link { position: relative; display: block; color: inherit; text-decoration: none; font-size: 14px; padding: 10px 0; white-space: nowrap; }
+.menu-bar__link > span { position: relative; z-index: 1; }
+.menu-bar__link > span::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 180ms ease; }
+.menu-bar__link:hover > span::after, .menu-bar__link[aria-current="page"] > span::after, .menu-bar__link:focus-visible > span::after { transform: scaleX(1); }
+.menu-bar__link--download { padding: 6px 24px; border-radius: 999px; background: var(--color-peach); color: var(--color-ink); }
+.menu-bar__focus { position: absolute; width: calc(100% + 50px); max-width: none; height: auto; top: 50%; left: 50%; transform: translate(-50%, -50%); visibility: hidden; pointer-events: none; }
+.menu-bar__link[aria-current="page"] .menu-bar__focus { visibility: visible; animation: menu-float 3.5s ease-in-out infinite; }
+@keyframes menu-float { 0%,100% { transform: translate(-50%, -50%) rotate(-2deg); } 50% { transform: translate(-50%, -57%) rotate(2deg); } }
+.menu-bar__toggle, .menu-bar__illustration { display: none; }
+.site-header :focus-visible { outline: 2px solid currentColor; outline-offset: 7px; border-radius: 3px; }
+@media (max-width: 991px) {
+  .site-header { top: max(16px, env(safe-area-inset-top)); }
+  .menu-bar { width: calc(100% - 28px); min-height: 60px; padding: 10px 22px 10px 24px; }
+  .menu-bar__brand img { width: 112px; }
+  .menu-bar__toggle { position: relative; z-index: 2; display: grid; place-items: center; width: 44px; height: 40px; padding: 0; border: 0; color: inherit; background: none; cursor: pointer; }
+  .menu-bar__hamburger { display: flex; flex-direction: column; justify-content: space-between; width: 20px; height: 15px; transition: transform 300ms ease; }
+  .menu-bar__hamburger span { height: 1.5px; width: 100%; background: currentColor; }
+  .is-open .menu-bar__hamburger { transform: rotate(90deg); }
+  .menu-bar__panel { display: none; position: fixed; inset: 0; height: 100dvh; isolation: isolate; background: var(--color-menu); z-index: -1; }
+  .is-open .menu-bar__panel { display: block; }
+  .is-open .menu-bar { box-shadow: 0 7px 18px #143b2b40; }
+  .menu-bar__illustration { display: block; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: min(100%, 540px); max-width: none; height: auto; max-height: 60dvh; object-fit: contain; object-position: center bottom; pointer-events: none; z-index: -1; }
+  .menu-bar__links { position: absolute; top: max(100px, 13dvh); bottom: max(140px, 28dvh); left: 0; right: 0; display: flex; flex-direction: column; gap: clamp(16px, 3.7dvh, 34px); padding: 10px 26px 32px; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; }
+  .menu-bar__link { font-family: var(--font-heading); font-size: clamp(28px, 7.8vw, 42px); font-weight: 500; line-height: 1.2; padding: 4px 0; }
+  .menu-bar__link--download { background: none; color: inherit; border-radius: 0; }
+  .menu-bar__focus { width: calc(100% + 70px); }
+  .menu-bar__link > span::after { height: 2px; bottom: -1px; }
+}
+@media (max-width: 991px) and (max-height: 600px) {
+  .menu-bar__links { top: 90px; bottom: 40px; gap: 12px; }
+  .menu-bar__link { font-size: 28px; }
+  .menu-bar__illustration { opacity: .32; max-height: 55dvh; right: 0; left: auto; transform: none; width: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-bar__hamburger, .menu-bar__link > span::after { transition: none; }
+  .menu-bar__link[aria-current="page"] .menu-bar__focus { animation: none; }
+}

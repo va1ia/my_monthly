@@ -1,0 +1,32 @@
+/* 目录：1. 字体 2. 颜色 3. 间距与布局
+   导航/Footer 颜色与字体依据参考站；页面字号、间距待 Figma 确认。 */
+:root {
+  /* 1. 字体 */
+  --font-body: "Graphik", system-ui, sans-serif;
+  --font-heading: "GT Eesti Display", "Graphik", sans-serif;
+  --text-small: 0.875rem;
+  --text-body: 1rem;
+  --text-title: clamp(2rem, 5vw, 4rem);
+  --leading-body: 1.6;
+  --leading-heading: 1.15;
+  /* 2. 颜色 */
+  --color-text: #202124;
+  --color-surface: #f5f5ed;
+  --color-dark: #202124;
+  --color-on-dark: #ffffff;
+  --color-brand: #3d8054;
+  --color-menu: #2c5d3d;
+  --color-linen: #e5e9d9;
+  --color-cream: #f5f5ed;
+  --color-peach: #f2bdb1;
+  --color-ink: #282828;
+  --color-on-brand: #ffffff;
+  /* 3. 间距与布局 */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 4rem;
+  --content-max: 75rem;
+  --page-gutter: clamp(1rem, 4vw, 3rem);
+}
