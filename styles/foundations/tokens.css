@@ -1,5 +1,5 @@
 /* 目录：1. 字体 2. 颜色 3. 间距与布局
-   导航/Footer 颜色与字体依据参考站；页面字号、间距待 Figma 确认。 */
+  颜色采用 Figma 色板；页面字号、间距待 Figma 确认。 */
 :root {
   /* 1. 字体 */
   --font-body: "Graphik", system-ui, sans-serif;
@@ -9,18 +9,27 @@
   --text-title: clamp(2rem, 5vw, 4rem);
   --leading-body: 1.6;
   --leading-heading: 1.15;
-  /* 2. 颜色 */
-  --color-text: #202124;
-  --color-surface: #f5f5ed;
-  --color-dark: #202124;
-  --color-on-dark: #ffffff;
-  --color-brand: #3d8054;
-  --color-menu: #2c5d3d;
-  --color-linen: #e5e9d9;
-  --color-cream: #f5f5ed;
-  --color-peach: #f2bdb1;
-  --color-ink: #282828;
-  --color-on-brand: #ffffff;
+  /* 2. 颜色：Figma 色板命名 */
+  --color-picnic-date: #3d8054;
+  --color-darker-green: #2c5d3d;
+  --color-sunset-blush: #eea494;
+  --color-lighter-sunset: #f2bdb1;
+  --color-before-dawn: #282828;
+  --color-linen-sheet: #e5e9d9;
+  --color-darker-linen: #dae3c3;
+  --color-morning-fog: #f5f5ed;
+  --color-blue: #b0d2eb;
+  --color-pink: #e972aa;
+  --color-lime: #cced4e;
+  --color-orange: #ff9c55;
+  --color-red: #e05a3d;
+  --color-gold: #f1bf75;
+  --color-darker-gold: #c08f30;
+  --color-article-cream: #fefeed;
+
+  /* 阴影集中定义，保留原有透明度与外观。 */
+  --shadow-menu: 0 5px 14px #16382326;
+  --shadow-menu-open: 0 7px 18px #143b2b40;
   /* 3. 间距与布局 */
   --space-1: 0.5rem;
   --space-2: 1rem;

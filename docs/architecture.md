@@ -26,3 +26,5 @@
 
 ## 命名与入口
 文件和目录统一 kebab-case，如 `customer-stories`。分区样式使用页面前缀，如 `.home-hero`；共享组件使用 `.site-footer`。全站引入 `styles/shared.css`，首页再引入 `styles/home/index.css`；活动/文章在共享入口之后加载自己的 `styles/page.css`。框架引入后由构建工具处理资源路径，避免使用依赖部署根目录的硬编码路径。
+
+颜色统一在 styles/foundations/tokens.css 定义；组件、页面和预览直接使用色板新名称（如 --color-picnic-date、--color-linen-sheet），不再保留旧颜色别名。阴影值也集中在该文件；Footer 的 --footer-bg / --footer-fg 仅用于组件背景变体。SVG 原始素材保留原文件色值，不按最近颜色重染。

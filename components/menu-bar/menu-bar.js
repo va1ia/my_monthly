@@ -30,6 +30,7 @@ export function mountMenuBar(host, { items, currentPage = 'home', homeHref = './
     next = Boolean(next && mobile.matches);
     if (next === open) return;
     open = next;
+    panel.inert = mobile.matches && !open;
     header.classList.toggle('is-open', open);
     button.setAttribute('aria-expanded', String(open));
     button.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
@@ -65,7 +66,8 @@ export function mountMenuBar(host, { items, currentPage = 'home', homeHref = './
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
     }
   }, options);
-  mobile.addEventListener('change', () => setOpen(false, false), options);
+  mobile.addEventListener('change', () => { setOpen(false, false); panel.inert = mobile.matches; }, options);
+  panel.inert = mobile.matches;
   setCurrentPage(currentPage);
   return { setCurrentPage, close: () => setOpen(false), destroy() { setOpen(false, false); controller.abort(); host.replaceChildren(); } };
 }
