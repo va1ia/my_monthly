@@ -1,0 +1,67 @@
+/* 目录：1. 场景和 SVG 2. 弧形评论卡片 3. 手机与减少动画 */
+.home-comments {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  height: min(87.1vw, 1499px);
+  min-height: 680px;
+  background: var(--color-sunset-blush);
+}
+.home-comments__pattern { position: absolute; inset: 0; pointer-events: none; transform: translate3d(var(--pattern-x, 0vw), var(--pattern-y, 0vw), 0); }
+.home-comments__pattern img { width: 100%; height: 100%; object-fit: cover; }
+@media (min-width: 768px) { .home-comments__pattern img { transform: scale(1.05); } }
+.home-comments__phone {
+  position: absolute;
+  top: 19%;
+  left: 50%;
+  width: min(27.5vw, 477px);
+  height: auto;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+/* 2. JS 以同一圆弧计算位置及切线角度，不旋转手机。 */
+.home-comments__track { position: absolute; inset: 0; }
+.home-comments__group {
+  position: absolute;
+  /* 跟随手机顶部及 SVG 比例定位，避免分区高度影响标题下的留白。 */
+  top: calc(19% + min(31.5vw, 546.4px));
+  left: 50%;
+  display: flex;
+  align-items: stretch;
+  width: max-content;
+  gap: 2.7vw;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.home-comments__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 0 0 20.5vw;
+  width: 20.5vw;
+  min-height: 14.6vw;
+  padding: 1.5vw;
+  border-radius: 1vw;
+  background: var(--color-white);
+  box-shadow: var(--shadow-home-comment);
+  font-size: var(--text-home-comment);
+  line-height: 1.45;
+}
+.home-comments__card-title { margin: 0 0 .5em; font: inherit; font-weight: 500; line-height: 1.2; font-size: 1.2em; }
+/* 短评论额外增加少量段间距，长评论保留原来的紧凑排版。 */
+.home-comments__card--short { row-gap: .3em; }
+.home-comments__meta { display: flex; align-items: center; gap: .8em; margin-bottom: .25em; }
+.home-comments__stars { color: var(--color-sunset-blush); letter-spacing: .12em; font-size: 1.35em; white-space: nowrap; line-height: 1; }
+.home-comments__date { color: var(--color-input-placeholder); font-size: .85em; }
+.home-comments__body { margin: 0; }
+/* 3. 手机沿用同一 SVG 和等高 group。 */
+@media (max-width: 767px) {
+  .home-comments { height: 199vw; min-height: 0; }
+  .home-comments__phone { width: 73%; top: 17%; }
+  .home-comments__group { top: 66%; gap: 6.5vw; transform: translateY(-50%); }
+  .home-comments__card { flex-basis: 55vw; width: 55vw; min-height: 39vw; padding: 3.5vw; border-radius: 3vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-comments__pattern { transform: none; }
+}

@@ -1,4 +1,4 @@
-/* 目录：1. 基础变量与字体 2. 重置与文字 3. 布局 4. 共享组件
+/* 目录：1. 基础变量与字体 2. 重置与文字 3. 布局 4. 共享组件 5. 滚动换色
    加载顺序集中维护；页面专属样式另行加载。 */
 @import "./foundations/tokens.css";
 @import "./foundations/fonts.css";
@@ -7,3 +7,5 @@
 @import "./foundations/layout.css";
 @import "../components/footer/footer.css";
 @import "../components/menu-bar/menu-bar.css";
+
+@import "./scroll-background.css";

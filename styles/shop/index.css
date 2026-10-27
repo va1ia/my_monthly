@@ -1,0 +1,31 @@
+/* 目录：1. 页面与点阵展示墙 2. 顶棚和标题 3. 手机版 */
+@import url('./shopping.css');
+.shop-page { background: var(--color-linen-sheet); }
+.shop-page #main { padding: 130px 2vw 48px; }
+.shop-merch { position: relative; isolation: isolate; width: 100%; max-width: 1728px; margin-inline: auto; border-radius: 0 0 64px 64px; background: var(--color-pegboard); overflow: hidden; }
+.shop-merch__scene { position: relative; width: 100%; }
+.shop-merch__scene--mobile { display: none; }
+.shop-merch__dot { position: absolute; aspect-ratio: 1; border-radius: 50%; background: var(--color-pegboard-hole); transform: translate(-50%, -50%); }
+.shop-merch__dot--hanger { z-index: 1; background: var(--color-darker-green); }
+.shop-merch__shelf { position: absolute; background: var(--color-pegboard-shelf); border-radius: 8px; box-shadow: var(--shadow-merch-shelf); }
+.shop-merch__product { position: absolute; display: block; max-width: none; height: auto; }
+.shop-merch__announcement { position: absolute; inset: 0 0 auto; z-index: 3; height: 24px; overflow: hidden; background: var(--color-darker-green); color: var(--color-morning-fog); font-size: var(--text-shop-announcement); font-style: italic; white-space: nowrap; text-decoration: none; }
+.shop-merch__announcement-track { display: flex; width: max-content; animation: shop-announcement 35s linear infinite; }
+.shop-merch__announcement-track > span { flex: none; }
+.shop-merch__announcement:hover .shop-merch__announcement-track, .shop-merch__announcement:focus-visible .shop-merch__announcement-track { animation-play-state: paused; }
+.shop-merch__announcement:focus-visible { outline: 3px solid var(--color-morning-fog); outline-offset: -3px; }
+.shop-merch__awning { position: absolute; inset: 23px 0 auto; z-index: 1; pointer-events: none; }
+.shop-merch__awning img { display: block; width: 100%; height: auto; }
+.shop-merch__title { position: absolute; z-index: 2; top: 13.3%; left: 50%; transform: translateX(-50%); margin: 0; padding: .25em .6em; border: 2px solid var(--color-darker-green); border-radius: 3px; background: var(--color-linen-sheet); color: var(--color-darker-green); font-family: var(--font-shop-sign); font-weight: 400; font-size: var(--text-shop-sign); line-height: 1.15; white-space: nowrap; }
+@keyframes shop-announcement { to { transform: translateX(-25%); } }
+@media (max-width: 767px) {
+  .shop-page #main { padding: 108px 4vw 32px; }
+  .shop-merch { max-width: 520px; border-radius: 0 0 36px 36px; }
+  .shop-merch__scene--desktop { display: none; }
+  .shop-merch__scene--mobile { display: block; }
+  .shop-merch__announcement { height: 18px; }
+  .shop-merch__awning { top: 17px; }
+  .shop-merch__title { top: 8.2%; padding: .32em .6em; border-width: 1px; }
+  .shop-merch__shelf { border-radius: 4px; box-shadow: var(--shadow-merch-shelf-mobile); }
+}
+@media (prefers-reduced-motion: reduce) { .shop-merch__announcement-track { animation: none; } }

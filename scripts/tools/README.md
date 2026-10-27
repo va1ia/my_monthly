@@ -1,6 +1,7 @@
 # 素材同步工具
 
 ## 目录
+- Shop 商品同步
 - 本地预览
 - 静态发布
 - GitHub 自动同步
@@ -13,3 +14,6 @@
 
 ## GitHub 自动同步
 .github/workflows/sync-marquee.yml 在图片目录或生成器 push 后运行，将最新清单提交回相同分支；只写清单，不修改图片、不部署网站，也不更改仓库 Pages 设置。需要 Actions contents 写权限；分支保护限制 bot 提交时，需在现有发布构建中执行生成器。工作流尚未在远程运行，本轮只验证了本地生成与页面同步。
+
+## Shop 商品同步
+sync-shop-products.py 扫描 assets/images/shop/products/ 的编号 SVG，生成 content/shop/products.json（尺寸、编号、缓存版本）。--check 检查一致性；本地 preview.py 与 GitHub sync-shop-products 工作流共用。替换已有编号沿用位置；新增编号需配置布局，详见商品目录 README。

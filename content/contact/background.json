@@ -1,0 +1,13 @@
+{
+  "triggerLine": 0.33,
+  "transitionMs": 1000,
+  "default": {
+    "colorToken": "--color-picnic-date"
+  },
+  "sections": [
+    {
+      "selector": ".contact-faq__inner",
+      "colorToken": "--color-darker-linen"
+    }
+  ]
+}

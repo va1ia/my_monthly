@@ -2,4 +2,4 @@
 @import url('./cards.css');
 @import url('./form.css');
 @import url('./faq.css');
-.contact-page { background: var(--color-picnic-date); }
+.contact-page { --page-background: var(--color-picnic-date); }

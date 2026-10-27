@@ -154,3 +154,6 @@
   font-style: italic;
   font-display: swap;
 }
+
+/* Shop 截图招牌暂定使用单独命名的 Gaillard·e，不推断其他变体映射。 */
+@font-face { font-family: "Garabosse Gaillarde"; src: url("../../assets/fonts/garabosse/Garabosse-Gaillard·e.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }

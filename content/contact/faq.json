@@ -1,9 +1,22 @@
 {
-  "csvUrl": "",
+  "csvUrl": "https://docs.google.com/spreadsheets/d/1lllEhCLX2yxzz5jNIgq3TxdKBSewufZc2xWGsXnGUgU/export?format=csv&gid=0",
   "refreshSeconds": 60,
   "items": [
-    {"question":"Who is this My Monthly for?","answer":"My Monthly is designed for anyone who wants to better understand and navigate menstrual cycles. Whether you menstruate yourself, have a partner who does, or just want to learn more.\n\nOur goal is to make cycle awareness, communication, and support simple and accessible for couples, friends, and individuals alike."},
-    {"question":"Is it available on iOS and Android?","answer":"My Monthly is available on iOS and will be available on Android later this year! Stay tuned for updates!"},
-    {"question":"I’d love to collaborate with My Monthly for an Event, who do I contact?","answer":"We’d love to hear from you! Please reach out to our partnerships team at hello@mymonthly.co, and we’ll explore ways to work together on events, content, or special campaigns."}
+    {
+      "question": "Can two partners who both menstruate use My Monthly?",
+      "answer": "Absolutely! My Monthly is built to support all types of partnerships. The app now allows two people who experience a menstrual cycle to track and view each other's symptoms and receive tips on how you can support one another."
+    },
+    {
+      "question": "Are my health and data private and secure?",
+      "answer": "Yes, they are. Your personal health and cycle data are encrypted using end-to-end industry standards. We never sell, rent, or monetize your health data to third parties or advertisers."
+    },
+    {
+      "question": "What should I do if my cycle is irregular?",
+      "answer": "My Monthly is designed to adapt to irregular cycles. As you log your periods and daily symptoms over your 6 most recent cycles, our cycle prediction algorithm learns your unique patterns and adjusts its predictions dynamically rather than forcing a standard 28-day model."
+    },
+    {
+      "question": "What do I do if I'm paired with my partner, but we can't see each other's moods/cycle logs?",
+      "answer": "If you ever encounter a problem, send us your log, and we'll do our best to resolve it! Head to Profile > scroll down to Report an Issue > and press Send."
+    }
   ]
 }

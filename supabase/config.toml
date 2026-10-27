@@ -3,3 +3,6 @@ verify_jwt = false
 
 [functions.contact-submit]
 verify_jwt = false
+
+[functions.shop-checkout]
+verify_jwt = false

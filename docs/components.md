@@ -11,7 +11,9 @@
 | Footer | [组件说明](../components/footer/README.md) | brand / dark / light | 已实现；Supabase 名单收集已连接 |
 | Home hero（页面专属） | [分区说明](../pages/home/sections/hero/README.md) | 桌面 / 平板 / 手机；减少动画 | 已实现背景视差、碰杯、tag 和 marquee；下载徽章使用原站左上位移及实色阴影 |
 | Contact cards（页面专属） | [分区说明](../pages/contact/sections/cards/README.md) | 桌面 / 平板 / 手机 | 卡片、背景视差已实现；手机按截图排列，悬停变灰 |
+| Contact FAQ（页面专属） | [分区说明](../pages/contact/sections/faq/README.md) | SVG 底图 + HTML 文案 / FAQ 链接预留；向下擦入与整页换色 | 已实现；Google Sheet Q&A: Preview 已连接 |
 | Contact form（页面专属） | [分区说明](../pages/contact/sections/form/README.md) | 等待 / 成功 / 失败 | Supabase 已连接；表单按截图修正，Zapier 分流已连接 |
+| Home user comments（页面专属） | [分区说明](../pages/home/sections/user-comments/README.md) | 桌面 / 手机；整组等高、弧线循环、非手机鼠标视差、减少动画 | 已实现；Home: user comments 已连接，每 60 秒同步 |
 | Button | [组件说明](../components/button/README.md) | 待设计确认 | 目录预留 |
 
 ## 新增与变更
@@ -29,3 +31,15 @@ Menu bar：桌面 Download 按钮支持左侧圆形色块扩散（9 倍覆盖）
 Supabase 订阅接口已部署并通过本地预览真实提交验证，GitHub Pages 公开网页也已验证通过；接入步骤见 [部署说明](newsletter.md)。
 
 交互分别维护：Menu bar 普通导航使用下划线展开，不缩放；Download 无下划线，保留圆形扩散。Footer 文字链接和社交图标以正中心为原点悬停放大至 1.1 倍（180ms），不显示下划线。
+
+共享滚动背景：见 [配置与接入](../scripts/shared/README.md)，页面分区以 JSON 指定整页底色状态，Contact Q&A 已接入。
+
+Shop 页面专属展示墙：[结构与网格说明](../pages/shop/sections/merch/README.md)。桌面 / 手机独立布局，共用网格定位圆点、架子与衣架；商品按编号 SVG 自动同步。
+
+Shop 商品弹窗与本地购物车：[组件说明](../pages/shop/sections/product-dialog/README.md)。SVG 颜色变体、Sold out 标签、收藏、数量和本机持久化；Stripe 测试接口预留，真实付款未开启。
+
+首页评论位置：桌面评论 group 相对手机 SVG 定位并整体上移，手机和锚点在超宽屏同步限制尺寸；手机端位置保持。详见评论区说明。
+
+首页评论卡片：内部标题、评分 / 日期和正文整体纵向居中，保持左对齐及整组等高。
+
+首页评论短内容变体：card--short 在标题、评分行与正文之间额外增加 .3em 间距，仍整体纵向居中。

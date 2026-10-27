@@ -1,0 +1,30 @@
+name: Sync shop products
+on:
+  push:
+    paths:
+      - 'assets/images/shop/products/**'
+      - 'scripts/tools/sync-shop-products.py'
+      - '.github/workflows/sync-shop-products.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: shop-products-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - run: python3 scripts/tools/sync-shop-products.py
+      - name: Save generated manifest
+        run: |
+          if ! git diff --quiet -- content/shop/products.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add content/shop/products.json
+            git commit -m "Update generated shop product manifest"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi

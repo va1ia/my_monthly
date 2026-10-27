@@ -7,6 +7,7 @@
 ## 分区登记
 | 分区 ID | 用途 | 状态 |
 | --- | --- | --- |
+| user-comments | 手机 SVG、等高评论 group 弧线循环、非手机鼠标视差、Google Sheet 来源接口 | 已实现；Home: user comments 已连接 |
 | hero | 标题、下载、手机碰杯、背景视差、产品价值 tag 和 Logo marquee | 已按原站及截图实现；Figma 数值待确认 |
 
 ## 对应文件

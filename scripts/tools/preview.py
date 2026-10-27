@@ -11,6 +11,9 @@ ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location('sync_marquee', Path(__file__).with_name('sync-marquee.py'))
 sync = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(sync)
+shop_spec = importlib.util.spec_from_file_location('sync_shop', Path(__file__).with_name('sync-shop-products.py'))
+shop_sync = importlib.util.module_from_spec(shop_spec)
+shop_spec.loader.exec_module(shop_sync)
 lock = Lock()
 
 
@@ -22,6 +25,9 @@ class PreviewHandler(SimpleHTTPRequestHandler):
         if urlsplit(self.path).path == '/' + sync.MANIFEST.as_posix():
             with lock:
                 sync.sync_manifest()
+        if urlsplit(self.path).path == '/' + shop_sync.MANIFEST.as_posix():
+            with lock:
+                shop_sync.sync_manifest()
         return super().send_head()
 
     def end_headers(self):
@@ -34,5 +40,6 @@ if __name__ == '__main__':
     parser.add_argument('--port', type=int, default=4173)
     args = parser.parse_args()
     sync.sync_manifest()
+    shop_sync.sync_manifest()
     print(f'Preview: http://127.0.0.1:{args.port}/', flush=True)
     ThreadingHTTPServer(('127.0.0.1', args.port), PreviewHandler).serve_forever()

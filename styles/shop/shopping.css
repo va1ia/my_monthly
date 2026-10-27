@@ -1,0 +1,61 @@
+/* 目录：1. 商品拿起与购物入口 2. 商品弹窗 3. 购物车与状态 4. 手机与减少动态效果 */
+.shop-merch__product { padding: 0; margin: 0; border: 0; background: none; cursor: pointer; }
+.shop-merch__product img { width: 100%; height: auto; display: block; transition: transform 220ms ease, filter 220ms ease; transform-origin: center; }
+@media (hover: hover) { .shop-merch__product:hover { z-index: 4; } .shop-merch__product:hover img { transform: translateY(-7px) rotate(-2deg); filter: drop-shadow(var(--shadow-product-lift)); } }
+.shop-merch__product:focus-visible { outline: 2px solid var(--color-darker-green); outline-offset: 6px; border-radius: 8px; z-index: 4; }
+.shop-merch__product:focus-visible img { transform: translateY(-7px); }
+.shop-tools { display: flex; justify-content: flex-end; gap: 12px; width: 100%; max-width: 1728px; margin: 0 auto 20px; }
+.shop-tools button { border: 1px solid var(--color-darker-green); border-radius: 99px; padding: 10px 18px; background: var(--color-morning-fog); color: var(--color-darker-green); cursor: pointer; }
+.shop-tools span { margin-left: 8px; }
+.shop-tools button:focus-visible, .shop-dialog :focus-visible { outline: 2px solid var(--color-darker-green); outline-offset: 4px; }
+.shop-modal-open { overflow: hidden; }
+.shop-dialog { width: min(560px, calc(100% - 32px)); max-height: calc(100dvh - 48px); padding: 0; border: 2px solid var(--color-before-dawn); border-radius: 28px; background: var(--color-morning-fog); color: var(--color-before-dawn); overflow-y: auto; overscroll-behavior: contain; box-shadow: var(--shadow-shop-dialog); }
+.shop-dialog::backdrop { background: var(--color-shop-overlay); }
+.shop-dialog__close { position: absolute; z-index: 2; top: 14px; right: 14px; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--color-darker-green); border-radius: 50%; color: var(--color-darker-green); background: var(--color-morning-fog); cursor: pointer; font-size: 32px; line-height: 1; }
+.shop-dialog__image { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; padding: 40px; background: var(--color-linen-sheet); border-bottom: 1px solid var(--color-before-dawn); }
+.shop-dialog__image img { display: block; width: 100%; height: 100%; max-height: 290px; object-fit: contain; }
+.shop-dialog__body { padding: 28px 32px 32px; }
+.shop-dialog h2 { font-family: var(--font-heading); font-size: var(--text-shop-product); font-weight: 500; line-height: 1.15; margin: 0 0 12px; }
+.shop-dialog__price { font-size: var(--text-shop-price); margin: 0 0 20px; }
+.shop-dialog__colors { margin: 0 0 20px; padding: 0; border: 0; display: flex; gap: 12px; }
+.shop-dialog__colors legend { font-size: var(--text-small); margin-bottom: 10px; }
+.shop-swatch { display: block; position: relative; width: 42px; height: 42px; }
+.shop-swatch input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.shop-swatch span { display: block; width: 100%; height: 100%; background: var(--swatch); border: 4px solid var(--color-morning-fog); border-radius: 50%; outline: 1px solid var(--color-input-placeholder); pointer-events: none; }
+.shop-swatch input:checked + span { outline: 2px solid var(--color-darker-green); }
+.shop-swatch input:focus-visible + span { outline: 3px solid var(--color-darker-green); outline-offset: 4px; }
+.shop-dialog__description { margin: 0 0 24px; font-size: var(--text-body); line-height: var(--leading-body); }
+.shop-dialog__size { display: grid; gap: 8px; margin-bottom: 20px; }
+.shop-dialog__size select { border: 1px solid var(--color-darker-green); border-radius: 8px; padding: 10px; background: var(--color-white); }
+.shop-dialog__actions { display: flex; gap: 12px; }
+.shop-action { padding: 12px 18px; min-height: 46px; border: 1px solid var(--color-darker-green); border-radius: 10px; background: transparent; color: var(--color-darker-green); cursor: pointer; }
+.shop-action--primary { flex: 1; background: var(--color-darker-green); color: var(--color-morning-fog); }
+.shop-action:disabled { opacity: .55; cursor: not-allowed; }
+.shop-dialog__status { font-size: var(--text-small); line-height: 1.5; margin: 14px 0 0; }
+.shop-dialog__status:empty { display: none; }
+.shop-bag__item { display: grid; grid-template-columns: 100px minmax(0,1fr); gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--color-linen-sheet); }
+.shop-bag__preview { border: 0; background: var(--color-linen-sheet); border-radius: 10px; padding: 10px; cursor: pointer; }
+.shop-bag__preview img { width: 100%; height: 110px; object-fit: contain; }
+.shop-bag__item h3 { margin: 0 0 8px; font-family: var(--font-heading); font-size: var(--text-body); }
+.shop-bag__item p { margin: 0 0 8px; font-size: var(--text-small); }
+.shop-bag__item label { font-size: var(--text-small); }
+.shop-bag__item input { width: 54px; padding: 5px; border: 1px solid var(--color-darker-green); border-radius: 5px; background: var(--color-white); }
+.shop-bag__remove { display: block; border: 0; padding: 8px 0; background: none; color: var(--color-darker-green); text-decoration: underline; cursor: pointer; font-size: var(--text-small); }
+.shop-bag__total { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
+.shop-bag__gift, .shop-bag__fine { font-size: var(--text-small); line-height: 1.5; }
+.shop-dialog--bag [data-checkout] { width: 100%; }
+.shop-notice { max-width: 1728px; margin: 16px auto 0; font-size: var(--text-small); }
+.shop-notice:empty { display: none; }
+.shop-sold-out { display: inline-block; padding: .4em .7em; border: 1px solid var(--color-darker-green); border-radius: 99px; background: var(--color-lighter-sunset); color: var(--color-darker-green); font-family: var(--font-body); font-size: var(--text-small); line-height: 1; white-space: nowrap; }
+.shop-merch__product .shop-sold-out { position: absolute; top: 0; right: -10px; transform: rotate(8deg); z-index: 2; font-size: clamp(9px, 1vw, 14px); }
+.shop-dialog__image .shop-sold-out { position: absolute; left: 18px; top: 18px; transform: rotate(-6deg); }
+@media (max-width: 767px) {
+  .shop-dialog { max-height: calc(100dvh - 24px); border-radius: 22px; }
+  .shop-dialog__body { padding: 24px; }
+  .shop-dialog__image { padding: 32px; }
+  .shop-tools { max-width: 520px; }
+  .shop-tools button { padding: 8px 14px; font-size: var(--text-small); }
+  .shop-bag__item { grid-template-columns: 76px minmax(0,1fr); gap: 12px; }
+  .shop-merch__product .shop-sold-out { right: -5px; font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) { .shop-merch__product img { transition: none; } .shop-merch__product:hover img, .shop-merch__product:focus-visible img { transform: none; } }

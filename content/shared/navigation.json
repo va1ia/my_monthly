@@ -1,18 +1,56 @@
 {
   "items": [
-    { "id": "about", "label": "About", "href": "?page=about" },
-    { "id": "news", "label": "News", "href": "?page=news" },
-    { "id": "shop", "label": "Shop", "href": "https://mymonthlymerch.myshopify.com/", "external": true },
-    { "id": "contact", "label": "Contact", "href": "./contact.html" },
-    { "id": "download", "label": "Download", "href": "https://mymonthly.io/download" }
+    {
+      "id": "about",
+      "label": "About",
+      "href": "?page=about"
+    },
+    {
+      "id": "news",
+      "label": "News",
+      "href": "?page=news"
+    },
+    {
+      "id": "shop",
+      "label": "Shop",
+      "href": "./shop.html"
+    },
+    {
+      "id": "contact",
+      "label": "Contact",
+      "href": "./contact.html"
+    },
+    {
+      "id": "download",
+      "label": "Download",
+      "href": "https://mymonthly.io/download"
+    }
   ],
   "legal": [
-    { "label": "Terms of Service", "href": "https://mymonthly.io/terms-of-service" },
-    { "label": "Privacy Policy", "href": "https://mymonthly.io/privacy-policy" }
+    {
+      "label": "Terms of Service",
+      "href": "https://mymonthly.io/terms-of-service"
+    },
+    {
+      "label": "Privacy Policy",
+      "href": "https://mymonthly.io/privacy-policy"
+    }
   ],
   "social": [
-    { "label": "Instagram", "icon": "instagram", "href": "https://www.instagram.com/my_monthly/" },
-    { "label": "TikTok", "icon": "tiktok", "href": "https://www.tiktok.com/@my.monthly" },
-    { "label": "LinkedIn", "icon": "linkedin", "href": "https://www.linkedin.com/company/your-monthly/" }
+    {
+      "label": "Instagram",
+      "icon": "instagram",
+      "href": "https://www.instagram.com/my_monthly/"
+    },
+    {
+      "label": "TikTok",
+      "icon": "tiktok",
+      "href": "https://www.tiktok.com/@my.monthly"
+    },
+    {
+      "label": "LinkedIn",
+      "icon": "linkedin",
+      "href": "https://www.linkedin.com/company/your-monthly/"
+    }
   ]
 }

@@ -1,3 +1,4 @@
-/* 目录：1. Hero 分区
+/* 目录：1. Hero 分区 2. User comments 分区
    页面样式入口；新增分区后在这里登记。先加载 styles/shared.css。 */
 @import "./hero.css";
+@import "./user-comments.css";

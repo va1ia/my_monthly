@@ -1,0 +1,113 @@
+{
+  "currency": "USD",
+  "giftThresholdCents": 5000,
+  "products": [
+    {
+      "id": "visor",
+      "name": "Spring Swing Visor Cap",
+      "priceCents": 3500,
+      "description": "Keep your eyes on the ball with this lightweight visor, designed for breezy afternoon rounds and sunny court-side conversations.",
+      "variants": [
+        {
+          "id": "green",
+          "label": "Dark green",
+          "color": "#2c5d3d",
+          "slot": "1"
+        },
+        {
+          "id": "beige",
+          "label": "Beige",
+          "color": "#e5e9d9",
+          "slot": "2"
+        }
+      ]
+    },
+    {
+      "id": "dad-hat",
+      "name": "Spring Swing Dad Hat",
+      "priceCents": 3500,
+      "description": "Keep it low-key and stylish with our classic, structured fit designed to look just as good at the driving range as it does at the after-party!",
+      "variants": [
+        {
+          "id": "green",
+          "label": "Dark green",
+          "color": "#2c5d3d",
+          "slot": "4"
+        },
+        {
+          "id": "beige",
+          "label": "Beige",
+          "color": "#e5e9d9",
+          "slot": "3"
+        }
+      ]
+    },
+    {
+      "id": "t-shirt",
+      "name": "Spring Swing T-Shirt",
+      "priceCents": 4500,
+      "description": "Stay cool from the first tee to the post-round drinks in this soft, breathable staple that combines comfort with an everyday aesthetic.",
+      "requiresSize": true,
+      "sizes": [],
+      "variants": [
+        {
+          "id": "green",
+          "label": "Dark green",
+          "color": "#2c5d3d",
+          "slot": "6"
+        },
+        {
+          "id": "beige",
+          "label": "Beige",
+          "color": "#e5e9d9",
+          "slot": "5"
+        }
+      ],
+      "soldOut": true,
+      "event": true
+    },
+    {
+      "id": "tote",
+      "name": "Spring Swing Tote bag",
+      "priceCents": 0,
+      "gift": true,
+      "description": "The ultimate event companion, sized perfectly to hold your sunscreen, water, and all the souvenirs you’ll pick up throughout the day!",
+      "variants": [
+        {
+          "id": "green",
+          "label": "Dark green",
+          "color": "#2c5d3d",
+          "slot": "8"
+        },
+        {
+          "id": "beige",
+          "label": "Beige",
+          "color": "#e5e9d9",
+          "slot": "7"
+        }
+      ],
+      "soldOut": true,
+      "event": true
+    },
+    {
+      "id": "ball-markers",
+      "name": "My Monthly X Droopy Sand Ball Markers",
+      "priceCents": 1500,
+      "description": "Grab our exclusive pins as a wearable memento of Spring Swings 2026 and attach them to your favorite tote bag or cap!",
+      "variants": [
+        {
+          "id": "pink",
+          "label": "Pink",
+          "color": "#e972aa",
+          "slot": "9"
+        },
+        {
+          "id": "olive",
+          "label": "Olive green",
+          "color": "#7d885b",
+          "slot": "10"
+        }
+      ]
+    }
+  ]
+}

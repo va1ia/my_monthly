@@ -1,26 +1,11 @@
 // 目录：1. CSV 解析 2. 两列映射 3. 自动更新与保留展开状态
 import { renderFAQItems } from '../../pages/contact/sections/faq/faq.js';
-export function parseCSV(text) {
-  const rows = []; let row = [], cell = '', quoted = false;
-  text = text.replace(/^\uFEFF/, '');
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (c === '"') {
-      if (quoted && text[i + 1] === '"') { cell += '"'; i++; }
-      else quoted = !quoted;
-    } else if (!quoted && (c === ',' || c === '\n' || c === '\r')) {
-      row.push(cell); cell = '';
-      if (c !== ',') { rows.push(row); row = []; if (c === '\r' && text[i + 1] === '\n') i++; }
-    } else cell += c;
-  }
-  if (quoted) throw new Error('Unclosed CSV quote');
-  if (cell || row.length) { row.push(cell); rows.push(row); }
-  return rows;
-}
+import { parseCSV } from '../shared/csv.js';
+export { parseCSV } from '../shared/csv.js';
 export function questionsFromCSV(text) {
   const rows = parseCSV(text);
   const headers = rows.shift()?.map(v => v.trim().toLowerCase());
-  if (!headers || !['问题', 'question'].includes(headers[0]) || !['回答', 'answer'].includes(headers[1])) throw new Error('Expected 问题/回答 or Question/Answer headers');
+  if (!headers || !['问题', 'question', 'q'].includes(headers[0]) || !['回答', 'answer', 'a'].includes(headers[1])) throw new Error('Expected 问题/回答, Question/Answer or Q/A headers');
   const items = rows.filter(row => row[0]?.trim() && row[1]?.trim()).map(row => ({ question: row[0].trim(), answer: row[1].trim() }));
   if (items.length > 200) throw new Error('FAQ row limit exceeded');
   return items;

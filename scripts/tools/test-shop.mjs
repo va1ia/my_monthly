@@ -1,0 +1,25 @@
+// 目录：1. 金额和售罄限制 2. 赠品边界 3. 服务端拒绝客户端价格
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import { quoteCart } from '../shop/cart.js';
+import { handleCheckout } from '../../supabase/functions/shop-checkout/handler.js';
+const catalog = JSON.parse(fs.readFileSync(new URL('../../content/shop/catalog.json',import.meta.url)));
+assert.equal(quoteCart(catalog,[{slot:'1',quantity:2},{slot:'9',quantity:1}]).subtotal,8500);
+for (const slot of ['5','6','7','8']) assert.throws(()=>quoteCart(catalog,[{slot,quantity:1}]),/sold out/);
+for (const quantity of [-1,0,1.5,11]) assert.throws(()=>quoteCart(catalog,[{slot:'1',quantity}]));
+assert.throws(()=>quoteCart(catalog,[{slot:'unknown',quantity:1}]));
+assert.throws(()=>quoteCart(catalog,[{slot:'1',quantity:10},{slot:'1',quantity:1}]));
+const future = structuredClone(catalog);
+future.products.find(p=>p.gift).soldOut=false;
+assert.throws(()=>quoteCart(future,[{slot:'1',quantity:1},{slot:'9',quantity:1},{slot:'7',quantity:1}]),/over \$50/);
+assert.equal(quoteCart(future,[{slot:'1',quantity:2},{slot:'7',quantity:1}]).subtotal,7000);
+assert.throws(()=>quoteCart(future,[{slot:'1',quantity:2},{slot:'7',quantity:1},{slot:'8',quantity:1}]),/one complimentary/);
+const request = lines=>new Request('https://example.invalid',{method:'POST',body:JSON.stringify({requestId:'11111111-1111-4111-8111-111111111111',lines})});
+let subtotal;
+const response = await handleCheckout(request([{slot:'1',quantity:1,priceCents:1}]),{catalog,createSession:async quote=>{subtotal=quote.subtotal;return{url:'https://checkout.stripe.com/example'};}});
+assert.equal(response.status,200);assert.equal(subtotal,3500);
+const unavailable = await handleCheckout(request([{slot:'5',quantity:1}]),{catalog,createSession:()=>assert.fail('Sold out item reached Stripe')});
+assert.equal(unavailable.status,400);
+const offline = await handleCheckout(request([{slot:'1',quantity:1}]),{catalog,createSession:()=>{throw new Error('Network unavailable');}});
+assert.equal(offline.status,503);
+console.log('Shop monetary and checkout boundary checks passed.');

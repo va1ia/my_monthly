@@ -2,6 +2,15 @@
   颜色采用 Figma 色板；页面字号、间距待 Figma 确认。 */
 :root {
   /* 1. 字体 */
+  /* Shop 招牌按截图暂用 Garabosse Gaillard·e，非最终品牌映射。 */
+  --font-shop-sign: "Garabosse Gaillarde", Georgia, serif;
+  --text-shop-product: clamp(26px, 3vw, 34px);
+  --text-shop-price: 26px;
+  --shadow-product-lift: 0 10px 6px #28282830;
+  --shadow-shop-dialog: 0 24px 80px #16382340;
+  --color-shop-overlay: #28282866;
+  --text-shop-sign: clamp(20px, 2.7vw, 48px);
+  --text-shop-announcement: clamp(11px, 1.25vw, 20px);
   --font-body: "Graphik", system-ui, sans-serif;
   --font-heading: "GT Eesti Display", "Graphik", sans-serif;
   --text-small: 0.875rem;
@@ -10,6 +19,7 @@
   /* 首页截图局部尺寸，待 Figma 确认。 */
   --text-home-hero: clamp(42px, 4.15vw, 80px);
   --text-home-tag: clamp(12px, 1.2vw, 20px);
+  --text-home-comment: clamp(11px, 1vw, 16px);
   /* Contact 原站测量值，待 Figma 确认。 */
   --text-faq-question: clamp(22px, 2.3vw, 34px);
   --text-contact-card-title: 30px;
@@ -19,6 +29,12 @@
   --leading-body: 1.6;
   --leading-heading: 1.15;
   /* 2. 颜色：Figma 色板命名 */
+  /* Shop 展示墙来自用户截图，待最终色值确认。 */
+  --color-pegboard: #c2a77c;
+  --color-pegboard-hole: #b2925d;
+  --color-pegboard-shelf: #947643;
+  --shadow-merch-shelf: 0 14px 18px #72501e33;
+  --shadow-merch-shelf-mobile: 0 7px 10px #72501e33;
   --color-picnic-date: #3d8054;
   --color-darker-green: #2c5d3d;
   /* 原站导航 #2c5d3df2：约 95% 不透明度。 */
@@ -42,6 +58,7 @@
 
   /* 阴影集中定义，保留原有透明度与外观。 */
   --shadow-menu: 0 5px 14px #16382326;
+  --shadow-home-comment: 0 0 14px 4px #a7ae9266;
   --shadow-menu-open: 0 7px 18px #143b2b40;
   --shadow-app-download: .3vw .3vw 0 0 var(--color-darker-linen);
   /* 3. 间距与布局 */
@@ -54,5 +71,7 @@
   --page-gutter: clamp(1rem, 4vw, 3rem);
 }
 @media (max-width: 767px) {
-  :root { --text-home-hero: 9.3vw; --text-home-tag: 3vw; --text-contact-title: 9vw; --text-contact-intro: 14px; --text-contact-field: 16px; }
+  :root { --text-home-hero: 9.3vw; --text-home-tag: 3vw; --text-home-comment: clamp(10px, 2.5vw, 16px); --text-contact-title: 9vw; --text-contact-intro: 14px; --text-contact-field: 16px; }
 }
+
+@media (max-width: 767px) { :root { --text-shop-sign: clamp(18px, 4.8vw, 30px); } }

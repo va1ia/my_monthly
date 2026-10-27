@@ -12,10 +12,16 @@
 
 根 index.html 已接入首页 landing section：背景视差、滚动碰杯、三条产品价值 tag 和 Logo marquee。Logo 文件夹自动同步见 assets/images/home/logo-marquee/README.md；清单由脚本生成，无需手改。组件预览移到 component-preview.html；其中页面选择器可切换当前页装饰，背景选择器可检查 Footer 三种变体。
 
-Contact 两个分区（联系卡片、We hear you 表单）已实现，预览 http://127.0.0.1:4173/contact.html。Supabase 与 Zapier 留言邮件分流已连接并通过真实运行验证；见 [Contact 接入](docs/contact.md)。
+Contact 联系卡片、We hear you 表单与 Q&A 已实现，预览 http://127.0.0.1:4173/contact.html。Supabase 与 Zapier 留言邮件分流已连接并通过真实运行验证；见 [Contact 接入](docs/contact.md)。
+
+Q&A 支持两列 Google Sheet CSV 自动读取，已连接 MM Website Copy 的 Q&A: Preview 工作表；颜色独立 JSON，按顺序逐条对应。整页滚动换色在 content/contact/background.json 配置，逻辑可跨页面复用。见 [Q&A 说明](pages/contact/sections/faq/README.md)。
+
+Shop 商品展示墙、商品弹窗、收藏和本地购物车已实现，预览 http://127.0.0.1:4173/shop.html；商品 SVG 独立放在 assets/images/shop/products/，按编号替换后自动更新。说明见 [Shop 展示墙](pages/shop/sections/merch/README.md)；Stripe 美国配送收款接口已预留但未开启，见 [收款接入](docs/shop-checkout.md)。
+
+首页评论区已加入手机 SVG、整组等高的弧线循环评论与非手机端鼠标背景视差；已连接 Google Sheet 第三个工作表 Home: user comments，每 60 秒同步，无新增本地 JSON。见 [评论区说明](pages/home/sections/user-comments/README.md)。
 
 ## 当前状态
-首页 landing、导航和 Footer 已按参考站及用户截图实现；使用上传的 Logo、插画、社交图标和字体。首页后续分区尚未实现，未配置部署。Newsletter 已连接 Supabase 保存名单（本地预览与 GitHub Pages 来源）；尚未接入邮件发送服务。共享链接配置见 content/shared/README.md。
+首页 landing、导航和 Footer 已按参考站及用户截图实现；使用上传的 Logo、插画、社交图标和字体。首页评论区已实现，其余后续分区待开发，未配置部署。Newsletter 已连接 Supabase 保存名单（本地预览与 GitHub Pages 来源）；尚未接入邮件发送服务。共享链接配置见 content/shared/README.md。
 
 ## 文件结构
 ```text

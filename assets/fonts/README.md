@@ -14,7 +14,7 @@
 | 文件 | CSS 字重 | 样式 | 状态 |
 | --- | --- | --- | --- |
 | `GT-Eesti-Display-Medium.woff2` | 500 | normal | 已注册 |
-| `garabosse/Garabosse-Gaillard·e.woff2` | 待确认 | 待确认 | 仅登记，待确认变体用途 |
+| `garabosse/Garabosse-Gaillard·e.woff2` | 待确认 | 待确认 | Shop 招牌暂用独立 family（400），最终用途待确认 |
 | `garabosse/Garabosse-Mignon·ne.woff2` | 待确认 | 待确认 | 仅登记，待确认变体用途 |
 | `garabosse/Garabosse-Nonpareil·le.woff2` | 待确认 | 待确认 | 仅登记，待确认变体用途 |
 | `garabosse/Garabosse-Parangon.woff2` | 待确认 | 待确认 | 仅登记，待确认变体用途 |
@@ -42,3 +42,5 @@
 - GT Eesti Display、Graphik 和 Garabosse 分别用于哪些文字样式。
 - Garabosse 五个命名变体的设计用途及字体映射；保留上传的原文件名。
 - 字体 Web 使用授权来源尚未记录。
+
+Shop 展示墙招牌暂用 Garabosse Gaillard·e，CSS family 为 Garabosse Gaillarde，集中注册于 foundations/fonts.css；其余变体不推断映射。
