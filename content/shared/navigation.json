@@ -3,17 +3,24 @@
     {
       "id": "about",
       "label": "About",
-      "href": "?page=about"
+      "href": "?page=about",
+      "hiddenInMenu": true
+    },
+    {
+      "id": "event",
+      "label": "Event",
+      "href": "./event.html"
     },
     {
       "id": "news",
-      "label": "News",
+      "label": "Press",
       "href": "?page=news"
     },
     {
       "id": "shop",
       "label": "Shop",
-      "href": "./shop.html"
+      "href": "./shop.html",
+      "hiddenInMenu": true
     },
     {
       "id": "contact",
@@ -23,7 +30,7 @@
     {
       "id": "download",
       "label": "Download",
-      "href": "https://mymonthly.io/download"
+      "href": "./download.html"
     }
   ],
   "legal": [

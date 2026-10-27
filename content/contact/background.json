@@ -1,6 +1,7 @@
 {
-  "triggerLine": 0.33,
-  "transitionMs": 1000,
+  "triggerLine": 0.65,
+  "transitionMs": 2000,
+  "returnTransitionMs": 700,
   "default": {
     "colorToken": "--color-picnic-date"
   },

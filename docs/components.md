@@ -43,3 +43,9 @@ Shop 商品弹窗与本地购物车：[组件说明](../pages/shop/sections/prod
 首页评论卡片：内部标题、评分 / 日期和正文整体纵向居中，保持左对齐及整组等高。
 
 首页评论短内容变体：card--short 在标题、评分行与正文之间额外增加 .3em 间距，仍整体纵向居中。
+
+Contact 表单 Get In Touch 按钮：与导航 Download 一致的左侧圆形扩散交互，支持键盘焦点、禁用状态与减少动画偏好。
+
+共享 FAQ：[组件说明](../components/faq/README.md)，Contact / Download 共用结构、样式与 Google Sheet 数据；原 Contact 入口兼容保留。Download 首屏：[分区说明](../pages/download/sections/hero/README.md)，双端素材、绿色背景与鼠标视差。
+
+Menu bar：支持 hiddenInMenu 配置，About 与 Shop 暂时在所有设备顶部菜单隐藏；Footer 保留。

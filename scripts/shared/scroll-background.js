@@ -8,16 +8,20 @@ export function mountScrollBackground(target, config, { onChange = () => {} } = 
   const originalBackground = target.style.getPropertyValue('--page-background');
   const originalDuration = target.style.getPropertyValue('--page-background-duration');
   const hadClass = target.classList.contains('scroll-background');
-  let frame = 0, current;
+  let frame = 0, current, currentIndex = -1;
   target.classList.add('scroll-background');
   target.style.setProperty('--page-background-duration', `${Math.max(0, config.transitionMs ?? 400)}ms`);
   function update() {
     frame = 0;
     let next = config.default;
-    for (const entry of sections) {
-      if (entry.element.getBoundingClientRect().top <= innerHeight * line) next = entry.state;
+    let nextIndex = -1;
+    for (const [index, entry] of sections.entries()) {
+      if (entry.element.getBoundingClientRect().top <= innerHeight * line) { next = entry.state; nextIndex = index; }
     }
     if (next === current) return;
+    const duration = nextIndex < currentIndex ? (config.returnTransitionMs ?? config.transitionMs ?? 400) : (config.transitionMs ?? 400);
+    target.style.setProperty('--page-background-duration', `${Math.max(0, duration)}ms`);
+    currentIndex = nextIndex;
     current = next;
     target.style.setProperty('--page-background', `var(${next.colorToken})`);
     onChange(next);

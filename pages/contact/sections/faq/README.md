@@ -11,7 +11,7 @@
 结构在 faq.js，样式 styles/contact/faq.css，读取逻辑 scripts/contact/faq.js。Contact 入口在表单后挂载。左侧使用用户上传的 assets/images/contact/faq/text-frame.svg 作为装饰背景（原文件 text frame.svg 按规范重命名），上方保留绿色胶带装饰并与边框重叠，正文通过 flex 垂直居中，使用统一内边距。SVG 设 preserveAspectRatio="none" 以跟随内容撑高后的便签尺寸，避免居中留白导致胶带与实际边框脱离，文字保留 HTML，复用现有字体和色板，文案可直接在 faq.js 编辑。full FAQ 链接预留 ./faq.html（完整 FAQ 页面按用户要求后续搭建，目前尚不存在）；手机同样显示便签，随后单列问题列表。不再引用原站标题图片。展开时背景从上到下擦入，答案淡入；支持的浏览器同时平滑展开高度，其余保留原生折叠。prefers-reduced-motion 下禁用动效。使用原生 details/summary，支持鼠标、Enter/Space、多条展开和可见键盘焦点。答案保持纯文本及换行，不执行表格 HTML。
 
 ## 整页背景
-Q&A 透明显示整页底色，无局部渐变。content/contact/background.json 配置默认绿色、Q&A 的 darker linen、触发线（Q&A 内容顶部到达视口高度 33%）和 1000ms 整体换色。上滚回退，Footer 固定使用 brand 绿色背景，不参与换色。共享读取器见 scripts/shared/scroll-background.js；配置说明见 scripts/shared/README.md。原站 a-35（bg change faq）使用 #3d8054 → #dae3c3，本实现复用对应色板变量。
+Q&A 透明显示整页底色，无局部渐变。content/contact/background.json 配置默认绿色、Q&A 的 darker linen、触发线（Q&A 内容顶部到达视口高度 33%）和 2000ms 整体换色。上滚回退，Footer 固定使用 brand 绿色背景，不参与换色。共享读取器见 scripts/shared/scroll-background.js；配置说明见 scripts/shared/README.md。原站 a-35（bg change faq）使用 #3d8054 → #dae3c3，本实现复用对应色板变量。
 
 ## Google Sheet
 已连接 [MM Website Copy — Q&A: Preview](https://docs.google.com/spreadsheets/d/1lllEhCLX2yxzz5jNIgq3TxdKBSewufZc2xWGsXnGUgU/edit#gid=0)。当前通过固定 gid=0 选用 Q&A: Preview；Q&A: All（gid=1307779966）不在网页展示。读取不依赖工作表或文件名称，改名不需要修改链接。csvUrl 使用该工作表公开 CSV export 地址；未更改表格共享权限。本地 items 保存接入时的 4 条内容作为网络不可用时的后备。
@@ -29,3 +29,9 @@ content/contact/faq-colors.json 的 colors 数组按显示行 1:1 对应：第 1
 
 ## 验证
 已验证 CSV 中文/英文表头、双引号、逗号、多行答案、坏数据拒绝、文本 HTML 转义及颜色不足兜底。浏览器已确认鼠标展开、Enter 收起。已验证真实 Q&A: Preview 表格 4 条数据成功读取（页面 sourceState=connected），无浏览器警告；未修改远端表格验证编辑传播。
+
+FAQ 背景缓和：Contact 与 Download 均在 FAQ 顶部进入视口 65% 时提前开始换色，持续 2000ms，保留原浅色终点与上滚恢复，减少突然切换感。浏览器已验证两页均以 2s 过渡完成。
+
+滚动背景支持 returnTransitionMs：回到前一个分区状态时使用独立时长，未配置则沿用 transitionMs。Contact / Download 变 beige 保持 2000ms，返回绿色为 700ms；浏览器已验证双向时长。
+
+Contact 首帧底色：styles/contact/index.css 直接将 body 背景设为 --page-background（默认绿色），避免滚动背景脚本挂载时从全站默认底色渐入；后续 FAQ 双向换色保持不变。已验证脚本加载前后均为绿色。

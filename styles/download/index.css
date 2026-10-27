@@ -1,0 +1,38 @@
+/* 目录：1. 共享 FAQ 2. 首屏 3. 手机 4. 减少动画 */
+@import "../../components/faq/faq.css";
+.download-page { background-color: var(--page-background, var(--color-picnic-date)); }
+.download-hero { position: relative; isolation: isolate; overflow: hidden; min-height: 600px; height: 56vw; max-height: 968px; background: transparent; color: var(--color-morning-fog); }
+.download-hero__pattern { position: absolute; z-index: -1; inset: 3vw 0 0; pointer-events: none; transform: translate3d(var(--pattern-x, 0vw), var(--pattern-y, 0vw), 0); }
+.download-hero__pattern img { width: 100%; height: auto; max-width: none; transform: scale(1.05); }
+.download-hero__copy { position: absolute; top: min(23.03vw, 398px); left: 11.5%; width: 43%; }
+.download-hero__copy h1 { margin: 0; font-size: clamp(36px, 3.4vw, 72px);; font-weight: 500; line-height: 1.25; }
+.download-hero__badge { display: block; width: clamp(125px, 10.3vw, 179px); margin-top: 5vw; border-radius: 6px; }
+.download-hero__badge img { width: 100%; height: auto; transition: transform 200ms ease, box-shadow 200ms ease; border-radius: 5px; }
+.download-hero__badge:hover img, .download-hero__badge:focus-visible img { transform: translate(-.3vw, -.3vw); box-shadow: var(--shadow-app-download); }
+.download-hero__badge:focus-visible { outline: 3px solid var(--color-morning-fog); outline-offset: 6px; }
+.download-hero__phones { position: absolute; width: 43%; right: 4.5%; top: min(17.766vw, 307px); }
+.download-hero__phones img { width: 100%; height: auto; }
+.download-page .contact-faq { padding-block: clamp(70px, 10vw, 160px); }
+/* 桌面按标注收短首屏；装饰在底部淡出，底色仍由整页滚动换色管理。 */
+@media (min-width: 768px) {
+  .download-hero__pattern { mask-image: linear-gradient(to bottom, #000 calc(100% - 8vw), transparent calc(100% - 3vw)); }
+  .download-hero__phones { max-width: 744px; }
+}
+/* 3. 下载入口在插画上方；手机用独立素材。 */
+@media (max-width: 767px) {
+  .download-hero { height: 255vw; min-height: 0; max-height: none; }
+  .download-hero__copy { top: 42vw; left: 10%; width: 80%; text-align: center; }
+  .download-hero__copy h1 { font-size: var(--text-home-hero); max-width: 76%; margin-inline: auto; line-height: 1.2; }
+  .download-hero__badge { width: 35vw; margin: 12vw auto 0; }
+  .download-hero__phones { top: 117vw; right: 0; width: 100%; }
+  .download-hero__pattern { inset: 0; transform: none; }
+  .download-hero__pattern img { height: 100%; object-fit: cover; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .download-hero__pattern { transform: none; }
+  .download-hero__badge img { transition: none; }
+}
+
+/* 版本号随徽章居中。 */
+.download-hero__version { width: clamp(125px, 10.3vw, 179px); margin: 12px 0 0; text-align: center; font-size: var(--text-small); }
+@media (max-width: 767px) { .download-hero__version { width: 35vw; margin-inline: auto; } }

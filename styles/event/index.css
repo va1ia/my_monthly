@@ -1,0 +1,6 @@
+/* 目录：1. 活动索引待更新状态 */
+.event-page { background: var(--color-linen-sheet); }
+.event-intro { min-height: 75vh; padding: clamp(160px, 18vw, 280px) var(--page-gutter) 100px; text-align: center; color: var(--color-darker-green); }
+.event-intro h1 { margin: 12px 0 28px; font-size: var(--text-title); font-weight: 500; }
+.event-intro p { font-size: var(--text-body); line-height: var(--leading-body); }
+.event-intro__eyebrow { font-size: var(--text-small); }

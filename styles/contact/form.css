@@ -19,8 +19,11 @@
 .contact-form__field--select::after { content: ''; position: absolute; right: 22px; top: 50%; width: 8px; height: 8px; border-right: 1.5px solid var(--color-white); border-bottom: 1.5px solid var(--color-white); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
 .contact-form__field select { appearance: none; -webkit-appearance: none; padding-right: 48px; border-color: var(--color-picnic-date); color: var(--color-white); background: var(--color-picnic-date); cursor: pointer; }
 .contact-form__field textarea { height: clamp(288px, 28vw, 480px); padding-top: clamp(12px, 1.4vw, 24px); resize: vertical; }
-.contact-form__submit { min-height: clamp(40px, 4vw, 64px); min-width: clamp(172px, 17vw, 280px); border: 1px solid var(--color-darker-green); border-radius: 10px; padding: 9px 20px; margin-top: 6px; background: var(--color-lighter-sunset); color: var(--color-darker-green); cursor: pointer; font-size: var(--text-contact-field); font-weight: 500; }
-.contact-form__submit:hover { background: var(--color-sunset-blush); }
+.contact-form__submit { min-height: clamp(40px, 4vw, 64px); min-width: clamp(172px, 17vw, 280px); border: 1px solid var(--color-darker-green); border-radius: 10px; padding: 9px 20px; margin-top: 6px; background: var(--color-lighter-sunset); color: var(--color-before-dawn); cursor: pointer; font-size: var(--text-contact-field); font-weight: 500; }
+.contact-form__submit { position: relative; isolation: isolate; overflow: hidden; }
+/* 同导航 Download：圆形色块从左侧展开，文字保持在上层。 */
+.contact-form__submit::before { content: ''; position: absolute; z-index: -1; width: 36px; height: 36px; left: -36px; top: calc(50% - 18px); border-radius: 50%; background: var(--color-sunset-blush); transform: scale(1); transition: transform 300ms ease; pointer-events: none; }
+.contact-form__submit:not(:disabled):hover::before, .contact-form__submit:not(:disabled):focus-visible::before { transform: scale(18); transition-timing-function: cubic-bezier(.25, .46, .45, .94); }
 .contact-form__submit:disabled { cursor: wait; opacity: .7; }
 .contact-form__field input:focus, .contact-form__field select:focus, .contact-form__field textarea:focus { outline: none; box-shadow: none; }
 .contact-form__submit:focus-visible { outline: 3px solid var(--color-darker-green); outline-offset: 3px; }
@@ -48,3 +51,4 @@
   .contact-form__field input { padding-inline: 8px; }
 }
 @media (max-width: 479px) { .contact-form__panel { border-radius: 12px; } }
+@media (prefers-reduced-motion: reduce) { .contact-form__submit::before { transition: none; } }

@@ -2,4 +2,5 @@
 @import url('./cards.css');
 @import url('./form.css');
 @import url('./faq.css');
-.contact-page { --page-background: var(--color-picnic-date); }
+/* 首帧就使用绿色，避免脚本挂载滚动换色时从默认底色渐入。 */
+.contact-page { --page-background: var(--color-picnic-date); background-color: var(--page-background); }

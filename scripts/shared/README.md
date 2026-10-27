@@ -29,3 +29,5 @@ csv.js 的 parseCSV(text) 为 Contact FAQ 和首页评论区共用，支持 BOM�
 
 ## 鼠标背景视差
 pointer-parallax.js 导出 mountPointerParallax(section)，写入 --pattern-x / --pattern-y。≥768px 且支持精细鼠标时映射 X ±2vw、Y 0–4vw，平滑跟随；手机和减少动画偏好归零，destroy() 清理监听与动画。首页评论区和 Contact 背景共用；Contact 保留原 mountContactMotion 导出接口。
+
+滚动背景支持 returnTransitionMs：回到前一个分区状态时使用独立时长，未配置则沿用 transitionMs。Contact / Download 变 beige 保持 2000ms，返回绿色为 700ms；浏览器已验证双向时长。

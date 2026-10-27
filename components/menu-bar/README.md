@@ -38,3 +38,5 @@ menu.setCurrentPage('about');
 
 ## 修改位置
 导航项目与链接：content/shared/navigation.json。颜色与字体：styles/foundations/tokens.css。页面正式接入时显式传入 currentPage，避免依赖链接文本判断。
+
+顶部菜单支持 navigation.json 项目的 hiddenInMenu: true；About / Shop 暂时隐藏，桌面和手机均不渲染，不进入键盘焦点。Footer 不受影响；恢复时删除该字段或设为 false。

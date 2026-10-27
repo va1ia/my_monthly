@@ -13,7 +13,7 @@ export function mountMenuBar(host, { items, currentPage = 'home', homeHref = './
     <button class="menu-bar__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="${id}"><span class="menu-bar__hamburger" aria-hidden="true"><span></span><span></span><span></span></span></button>
     <nav class="menu-bar__panel" id="${id}" aria-label="Main navigation">
       <img class="menu-bar__illustration" src="${illustration}" alt="" aria-hidden="true" width="402" height="483">
-      <ul class="menu-bar__links">${items.map(item => `<li><a class="menu-bar__link${item.id === 'download' ? ' menu-bar__link--download' : ''}" data-page="${escapeHTML(item.id)}" ${linkAttributes(item)}><img class="menu-bar__focus" src="${focusArt}" alt="" aria-hidden="true" width="212" height="77"><span>${escapeHTML(item.label)}</span></a></li>`).join('')}</ul>
+      <ul class="menu-bar__links">${items.filter(item => !item.hiddenInMenu).map(item => `<li><a class="menu-bar__link${item.id === 'download' ? ' menu-bar__link--download' : ''}" data-page="${escapeHTML(item.id)}" ${linkAttributes(item)}><img class="menu-bar__focus" src="${focusArt}" alt="" aria-hidden="true" width="212" height="77"><span>${escapeHTML(item.label)}</span></a></li>`).join('')}</ul>
     </nav></div></header>`;
   const header = host.querySelector('header');
   const panel = host.querySelector('nav');

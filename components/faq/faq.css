@@ -1,0 +1,39 @@
+/* 目录：1. 分区与便签 2. 折叠与擦入动效 3. 手机与键盘 */
+.contact-faq { color: var(--color-before-dawn); padding: clamp(20px, 4vw, 60px) 0; position: relative; }
+.contact-faq__inner { width: 88%; max-width: 1200px; margin-inline: auto; display: grid; grid-template-columns: 32% minmax(0, 1fr); gap: 8%; align-items: start; }
+.contact-faq__note { position: relative; aspect-ratio: 559 / 394; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 40px 36px 40px; background: url('../../assets/images/contact/faq/text-frame.svg') center / 100% 100% no-repeat; }
+.contact-faq__note::before { content: ''; position: absolute; width: 72px; height: 30px; top: -10px; right: 10%; background: var(--color-picnic-date); border: 1px solid var(--color-before-dawn); transform: rotate(10deg); pointer-events: none; }
+.contact-faq__title { margin: 0; font-family: var(--font-heading); font-size: var(--text-faq-question); line-height: var(--leading-heading); font-weight: 500; }
+.contact-faq__note p { margin: 0 0 16px; font-size: var(--text-body); line-height: var(--leading-body); }
+.contact-faq__note p:last-child { margin-bottom: 0; }
+.contact-faq__note a { color: var(--color-darker-green); text-decoration: underline; text-underline-offset: 3px; transition: opacity 180ms ease; }
+.contact-faq__note a:hover { opacity: .7; }
+.contact-faq__note a:focus-visible { outline: 2px solid var(--color-darker-green); outline-offset: 4px; }
+.contact-faq__item { position: relative; isolation: isolate; border-bottom: 1.5px solid currentColor; padding: 18px 20px; }
+.contact-faq__item:last-child { border-bottom: 0; }
+.contact-faq__item::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: 12px; background: var(--faq-color); clip-path: inset(0 0 100% 0); pointer-events: none; }
+.contact-faq__item[open]::before { clip-path: inset(0); animation: faq-box-swipe 440ms cubic-bezier(.22, 1, .36, 1); }
+.contact-faq__item[open] .contact-faq__answer { animation: faq-answer-in 320ms 80ms ease both; }
+@keyframes faq-box-swipe { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+@keyframes faq-answer-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@supports (interpolate-size: allow-keywords) {
+  .contact-faq__item { interpolate-size: allow-keywords; }
+  .contact-faq__item::details-content { block-size: 0; overflow: clip; transition: block-size 360ms cubic-bezier(.22, 1, .36, 1), content-visibility 360ms allow-discrete; }
+  .contact-faq__item[open]::details-content { block-size: auto; }
+}
+.contact-faq__item summary { font-family: var(--font-heading); font-size: var(--text-faq-question); line-height: 1.25; font-weight: 500; list-style: none; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; cursor: pointer; }
+.contact-faq__item summary::-webkit-details-marker { display: none; }
+.contact-faq__icon { flex: 0 0 22px; height: 22px; position: relative; margin-top: 5px; }
+.contact-faq__icon::before, .contact-faq__icon::after { content: ''; position: absolute; left: 0; top: 10px; width: 22px; height: 2px; background: currentColor; }
+.contact-faq__icon::after { transform: rotate(90deg); transition: transform 180ms ease; }
+.contact-faq__item[open] .contact-faq__icon::after { transform: rotate(0); }
+.contact-faq__answer { padding: 16px 36px 4px 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: var(--text-body); line-height: 1.5; }
+.contact-faq__item summary:focus-visible { outline: 2px solid var(--color-darker-green); outline-offset: 6px; }
+@media (max-width: 991px) {
+  .contact-faq__inner { display: block; width: 92%; }
+  .contact-faq__note { margin: 0 auto 28px; max-width: 420px; padding: 36px 36px 44px; }
+  .contact-faq__item { padding: 14px 12px; }
+  .contact-faq__answer { padding-right: 0; }
+}
+@media (max-width: 359px) { .contact-faq__note { padding: 28px 28px 40px; } }
+@media (prefers-reduced-motion: reduce) { .contact-faq__icon::after, .contact-faq__note a, .contact-faq__item::details-content { transition: none; } .contact-faq__item[open]::before, .contact-faq__item[open] .contact-faq__answer { animation: none; } }

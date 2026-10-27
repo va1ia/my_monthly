@@ -65,3 +65,7 @@ docs/                        结构、设计接入、组件索引等说明
 新增页面和命名规则见 [架构规范](docs/architecture.md)；组件查找见 [组件索引](docs/components.md)。
 
 Supabase 订阅接口已部署并通过本地预览真实提交验证，GitHub Pages 公开网页也已验证通过；接入步骤见 [部署说明](docs/newsletter.md)。
+
+Download 页面已实现，入口 download.html：绿色首屏、双端手机素材、首页背景鼠标视差与共享 FAQ（同一 Google Sheet）。导航 Download 已指向本地页面，暂只显示 App Store。
+
+Event 页面入口 event.html，当前显示活动待更新状态，复用导航与 Footer。News 菜单文案改为 Press；About / Shop 仍在顶部隐藏。

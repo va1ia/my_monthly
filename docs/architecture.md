@@ -36,3 +36,7 @@ Shop 入口 shop.html，分区 merch、product-dialog。结构 pages/shop/sectio
 文件和目录统一 kebab-case，如 `customer-stories`。分区样式使用页面前缀，如 `.home-hero`；共享组件使用 `.site-footer`。全站引入 `styles/shared.css`，首页再引入 `styles/home/index.css`；活动/文章在共享入口之后加载自己的 `styles/page.css`。框架引入后由构建工具处理资源路径，避免使用依赖部署根目录的硬编码路径。
 
 颜色统一在 styles/foundations/tokens.css 定义；组件、页面和预览直接使用色板新名称（如 --color-picnic-date、--color-linen-sheet），不再保留旧颜色别名。阴影值也集中在该文件；Footer 的 --footer-bg / --footer-fg 仅用于组件背景变体。SVG 原始素材保留原文件色值，不按最近颜色重染。
+
+Download 入口 download.html，结构 pages/download/sections/hero/，样式 styles/download/index.css，脚本 scripts/download/index.js，素材 assets/images/download/。首页 pattern 与 App Store 直接复用。FAQ 已提至 components/faq/ 与 scripts/shared/faq.js，Contact 原入口保留兼容转发，双页共用 content/contact/faq.json 和颜色配置。
+
+Event 活动索引入口 event.html，结构 pages/event/event.js、样式 styles/event/index.css、脚本 scripts/event/index.js；具体活动继续使用 event/<slug>/，不与索引混放。
