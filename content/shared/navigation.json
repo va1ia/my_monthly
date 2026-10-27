@@ -3,7 +3,7 @@
     { "id": "about", "label": "About", "href": "?page=about" },
     { "id": "news", "label": "News", "href": "?page=news" },
     { "id": "shop", "label": "Shop", "href": "https://mymonthlymerch.myshopify.com/", "external": true },
-    { "id": "contact", "label": "Contact", "href": "https://mymonthly.io/contact" },
+    { "id": "contact", "label": "Contact", "href": "./contact.html" },
     { "id": "download", "label": "Download", "href": "https://mymonthly.io/download" }
   ],
   "legal": [

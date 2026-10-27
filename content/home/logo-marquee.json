@@ -1,0 +1,95 @@
+{
+  "logos": [
+    {
+      "file": "01-accesswire.svg",
+      "name": "Accesswire",
+      "version": "04da66a8de1c",
+      "width": 140.0,
+      "height": 18.0
+    },
+    {
+      "file": "02-digital-journal.svg",
+      "name": "Digital Journal",
+      "version": "b3d011e4afbb",
+      "width": 113.0,
+      "height": 46.0
+    },
+    {
+      "file": "03-yahoo-finance.svg",
+      "name": "Yahoo Finance",
+      "version": "37481286b6b6",
+      "width": 102.0,
+      "height": 38.0
+    },
+    {
+      "file": "04-abc-news.svg",
+      "name": "ABC News",
+      "version": "5d6a8325ace2",
+      "width": 135.0,
+      "height": 47.0
+    },
+    {
+      "file": "05-smearcase.svg",
+      "name": "Smearcase",
+      "version": "eab13f69bfe8",
+      "width": 125.0,
+      "height": 42.0
+    },
+    {
+      "file": "06-two-moons.svg",
+      "name": "Two Moons",
+      "version": "11e9c0fc0270",
+      "width": 162.0,
+      "height": 18.0
+    },
+    {
+      "file": "07-hottie.svg",
+      "name": "Hottie",
+      "version": "211809ea0aab",
+      "width": 120.0,
+      "height": 25.0
+    },
+    {
+      "file": "08-monthly.svg",
+      "name": "Monthly",
+      "version": "2adc1bef6bb8",
+      "width": 110.0,
+      "height": 26.0
+    },
+    {
+      "file": "09-at-the-table.svg",
+      "name": "At The Table",
+      "version": "edd381540f27",
+      "width": 119.0,
+      "height": 43.0
+    },
+    {
+      "file": "10-lost-draft.svg",
+      "name": "Lost Draft",
+      "version": "cc12fb720813",
+      "width": 82.0,
+      "height": 82.0
+    },
+    {
+      "file": "11-birdies-sports.svg",
+      "name": "Birdies Sports",
+      "version": "7c1210b62aba",
+      "width": 100.0,
+      "height": 46.0
+    },
+    {
+      "file": "12-birdies-lattes.svg",
+      "name": "Birdies Lattes",
+      "version": "070db4b92d6d",
+      "width": 78.0,
+      "height": 80.0
+    },
+    {
+      "file": "13-duo.svg",
+      "name": "DUO",
+      "version": "aca108f60dd2",
+      "width": 104.0,
+      "height": 31.0
+    }
+  ]
+}

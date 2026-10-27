@@ -1,0 +1,26 @@
+/* 目录：1. 分区与标题 2. 折叠内容 3. 手机与键盘 */
+.contact-faq { background: var(--color-darker-linen); color: var(--color-before-dawn); padding: clamp(48px, 6vw, 100px) 0; position: relative; }
+.contact-faq::before { content: ''; position: absolute; inset: -60px 0 auto; height: 60px; background: linear-gradient(transparent, var(--color-darker-linen)); pointer-events: none; }
+.contact-faq__inner { width: 88%; max-width: 1200px; margin-inline: auto; display: grid; grid-template-columns: 32% minmax(0, 1fr); gap: 8%; align-items: start; }
+.contact-faq__title { margin: 0; }
+.contact-faq__title img { width: 100%; }
+.contact-faq__title span { display: none; }
+.contact-faq__item { border-bottom: 1px solid currentColor; padding: 18px 20px; }
+.contact-faq__item:last-child { border-bottom: 0; }
+.contact-faq__item[open] { background: var(--faq-color); border-radius: 12px; }
+.contact-faq__item summary { font-family: var(--font-heading); font-size: var(--text-faq-question); line-height: 1.25; font-weight: 500; list-style: none; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; cursor: pointer; }
+.contact-faq__item summary::-webkit-details-marker { display: none; }
+.contact-faq__icon { flex: 0 0 22px; height: 22px; position: relative; margin-top: 5px; }
+.contact-faq__icon::before, .contact-faq__icon::after { content: ''; position: absolute; left: 0; top: 10px; width: 22px; height: 2px; background: currentColor; }
+.contact-faq__icon::after { transform: rotate(90deg); transition: transform 180ms ease; }
+.contact-faq__item[open] .contact-faq__icon::after { transform: rotate(0); }
+.contact-faq__answer { padding: 16px 36px 4px 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: var(--text-body); line-height: 1.5; }
+.contact-faq__item summary:focus-visible { outline: 2px solid var(--color-darker-green); outline-offset: 6px; }
+@media (max-width: 767px) {
+  .contact-faq__inner { display: block; width: 92%; }
+  .contact-faq__title img { display: none; }
+  .contact-faq__title span { display: inline-block; border-radius: 99px; padding: 3px 16px; margin-bottom: 12px; background: var(--color-before-dawn); color: var(--color-morning-fog); font-family: var(--font-body); font-size: var(--text-small); font-weight: 400; }
+  .contact-faq__item { padding: 14px 12px; }
+  .contact-faq__answer { padding-right: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .contact-faq__icon::after { transition: none; } }

@@ -1,0 +1,28 @@
+{
+  "cards": [
+    {
+      "variant": "sad",
+      "title": "Brand Collab",
+      "description": "We bridge the gap between digital shopping and real-world experiences. Our app links users straight to your store after they discover you in our curated section, complemented by high-touch NY/NJ events.",
+      "email": "hello@mymonthly.co"
+    },
+    {
+      "variant": "loved",
+      "title": "Help Center",
+      "description": "Something not working quite right? We’ve got you. Send us a message at",
+      "email": "support@mymonthly.co",
+      "afterEmail": ", and our team will be happy to help you sort it out.",
+      "note": "Check our FAQs! you might find the answer you’re looking for!"
+    }
+  ],
+  "form": {
+    "title": "We hear you.",
+    "description": "Got a comment? Success story? We want to hear from you. Fill out this form!",
+    "types": [
+      { "value": "First", "label": "Press / Collaboration" },
+      { "value": "Second", "label": "Technical Support" },
+      { "value": "Third", "label": "Feedback / Suggestions" },
+      { "value": "Another option", "label": "Other" }
+    ]
+  }
+}

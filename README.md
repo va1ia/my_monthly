@@ -8,12 +8,14 @@
 - 后续开发
 
 ## 本地预览
-在本目录运行 `python3 -m http.server 4173 --bind 127.0.0.1`，浏览器访问 http://127.0.0.1:4173/。这是无需安装依赖的 HTML/CSS/JavaScript 模块预览，不要直接双击 HTML（模块和 JSON 需要 HTTP）。
+在本目录运行 `python3 scripts/tools/preview.py`，浏览器访问 http://127.0.0.1:4173/。这是无需安装依赖的 HTML/CSS/JavaScript 模块预览，不要直接双击 HTML（模块和 JSON 需要 HTTP）。
 
-页面选择器可切换当前页装饰，背景选择器可检查 Footer 三种变体。index.html、scripts/preview/ 和 styles/preview/ 仅用于组件预览，正式首页内容等待 Figma。
+根 index.html 已接入首页 landing section：背景视差、滚动碰杯、三条产品价值 tag 和 Logo marquee。Logo 文件夹自动同步见 assets/images/home/logo-marquee/README.md；清单由脚本生成，无需手改。组件预览移到 component-preview.html；其中页面选择器可切换当前页装饰，背景选择器可检查 Footer 三种变体。
+
+Contact 两个分区（联系卡片、We hear you 表单）已实现，预览 http://127.0.0.1:4173/contact.html。Supabase 与 Zapier 留言邮件分流已连接并通过真实运行验证；见 [Contact 接入](docs/contact.md)。
 
 ## 当前状态
-导航和 Footer 已按参考站及用户截图实现；使用上传的 Logo、插画、社交图标和字体。导航/Footer 以外的页面尚未实现，未配置部署。Newsletter 已连接 Supabase 保存名单（本地预览与 GitHub Pages 来源）；尚未接入邮件发送服务。共享链接配置见 content/shared/README.md。
+首页 landing、导航和 Footer 已按参考站及用户截图实现；使用上传的 Logo、插画、社交图标和字体。首页后续分区尚未实现，未配置部署。Newsletter 已连接 Supabase 保存名单（本地预览与 GitHub Pages 来源）；尚未接入邮件发送服务。共享链接配置见 content/shared/README.md。
 
 ## 文件结构
 ```text
@@ -21,7 +23,8 @@ assets/                       全站和品牌页面素材
   fonts/                      授权字体文件
   icons/                      Wordmark、favicon 和共享图标
   images/shared/              非图标类共享图片
-  images/home/       首页图片，按分区细分
+  images/home/                首页图片，hero/ 和 logo-marquee/
+  images/contact/             联系卡片与背景，form/ 为表单装饰
 components/                   共享组件，每个组件独立目录和说明
 content/home/        首页文案、数据，按分区命名
 pages/home/          首页结构，按分区组织
@@ -51,7 +54,7 @@ docs/                        结构、设计接入、组件索引等说明
 2. 确认技术框架、部署位置及 URL 规则。
 3. 将 Figma 文字和颜色映射到全站基础样式。
 4. 优先实现共享组件，再按分区实现首页。
-5. 按 `docs/acceptance.md` 检查响应式和可访问性。
+5. 按 `docs/acceptance.md` 检查响应式和可访问性；本次首屏检查见 `docs/hero-verification.md`。
 
 新增页面和命名规则见 [架构规范](docs/architecture.md)；组件查找见 [组件索引](docs/components.md)。
 

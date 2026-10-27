@@ -16,7 +16,9 @@
 - 数据：`content/home/hero.json`（实际需要时创建）
 - 图片：`assets/images/home/hero/`
 
-现有 hero 仅用于演示命名，实际分区以 Figma 为准。新增品牌页面参照 `templates/branding/README.md`。
+现有 hero 已按原站公开动画配置和用户截图实现；精确设计值待 Figma 确认。根 index.html 为首页入口，scripts/home/index.js 负责挂载，components 仍由共享入口加载；原组件预览保留为 component-preview.html。Hero 的 Logo 素材独立放在 assets/images/home/logo-marquee/，不作为全站共享组件。其文件名数字前缀决定显示顺序；scripts/tools/sync-marquee.py 生成 content/home/logo-marquee.json，本地自动预览与 GitHub Actions 共用该生成逻辑。前端 scripts/home/marquee.js 根据素材数量和容器宽度生成足量副本并按轨道长度调整时长。新增品牌页面参照 `templates/branding/README.md`。
+
+Contact 入口为 contact.html；类型目录直接使用 contact/，两个分区为 cards 与 form，样式入口 styles/contact/index.css，数据和公开服务配置在 content/contact/。Supabase 函数及迁移放 supabase/；详见 [Contact 接入](contact.md)。
 
 ## 活动与文章
 复制 `templates/event/` 到 `event/<slug>/`，或 `templates/article/` 到 `article/<slug>/`。模板内 `page.html` 是非完整结构片段，待选定框架后转换为对应页面模块；不得直接当作完成的网页发布。所有页面专属文件留在这个目录，包括只为该页使用的组件、字体或下载文件。创建专属组件时也配 README。

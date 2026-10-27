@@ -7,14 +7,27 @@
   --text-small: 0.875rem;
   --text-body: 1rem;
   --text-title: clamp(2rem, 5vw, 4rem);
+  /* 首页截图局部尺寸，待 Figma 确认。 */
+  --text-home-hero: clamp(42px, 4.15vw, 80px);
+  --text-home-tag: clamp(12px, 1.2vw, 20px);
+  /* Contact 原站测量值，待 Figma 确认。 */
+  --text-faq-question: clamp(22px, 2.3vw, 34px);
+  --text-contact-card-title: 30px;
+  --text-contact-title: clamp(36px, 3.2vw, 56px);
+  --text-contact-intro: clamp(14px, 1.2vw, 24px);
+  --text-contact-field: clamp(14px, 1vw, 20px);
   --leading-body: 1.6;
   --leading-heading: 1.15;
   /* 2. 颜色：Figma 色板命名 */
   --color-picnic-date: #3d8054;
   --color-darker-green: #2c5d3d;
+  /* 原站导航 #2c5d3df2：约 95% 不透明度。 */
+  --color-menu-glass: color-mix(in srgb, var(--color-darker-green) 94.9%, transparent);
   --color-sunset-blush: #eea494;
   --color-lighter-sunset: #f2bdb1;
   --color-before-dawn: #282828;
+  --color-white: #fff;
+  --color-input-placeholder: #757575;
   --color-linen-sheet: #e5e9d9;
   --color-darker-linen: #dae3c3;
   --color-morning-fog: #f5f5ed;
@@ -30,6 +43,7 @@
   /* 阴影集中定义，保留原有透明度与外观。 */
   --shadow-menu: 0 5px 14px #16382326;
   --shadow-menu-open: 0 7px 18px #143b2b40;
+  --shadow-app-download: .3vw .3vw 0 0 var(--color-darker-linen);
   /* 3. 间距与布局 */
   --space-1: 0.5rem;
   --space-2: 1rem;
@@ -38,4 +52,7 @@
   --space-5: 4rem;
   --content-max: 75rem;
   --page-gutter: clamp(1rem, 4vw, 3rem);
+}
+@media (max-width: 767px) {
+  :root { --text-home-hero: 9.3vw; --text-home-tag: 3vw; --text-contact-title: 9vw; --text-contact-intro: 14px; --text-contact-field: 16px; }
 }

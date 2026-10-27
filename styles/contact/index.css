@@ -1,0 +1,5 @@
+/* 目录：1. 页面 2. 卡片 3. 表单 4. Q&A */
+@import url('./cards.css');
+@import url('./form.css');
+@import url('./faq.css');
+.contact-page { background: var(--color-picnic-date); }

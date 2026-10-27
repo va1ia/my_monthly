@@ -1,5 +1,5 @@
 /* 目录：1. 背景变体 2. 桌面布局 3. 表单与链接 4. 移动端布局 */
-.site-footer { --footer-bg: var(--color-picnic-date); --footer-fg: var(--color-morning-fog); background: var(--footer-bg); color: var(--footer-fg); padding: 44px 4vw 24px; font-family: var(--font-body); }
+.site-footer { --footer-bg: var(--color-picnic-date); --footer-fg: var(--color-morning-fog); background: var(--footer-bg); color: var(--footer-fg); padding: 44px 4vw calc(20px + env(safe-area-inset-bottom, 0px)); font-family: var(--font-body); }
 .site-footer[data-variant="dark"] { --footer-bg: var(--color-darker-green); --footer-fg: var(--color-linen-sheet); }
 .site-footer[data-variant="light"] { --footer-bg: var(--color-linen-sheet); --footer-fg: var(--color-darker-green); }
 .site-footer__main { display: grid; grid-template-columns: 1.5fr .65fr .85fr; gap: 8vw; max-width: 1440px; margin-inline: auto; }
@@ -17,19 +17,20 @@
 .site-footer__brand img { width: 100%; height: auto; }
 .site-footer a { color: inherit; text-decoration: none; }
 .site-footer__navigation, .site-footer__legal { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
-.site-footer__navigation a, .site-footer__legal a { font-size: 14px; line-height: 1.5; padding-block: 3px; text-decoration-thickness: 1px; text-underline-offset: 5px; }
-.site-footer__navigation a { font-weight: 500; }
-.site-footer__navigation a:hover, .site-footer__legal a:hover { text-decoration: underline; }
+.site-footer__navigation a, .site-footer__legal a { font-size: 14px; line-height: 1.5; padding-block: 3px; font-weight: 400; }
+/* 文字链接与社交图标统一使用悬停缩放反馈。 */
+.site-footer__navigation a, .site-footer__legal a { transition: transform 180ms ease; transform-origin: center center; }
+.site-footer__navigation a:hover, .site-footer__legal a:hover { transform: scale(1.1); }
 .site-footer :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 .site-footer__form input:focus { outline: none; box-shadow: none; }
 .site-footer__form:has(input:focus-visible) { border-bottom-width: 2px; }
 .site-footer__social { display: flex; gap: 12px; margin-top: 40px; transform: translateX(-4px); }
 .site-footer__social a { display: grid; place-items: center; width: 32px; height: 36px; }
-.site-footer__social-icon { display: block; width: 25px; height: 25px; background: currentColor; mask: var(--social-icon) center / contain no-repeat; transition: transform 180ms ease; }
+.site-footer__social-icon { display: block; width: 25px; height: 25px; background: currentColor; mask: var(--social-icon) center / contain no-repeat; transition: transform 180ms ease; transform-origin: center center; }
 .site-footer__social a:hover .site-footer__social-icon { transform: scale(1.1); }
-.site-footer__copyright { text-align: center; font-size: 10px; line-height: 1.5; margin: 54px 0 0; }
+.site-footer__copyright { text-align: center; font-size: 12px; line-height: 1.6; margin: 32px 0 0; }
 @media (max-width: 767px) {
-  .site-footer { padding: 28px 7vw 24px; }
+  .site-footer { padding: 28px 7vw calc(64px + env(safe-area-inset-bottom, 0px)); }
   .site-footer__main { grid-template-columns: 1fr 1fr; gap: 38px 24px; max-width: 440px; }
   .site-footer__newsletter { grid-column: 1 / -1; width: 100%; max-width: 310px; justify-self: center; }
   .site-footer h2 { font-size: 16px; text-align: center; margin-bottom: 8px; }
@@ -38,6 +39,6 @@
   .site-footer__navigation a, .site-footer__legal a { font-size: 12px; min-height: 30px; }
   .site-footer__legal { gap: 12px; }
   .site-footer__social { margin-top: 20px; gap: 8px; }
-  .site-footer__copyright { margin-top: 42px; font-size: 9px; }
+  .site-footer__copyright { margin-top: 24px; font-size: 11px; }
 }
-@media (prefers-reduced-motion: reduce) { .site-footer__form button, .site-footer__social-icon { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .site-footer__form button, .site-footer__social-icon, .site-footer__navigation a, .site-footer__legal a { transition: none; } }

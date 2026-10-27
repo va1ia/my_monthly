@@ -1,0 +1,9 @@
+{
+  "csvUrl": "",
+  "refreshSeconds": 60,
+  "items": [
+    {"question":"Who is this My Monthly for?","answer":"My Monthly is designed for anyone who wants to better understand and navigate menstrual cycles. Whether you menstruate yourself, have a partner who does, or just want to learn more.\n\nOur goal is to make cycle awareness, communication, and support simple and accessible for couples, friends, and individuals alike."},
+    {"question":"Is it available on iOS and Android?","answer":"My Monthly is available on iOS and will be available on Android later this year! Stay tuned for updates!"},
+    {"question":"I’d love to collaborate with My Monthly for an Event, who do I contact?","answer":"We’d love to hear from you! Please reach out to our partnerships team at hello@mymonthly.co, and we’ll explore ways to work together on events, content, or special campaigns."}
+  ]
+}

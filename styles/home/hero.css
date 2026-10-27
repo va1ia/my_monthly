@@ -1,3 +1,73 @@
-/* 目录：1. Hero 分区 2. 响应式规则
-   等待 Figma 后实现 .home-hero；全站文字规则不在此重复定义。
-   根据内容需要添加响应式规则，不将整个分区固定为桌面尺寸。 */
+/* 目录：1. 首屏与背景 2. 手机及标签 3. Logo marquee 4. 响应式 5. 减少动画
+   尺寸按用户截图还原，待 Figma 确认，不作为全站品牌规范。 */
+/* 1. 首屏与背景 */
+.home-hero { --phone-progress: 0; --pattern-x: 0vw; --pattern-y: 0vw; position: relative; isolation: isolate; background: var(--color-before-dawn); color: var(--color-morning-fog); }
+.home-hero__scene { position: relative; height: 68.1vw; min-height: 680px; overflow: hidden; isolation: isolate; }
+.home-hero__pattern { position: absolute; z-index: -1; inset: 3vw 0 0; pointer-events: none; transform: translate3d(var(--pattern-x), var(--pattern-y), 0); }
+.home-hero__pattern img { width: 100%; height: auto; max-width: none; transform: scale(1.05); }
+.home-hero__title { position: relative; width: 90%; margin: 0 auto; padding-top: 13.8vw; text-align: center; font-size: var(--text-home-hero); font-weight: 500; line-height: 1.25; }
+.home-hero__title span { display: block; }
+.home-hero__download { position: relative; z-index: 3; display: block; width: 10.3vw; min-width: 125px; margin: 3.9vw auto 0; border-radius: 6px; }
+.home-hero__download img { width: 100%; height: auto; transition: border-radius 200ms ease, box-shadow 200ms ease, transform 200ms ease; }
+.home-hero__download:hover img, .home-hero__download:focus-visible img { border-radius: 5px; box-shadow: var(--shadow-app-download); transform: translate(-.3vw, -.3vw); }
+.home-hero :focus-visible { outline: 3px solid var(--color-morning-fog); outline-offset: 6px; }
+/* 2. 整个插画层裁切，手臂不能从 marquee 下方露出。 */
+.home-hero__phones { position: absolute; top: 36.5vw; left: 50%; display: flex; align-items: flex-start; transform: translateX(-50%); pointer-events: none; }
+.home-hero__phone { flex: none; width: 38vw; height: auto; max-width: none; transform-origin: center; }
+.home-hero__phone--left { transform: translate3d(calc(-24px * (1 - var(--phone-progress))), calc(12px * var(--phone-progress)), 0) rotate(calc(-4deg * (1 - var(--phone-progress)))); }
+.home-hero__phone--right { transform: translate3d(calc(24px * (1 - var(--phone-progress))), calc(12px * var(--phone-progress)), 0) rotate(calc(4deg * (1 - var(--phone-progress)))); }
+.home-hero__tags { list-style: none; position: absolute; z-index: 2; inset: 0; margin: 0; padding: 0; pointer-events: none; }
+.home-hero__tag { position: absolute; width: max-content; max-width: 90%; padding: .45em 1.3em; border: 1px solid var(--color-before-dawn); border-radius: 999px; font-size: var(--text-home-tag); line-height: 1.4; color: var(--color-before-dawn); background: var(--color-blue); }
+.home-hero__tag--1 { top: 54%; left: 62%; }
+.home-hero__tag--2 { top: 65%; left: 19%; background: var(--color-lighter-sunset); }
+.home-hero__tag--3 { top: 82%; left: 46%; background: var(--color-pink); }
+.home-hero.is-animated .home-hero__tag { opacity: var(--tag-opacity, 0); transform: translateY(var(--tag-y, 16px)); }
+/* 3. 连续轨道，副本不重复朗读。 */
+.home-hero__marquee { position: relative; z-index: 4; overflow: hidden; background: var(--color-picnic-date); }
+.home-hero__marquee-track { display: flex; width: max-content; animation: home-logo-scroll var(--marquee-duration, 38s) linear infinite; }
+.home-hero__marquee[hidden] { display: none; }
+/* 以参考 PNG 中已调整的 SVG 导出尺寸为比例，取消等宽格子的内部留白。 */
+.home-hero__logos { --marquee-unit: clamp(.615px, .0576923vw, .854px); flex: none; display: flex; align-items: center; list-style: none; gap: calc(74 * var(--marquee-unit)); padding: 0 calc(74 * var(--marquee-unit)) 0 0; margin: 0; height: clamp(64px, 6vw, 89px); }
+.home-hero__logos li { display: flex; align-items: center; justify-content: center; flex: none; width: calc(var(--logo-width) * var(--marquee-unit)); height: calc(var(--logo-height) * var(--marquee-unit)); }
+.home-hero__logos img { width: 100%; height: 100%; max-width: none; object-fit: contain; }
+.home-hero__marquee-toggle { position: absolute; right: 8px; bottom: 6px; border: 1px solid currentColor; border-radius: 50%; width: 28px; height: 28px; padding: 0; background: var(--color-darker-green); color: var(--color-morning-fog); cursor: pointer; opacity: 0; }
+.home-hero__marquee:hover .home-hero__marquee-toggle, .home-hero__marquee:focus-within .home-hero__marquee-toggle { opacity: 1; }
+.home-hero__marquee.is-paused .home-hero__marquee-track, .home-hero__marquee:focus-within .home-hero__marquee-track { animation-play-state: paused; }
+@keyframes home-logo-scroll { to { transform: translateX(-50%); } }
+/* 4. 中屏保留桌面构图；手机把下载入口移到插画下方。 */
+@media (min-width: 768px) and (max-width: 991px) {
+  .home-hero__scene { height: 84vw; min-height: 660px; }
+  .home-hero__title { padding-top: 19vw; }
+  .home-hero__phones { top: 47vw; }
+  .home-hero__phone { width: 44vw; }
+}
+@media (max-width: 767px) {
+  .home-hero__scene { height: 205vw; min-height: 0; }
+  .home-hero__title { padding-top: 49vw; width: 90%; }
+  .home-hero__title span:last-child { max-width: 88%; margin-inline: auto; }
+  .home-hero__pattern { inset: 0; }
+  .home-hero__pattern img { height: 100%; width: 100%; object-fit: cover; }
+  /* 手机 marquee 上方的下载留白同属遮挡面，覆盖插画尾端。 */
+  .home-hero__scene::after { content: ''; position: absolute; z-index: 1; inset: 178vw 0 0; background: var(--color-before-dawn); pointer-events: none; }
+  .home-hero__phones { top: 96vw; }
+  .home-hero__phone { width: 96vw; }
+  .home-hero__phone--left { transform: translate3d(calc(-4px * (1 - var(--phone-progress))), calc(4px * var(--phone-progress)), 0) rotate(calc(-4deg * (1 - var(--phone-progress)))); }
+  .home-hero__phone--right { transform: translate3d(calc(4px * (1 - var(--phone-progress))), calc(4px * var(--phone-progress)), 0) rotate(calc(4deg * (1 - var(--phone-progress)))); }
+  .home-hero__download { position: absolute; top: 181.7vw; left: 50%; transform: translateX(-50%); margin: 0; width: 27vw; min-width: 0; }
+  .home-hero__tag--1 { top: 52%; left: auto; right: 4%; }
+  .home-hero__tag--2 { top: 60.5%; left: 1%; }
+  .home-hero__tag--3 { top: 74%; left: auto; right: 22%; }
+  .home-hero__logos { --marquee-unit: max(.4615px, .125vw); height: 13vw; min-height: 48px; }
+  .home-hero__marquee-toggle { opacity: 1; width: 24px; height: 24px; }
+}
+/* 5. 无动画时保留全部信息。 */
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__marquee-track { animation: none; }
+  .home-hero__download img { transition: none; }
+  .home-hero__pattern { transform: none; }
+  .home-hero.is-animated .home-hero__tag { opacity: 1; transform: none; }
+  .home-hero__phone { transform: translateY(12px); }
+}
+@media (prefers-reduced-motion: reduce) and (max-width: 767px) {
+  .home-hero__phone { transform: translateY(4px); }
+}
