@@ -1,0 +1,60 @@
+/* 目录：1. 电脑版布局 2. 卡片与链接 3. 动画及背景 4. 焦点、手机占位与减少动画
+   按用户 2026-10-30 截图还原，精确布局值待 Figma 确认。 */
+/* 1. 电脑版布局 */
+.pre-footer { position: relative; z-index: 1; isolation: isolate; margin-bottom: -1px; padding-top: clamp(28px, 3vw, 52px); overflow: visible; background: linear-gradient(180deg, var(--color-morning-fog), var(--color-linen-sheet) 18%, var(--color-pre-footer-sky) 52%, var(--color-pre-footer-sky) calc(100% - 2px), var(--color-picnic-date) calc(100% - 2px)); }
+.pre-footer__cards { position: relative; z-index: 2; width: min(76.5%, 1120px); margin-inline: auto; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 4.2vw, 64px); }
+.pre-footer__download-card, .pre-footer__ambassador-card, .pre-footer__events-card { position: relative; color: var(--color-before-dawn); text-decoration: none; border: 2px solid var(--color-before-dawn); border-radius: clamp(20px, 2vw, 30px); transition: transform 200ms ease, box-shadow 200ms ease; }
+.pre-footer__download-card { aspect-ratio: 340 / 383; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: clamp(18px, 2.2vw, 32px); padding: 7% 6%; background: var(--color-picnic-date); color: var(--color-morning-fog); text-align: center; }
+.pre-footer__right { position: relative; display: grid; grid-template-rows: 1fr 1fr; gap: clamp(24px, 2.5vw, 40px); }
+.pre-footer__ambassador-card, .pre-footer__events-card { padding: 7% 8%; }
+.pre-footer__ambassador-card { z-index: 2; background: var(--color-lime); }
+.pre-footer__events-card { z-index: 1; overflow: hidden; border: 0; padding: calc(7% + 2px) calc(8% + 2px); background: var(--color-lighter-sunset); }
+/* 描边置于插画上层，日历可贴齐外缘而不遮住圆角轮廓。 */
+.pre-footer__events-card::after { content: ''; position: absolute; z-index: 3; inset: 0; border: 2px solid var(--color-before-dawn); border-radius: inherit; pointer-events: none; }
+.pre-footer__download-card:hover, .pre-footer__download-card:focus-within { transform: translate(.35vw, -.35vw); box-shadow: var(--shadow-pre-footer-left); }
+.pre-footer__ambassador-card:hover, .pre-footer__ambassador-card:focus-within { transform: translate(-.35vw, -.35vw); box-shadow: var(--shadow-pre-footer-ambassador); }
+.pre-footer__events-card:hover, .pre-footer__events-card:focus-within { transform: translate(-.35vw, -.35vw); box-shadow: var(--shadow-pre-footer-events); }
+/* 2. 卡片与链接 */
+.pre-footer__cards h2 { margin: 0; font-size: var(--text-pre-footer-title); font-weight: 500; line-height: 1.2; }
+.pre-footer__loved-art { position: relative; width: 50%; height: 42%; min-height: 145px; }
+.pre-footer__loved-art > img:first-child { width: 100%; height: 100%; object-fit: contain; }
+.pre-footer__loved-deco { position: absolute; width: 140%; max-width: none; left: -20%; top: 25%; }
+.pre-footer__app { display: block; width: 44%; max-width: 179px; border-radius: 6px; }
+.pre-footer__app img { width: 100%; height: auto; }
+/* 箭头仅为整卡链接的视觉提示，没有独立点击或 hover。 */
+.pre-footer__arrow { position: relative; display: grid; place-items: center; width: 3.8vw; height: 3.8vw; margin-top: 1.1vw; margin-left: -.4vw; overflow: hidden; pointer-events: none; }
+.pre-footer__arrow::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--color-picnic-date); transform: translateX(-100%); transition: transform 200ms ease; }
+.pre-footer__arrow > span { position: relative; z-index: 1; font-family: var(--font-arrow); font-size: 3.8vw; font-weight: 500; line-height: 1; transform: translateY(-.15vw); transition: color 200ms ease; }
+.pre-footer__events-card .pre-footer__arrow::before { background: var(--color-red); }
+.pre-footer__ambassador-card:is(:hover, :focus-visible) .pre-footer__arrow::before, .pre-footer__events-card:is(:hover, :focus-visible) .pre-footer__arrow::before { transform: translateX(0); }
+.pre-footer__ambassador-card:is(:hover, :focus-visible) .pre-footer__arrow > span { color: var(--color-lime); }
+.pre-footer__events-card:is(:hover, :focus-visible) .pre-footer__arrow > span { color: var(--color-lighter-sunset); }
+.pre-footer__calm { position: absolute; z-index: 2; width: 56%; max-width: none; bottom: -54%; right: -12%; pointer-events: none; }
+.pre-footer__calendar { position: absolute; z-index: 1; width: 8vw; max-width: 31%; right: 0; bottom: 0; pointer-events: none; }
+/* 3. 动画及背景 */
+.pre-footer__clouds { position: absolute; z-index: 1; width: 98%; max-width: none; bottom: 25vw; left: 1%; pointer-events: none; transform: translate3d(var(--pattern-x, 0vw), var(--pattern-y, 0vw), 0); }
+.pre-footer__garden { position: relative; z-index: 0; margin-top: 6vw; aspect-ratio: 3439 / 920; background: linear-gradient(var(--color-pre-footer-sky) 94%, var(--color-picnic-date) 94%); overflow: visible; }
+.pre-footer__ground { position: absolute; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; }
+.pre-footer__ground { z-index: 0; }
+.pre-footer__bushes { position: absolute; z-index: 2; left: 0; bottom: -2vw; width: 100%; height: auto; max-width: none; pointer-events: none; }
+.pre-footer__bushes--left { bottom: -6vw; clip-path: inset(0 50% 0 0); }
+.pre-footer__bushes--right { clip-path: inset(0 0 0 50%); }
+/* 原画布高 1080，裁掉脚底以下空白；动画按原比例播放。 */
+.pre-footer__video, .pre-footer__raw { position: absolute; z-index: 1; top: 0; left: 0; display: block; width: 100%; height: calc(100% * 1080 / 920); }
+.pre-footer__video { object-fit: fill; pointer-events: none; }
+/* 不透明后备仅显示到草坪接缝，避免盖住 Footer 文本。 */
+.pre-footer[data-animation-format="mp4"] .pre-footer__video { clip-path: inset(0 0 calc(100% * 160 / 1080) 0); }
+.pre-footer__raw { isolation: isolate; pointer-events: none; }
+.pre-footer__raw > div { position: absolute; inset: 0; }
+.pre-footer__raw canvas { display: block; width: 100%; height: 100%; }
+.pre-footer [hidden] { display: none; }
+.pre-footer__motion-toggle { position: absolute; z-index: 3; bottom: 18px; right: 18px; min-height: 36px; padding: 6px 14px; border: 1px solid var(--color-morning-fog); border-radius: 999px; background: var(--color-darker-green); color: var(--color-morning-fog); font: 400 var(--text-small)/1.4 var(--font-body); cursor: pointer; opacity: 0; transition: opacity 160ms ease; }
+.pre-footer__garden:hover .pre-footer__motion-toggle, .pre-footer__garden:focus-within .pre-footer__motion-toggle { opacity: 1; }
+/* 4. 可访问性与设备范围 */
+.pre-footer :focus-visible { outline: 3px solid var(--color-before-dawn); outline-offset: 5px; }
+.pre-footer__garden :focus-visible { outline-color: var(--color-morning-fog); }
+@media (max-width: 991px) { .pre-footer { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .pre-footer__arrow::before, .pre-footer__arrow > span, .pre-footer__motion-toggle, .pre-footer__download-card, .pre-footer__ambassador-card, .pre-footer__events-card { transition: none; }
+  .pre-footer__motion-toggle { opacity: 1; }
+}

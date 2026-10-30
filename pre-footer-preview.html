@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Monthly — Pre-footer animation preview</title>
+  <link rel="icon" href="./assets/icons/favicon.svg">
+  <link rel="stylesheet" href="./styles/shared.css">
+  <link rel="stylesheet" href="./styles/preview/pre-footer.css">
+  <script type="module" src="./scripts/preview/pre-footer.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-header"></div>
+  <main id="main" tabindex="-1">
+    <div class="pre-footer-test">
+      <h1>Pre-footer 动画预览</h1>
+      <p>两个文件均为 10 秒。默认同步叠加字样与叶子；切换后可比较 1 → 2 的顺序播放。</p>
+      <div class="pre-footer-test__controls">
+        <label>播放方式<select id="animation-mode"><option value="overlay">同步叠加 · 10 秒循环</option><option value="sequential">先 1 后 2 · 20 秒循环</option></select></label>
+        <label>素材版本<select id="animation-source"><option value="video">网页视频 · 高清透明版约 8.9 MB</option><option value="lottie">原始 Lottie · 合计 44.4 MB</option></select></label>
+        <button id="animation-restart" type="button">从头播放</button>
+      </div>
+      <p id="animation-state" role="status" aria-live="polite">正在准备预览…</p>
+      <p class="pre-footer-test__mobile">本轮仅测试电脑版。手机动画待接入，此屏宽不会加载动画文件。</p>
+    </div>
+    <div id="pre-footer-demo"></div>
+  </main>
+  <div id="site-footer"></div>
+</body>
+</html>

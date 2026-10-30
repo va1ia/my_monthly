@@ -18,10 +18,12 @@ Q&A 支持两列 Google Sheet CSV 自动读取，已连接 MM Website Copy 的 Q
 
 Shop 商品展示墙、商品弹窗、收藏和本地购物车已实现，预览 http://127.0.0.1:4173/shop.html；商品 SVG 独立放在 assets/images/shop/products/，按编号替换后自动更新。说明见 [Shop 展示墙](pages/shop/sections/merch/README.md)；Stripe 美国配送收款接口已预留但未开启，见 [收款接入](docs/shop-checkout.md)。
 
+电脑版 Pre-footer 已按截图加入首页 Footer 前；默认同步叠加的透明视频约 8.9 MB（3440×1080；MP4 后备约 3.5 MB），独立对照页为 http://127.0.0.1:4173/pre-footer-preview.html，可切换原始 Lottie 与顺序播放。原始两份 JSON 保留，手机不加载。见 [Pre-footer 说明](components/pre-footer/README.md)。
+
 首页评论区已加入手机 SVG、整组等高的弧线循环评论与非手机端鼠标背景视差；已连接 Google Sheet 第三个工作表 Home: user comments，每 60 秒同步，无新增本地 JSON。见 [评论区说明](pages/home/sections/user-comments/README.md)。
 
 ## 当前状态
-首页 landing、导航和 Footer 已按参考站及用户截图实现；使用上传的 Logo、插画、社交图标和字体。首页评论区已实现，其余后续分区待开发，未配置部署。Newsletter 已连接 Supabase 保存名单（本地预览与 GitHub Pages 来源）；尚未接入邮件发送服务。共享链接配置见 content/shared/README.md。
+首页 landing、导航和 Footer 已按参考站及用户截图实现；使用上传的 Logo、插画、社交图标和字体。首页评论区与电脑版 Pre-footer 已实现，其余后续分区待开发，未配置部署。Newsletter 已连接 Supabase 保存名单（本地预览与 GitHub Pages 来源）；尚未接入邮件发送服务。共享链接配置见 content/shared/README.md。
 
 ## 文件结构
 ```text

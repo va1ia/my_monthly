@@ -8,6 +8,7 @@
 | 组件 | 说明 | 变体 | 状态 |
 | --- | --- | --- | --- |
 | Menu bar | [组件说明](../components/menu-bar/README.md) | 桌面 / 手机；当前页标记 | 已实现 |
+| Pre-footer | [组件说明](../components/pre-footer/README.md) | 电脑版；视频 / 原始 Lottie；同步叠加 / 顺序播放 | 已按截图接入首页与独立对照页，手机暂不加载 |
 | Footer | [组件说明](../components/footer/README.md) | brand / dark / light | 已实现；Supabase 名单收集已连接 |
 | Home hero（页面专属） | [分区说明](../pages/home/sections/hero/README.md) | 桌面 / 平板 / 手机；减少动画 | 已实现背景视差、碰杯、tag 和 marquee；下载徽章使用原站左上位移及实色阴影 |
 | Contact cards（页面专属） | [分区说明](../pages/contact/sections/cards/README.md) | 桌面 / 平板 / 手机 | 卡片、背景视差已实现；手机按截图排列，悬停变灰 |
@@ -17,6 +18,8 @@
 | Button | [组件说明](../components/button/README.md) | 待设计确认 | 目录预留 |
 
 ## 新增与变更
+Pre-footer：原始图片序列型 Lottie 保留，默认使用约 8.9 MB、3440×1080 的透明 WebM，约 3.5 MB 的 MP4 作为兼容后备；草坪为独立 SVG，与 Footer 共用 #3D8054；接近视口时加载、离开视口暂停，支持减少动态效果。测试页可比较相同长度的两份动画同步叠加和先后播放。云朵复用首页鼠标视差；三卡使用原站方向与颜色的实色悬停阴影，并支持键盘焦点。三卡现在整卡链接，内部 App Store 图案 / 箭头不单独交互；箭头圆形底色随卡片悬停滑入。新版 Loved / Calm / Bushes 直接引用上传素材，角色跟随 Ambassador，Calendar 按卡片圆角裁切。灌木及动画叶子可溢出到 Footer 上方，装饰 pointer-events:none。草坪路径已延伸画布两侧，移除接缝补色伪元素并将草坪底部背景设为同绿，消除边缘缺口 / 横线。云较上一版上移 1vw，Events 描边独立覆盖日历且保留在 Calm 图标下方。
+
 Contact 表单移除字段聚焦时的外侧粗描边，保留原细边框、提交按钮键盘焦点与必填校验。
 
 Footer 版权行缩短上方间距并增大字号，保持正常文档流；不增加垂直位移。

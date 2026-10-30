@@ -1,0 +1,69 @@
+{
+  "sources": [
+    {
+      "file": "default1.json",
+      "bytes": 39037680,
+      "gzipBytes": 28523215,
+      "sha256": "b81d6807986a6df19828f90ba98c475e9cda9000ca4dfad17efb1175b9cc2f15",
+      "frames": 240,
+      "fps": 24,
+      "durationSeconds": 10,
+      "width": 3439,
+      "height": 1080,
+      "embeddedImagePercent": 99.49
+    },
+    {
+      "file": "default2.json",
+      "bytes": 5330312,
+      "gzipBytes": 1426522,
+      "sha256": "0d826df5e6491a8eb05ddb8a505669980fbd4c04e4cafe0dcb0df1864ee55d91",
+      "frames": 240,
+      "fps": 24,
+      "durationSeconds": 10,
+      "width": 3439,
+      "height": 1080,
+      "embeddedImagePercent": 96.24
+    }
+  ],
+  "sourceOrder": [
+    "default1.json",
+    "default2.json"
+  ],
+  "sky": "#b8eafa",
+  "outputSize": [
+    3440,
+    1080
+  ],
+  "fps": 24,
+  "overlay": {
+    "file": "garden-overlay.mp4",
+    "bytes": 3465272,
+    "durationSeconds": 10
+  },
+  "sequential": {
+    "file": "garden-sequential.mp4",
+    "bytes": 3498865,
+    "durationSeconds": 20
+  },
+  "transparentOverlay": {
+    "file": "garden-overlay.webm",
+    "bytes": 8860922,
+    "durationSeconds": 10
+  },
+  "transparentSequential": {
+    "file": "garden-sequential.webm",
+    "bytes": 9097601,
+    "durationSeconds": 20
+  },
+  "ground": "#3d8054",
+  "displayCropHeight": 920,
+  "note": "WebM VP9 has alpha over native SVG terrain. MP4 precomposites corrected terrain as compatibility fallback. Original JSON untouched. Overlay synchronizes both sources; sequential does not hold the garden.",
+  "encoding": {
+    "vp9Crf": 22,
+    "h264Crf": 18,
+    "sourceFrameSize": [
+      3439,
+      1080
+    ]
+  }
+}

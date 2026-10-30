@@ -28,6 +28,8 @@ Shop 入口 shop.html，分区 merch、product-dialog。结构 pages/shop/sectio
 复制 `templates/event/` 到 `event/<slug>/`，或 `templates/article/` 到 `article/<slug>/`。模板内 `page.html` 是非完整结构片段，待选定框架后转换为对应页面模块；不得直接当作完成的网页发布。所有页面专属文件留在这个目录，包括只为该页使用的组件、字体或下载文件。创建专属组件时也配 README。
 
 ## 共享边界
+Pre-footer 为 components/pre-footer/ 中的共享组件，结构、样式、播放控制、用户原始 JSON、衍生视频及 Lottie Canvas vendor 均封装在组件内。首页先行接入，pre-footer-preview.html 为独立电脑版对照页；不通过 Footer 默认挂载到其他页面。素材转换器位于 scripts/tools/prepare-pre-footer.py，原文件不修改。
+
 滚动整页换色由 scripts/shared/scroll-background.js 与 styles/scroll-background.css 复用；各页面只在 content/<page>/background.json 配置分区选择器、色板变量、触发线和时长。分区背景透明，不以渐变模拟换色。详见 scripts/shared/README.md。
 
 真正跨页面复用的代码提取到 components/ 或 scripts/shared/；公共基础样式放 styles/foundations/。event/article 可以引用共享代码，但它们的专属文件不混入品牌页面的类型目录。素材避免为每个页面重复复制。页面目录本身不定义发布路由，后续由框架配置路由与资源路径。

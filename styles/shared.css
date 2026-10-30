@@ -6,6 +6,7 @@
 @import "./foundations/typography.css";
 @import "./foundations/layout.css";
 @import "../components/footer/footer.css";
+@import "../components/pre-footer/pre-footer.css";
 @import "../components/menu-bar/menu-bar.css";
 
 @import "./scroll-background.css";
