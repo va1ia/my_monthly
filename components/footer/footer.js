@@ -1,10 +1,14 @@
-// 目录：1. Footer 结构 2. 订阅适配接口 3. 背景变体与清理
+// 目录：1. 默认 Pre-footer 与 Footer 结构 2. 订阅适配接口 3. 背景变体与清理
 import { escapeHTML, linkAttributes } from '../../scripts/shared/dom.js';
+import { renderPreFooter } from '../pre-footer/pre-footer.js';
+import { mountPreFooter } from '../pre-footer/player.js';
+import { shouldShowPreFooter } from './page-policy.js';
 const asset = name => new URL(`../../assets/icons/${name}.svg`, import.meta.url).href;
-export function mountFooter(host, { items, legal, social, variant = 'brand', subscribe, year = new Date().getFullYear() }) {
+export function mountFooter(host, { items, legal, social, variant = 'brand', subscribe, year = new Date().getFullYear(), pageType = 'auto', preFooter = true }) {
   const controller = new AbortController();
+  const includePreFooter = shouldShowPreFooter({ pageType, preFooter }, host.ownerDocument.location.pathname);
   const id = `newsletter-${crypto.randomUUID()}`;
-  host.innerHTML = `<footer class="site-footer" data-variant="brand"><div class="site-footer__main">
+  host.innerHTML = `${includePreFooter ? renderPreFooter() : ''}<footer class="site-footer" data-variant="brand"><div class="site-footer__main">
     <div class="site-footer__newsletter"><h2>Subscribe to<br>our newsletter</h2>
       <form class="site-footer__form"><label class="visually-hidden" for="${id}">Email address</label><input id="${id}" type="email" name="email" autocomplete="email" placeholder="Yourname@email.com" required aria-describedby="${id}-status"><button type="submit" aria-label="Subscribe to newsletter">→</button></form>
       <p class="site-footer__status" id="${id}-status" role="status" aria-live="polite"></p>
@@ -15,8 +19,8 @@ export function mountFooter(host, { items, legal, social, variant = 'brand', sub
     <div class="site-footer__social">${social.map(item=>`<a ${linkAttributes({...item,external:true})} aria-label="${escapeHTML(item.label)}"><span class="site-footer__social-icon" style="--social-icon: url('${asset(item.icon)}')" aria-hidden="true"></span></a>`).join('')}</div></div>
     </div><p class="site-footer__copyright">© Copyright My Monthly ${escapeHTML(year)}. All Rights Reserved.</p></footer>`;
   const footer = host.querySelector('footer');
-  const form = host.querySelector('form');
-  const status = host.querySelector('[role="status"]');
+  const form = footer.querySelector('form');
+  const status = footer.querySelector('[role="status"]');
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (!subscribe) { status.textContent = 'Newsletter signup is not connected yet. Please try again later.'; return; }
@@ -36,5 +40,6 @@ export function mountFooter(host, { items, legal, social, variant = 'brand', sub
     host.querySelector('.site-footer__brand img').src = asset(value === 'light' ? 'wordmark-green' : 'wordmark-beige');
   }
   setVariant(variant);
-  return { setVariant, destroy() { controller.abort(); host.replaceChildren(); } };
+  const preFooterPlayer = includePreFooter ? mountPreFooter(host.querySelector('.pre-footer')) : null;
+  return { setVariant, destroy() { controller.abort(); preFooterPlayer?.destroy(); host.replaceChildren(); } };
 }

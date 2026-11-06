@@ -18,7 +18,7 @@ const [navigation, content, form, newsletter, faq, faqColors, background] = awai
   readJSON('../../content/shared/navigation.json'), readJSON('../../content/contact/page.json'),
   readJSON('../../content/contact/form.json').catch(() => ({ enabled: false })),
   readJSON('../../content/shared/newsletter.json').catch(() => ({ enabled: false })),
-  readJSON('../../content/contact/faq.json'), readJSON('../../content/contact/faq-colors.json'), readJSON('../../content/contact/background.json')
+  readJSON('../../content/contact/faq.json'), readJSON('../../content/contact/faq-colors.json'), readJSON('../../content/shared/pre-footer-background.json')
 ]);
 document.querySelector('#main').innerHTML = renderCards(content) + renderContactForm(content.form) + renderFAQ();
 mountMenuBar(document.querySelector('#site-header'), { items: navigation.items, currentPage: 'contact' });

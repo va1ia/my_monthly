@@ -1,10 +1,11 @@
 // 目录：1. 配置与状态 2. 滚动、布局变化与清理
-// 每个分区顶部越过视口 triggerLine 后，应用该分区状态；上滚自动回退。
+// 每个可见分区顶部越过 triggerLine + triggerOffsetPx 后应用状态；上滚自动回退。
 export function mountScrollBackground(target, config, { onChange = () => {} } = {}) {
   const controller = new AbortController();
   const options = { signal: controller.signal, passive: true };
   const sections = config.sections.map(state => ({ state, element: document.querySelector(state.selector) })).filter(entry => entry.element);
   const line = Math.min(1, Math.max(0, config.triggerLine ?? .75));
+  const offset = config.triggerOffsetPx ?? 0;
   const originalBackground = target.style.getPropertyValue('--page-background');
   const originalDuration = target.style.getPropertyValue('--page-background-duration');
   const hadClass = target.classList.contains('scroll-background');
@@ -16,7 +17,9 @@ export function mountScrollBackground(target, config, { onChange = () => {} } = 
     let next = config.default;
     let nextIndex = -1;
     for (const [index, entry] of sections.entries()) {
-      if (entry.element.getBoundingClientRect().top <= innerHeight * line) { next = entry.state; nextIndex = index; }
+      // 手机隐藏的 Pre-footer 不应因空矩形 top=0 而触发换色。
+      if (!entry.element.getClientRects().length) continue;
+      if (entry.element.getBoundingClientRect().top <= innerHeight * line + offset) { next = entry.state; nextIndex = index; }
     }
     if (next === current) return;
     const duration = nextIndex < currentIndex ? (config.returnTransitionMs ?? config.transitionMs ?? 400) : (config.transitionMs ?? 400);

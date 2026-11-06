@@ -14,4 +14,4 @@ const [navigation, newsletter] = await Promise.all([
 ]);
 document.querySelector('#main').innerHTML = renderEventPage();
 mountMenuBar(document.querySelector('#site-header'), { items: navigation.items, currentPage: 'event' });
-mountFooter(document.querySelector('#site-footer'), { ...navigation, subscribe: createNewsletterSubscriber(newsletter) });
+mountFooter(document.querySelector('#site-footer'), { ...navigation, pageType: 'event', subscribe: createNewsletterSubscriber(newsletter) });

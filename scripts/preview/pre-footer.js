@@ -7,7 +7,7 @@ const response = await fetch(new URL('../../content/shared/navigation.json', imp
 if (!response.ok) throw new Error('Navigation could not be loaded');
 const navigation = await response.json();
 mountMenuBar(document.querySelector('#site-header'), {items:navigation.items,currentPage:'home'});
-mountFooter(document.querySelector('#site-footer'), navigation);
+mountFooter(document.querySelector('#site-footer'), { ...navigation, preFooter: false });
 document.querySelector('#pre-footer-demo').innerHTML = renderPreFooter();
 const section = document.querySelector('.pre-footer');
 const player = mountPreFooter(section);

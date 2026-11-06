@@ -11,7 +11,7 @@ pageControl.value = [...pageControl.options].some(option => option.value === req
 const menu = mountMenuBar(document.querySelector('#site-header'), { items: config.items, currentPage: pageControl.value });
 const newsletterResponse = await fetch(new URL('../../content/shared/newsletter.json', import.meta.url));
 const newsletterConfig = newsletterResponse.ok ? await newsletterResponse.json() : { enabled: false };
-const footer = mountFooter(document.querySelector('#site-footer'), { ...config, subscribe: createNewsletterSubscriber(newsletterConfig) });
+const footer = mountFooter(document.querySelector('#site-footer'), { ...config, preFooter: false, subscribe: createNewsletterSubscriber(newsletterConfig) });
 pageControl.addEventListener('change', () => {
   menu.setCurrentPage(pageControl.value);
   const url = new URL(location.href); url.searchParams.set('page', pageControl.value); history.replaceState(null, '', url);

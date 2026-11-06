@@ -6,6 +6,7 @@
 - 动画检查结论
 - 播放方式
 - 位置与交互
+- FAQ 背景衔接
 - 加载与可访问性
 - 素材准备与来源
 - 验证与限制
@@ -20,9 +21,9 @@
 ## 接入与设备范围
 `pre-footer.js` 输出截图中的三张卡片、云朵与花园字样；`pre-footer.css` 随全站共享样式加载。`player.js` 导出 `mountPreFooter(section)`，返回 `select(source)`、`restart()` 和 `destroy()`。source 为 video / lottie，始终同步叠加循环。
 
-当前只在首页 Footer 之前和 `pre-footer-preview.html` 接入，992px 起显示；手机及小平板暂不显示，也不加载动画文件，等待用户另提供手机版素材。共享 Footer 本身保持原接口。三张卡片各只有一个链接：左卡前往本地 download.html，右上前往 Ambassador 申请页，右下前往 Luma。App Store 图案及两个箭头为不可单独聚焦、不可单独点击的视觉提示，没有嵌套链接；整卡可用鼠标和键盘激活。Google Play 地址尚未提供，暂不显示。
+所有普通品牌页面默认由共享 Footer 自动挂载一份；文章页和活动页排除。当前 Home / Contact / Download / Shop 已接入，`pre-footer-preview.html` 保留独立手动对照。规则位于 `components/footer/page-policy.js`，未来普通页面只需调用 mountFooter，无需重复挂载。992px 起显示；手机及小平板暂不显示，也不加载动画文件，等待用户另提供手机版素材。共享 Footer 统一管理自动挂载与销毁；自定义路由的文章 / 活动页通过 pageType 显式排除。三张卡片各只有一个链接：左卡前往本地 download.html，右上前往 Ambassador 申请页，右下前往 Luma。App Store 图案及两个箭头为不可单独聚焦、不可单独点击的视觉提示，没有嵌套链接；整卡可用鼠标和键盘激活。Google Play 地址尚未提供，暂不显示。
 
-首页默认采用网页视频 / 同步叠加。独立测试页可对照视频和新版原始 JSON；这些测试控制不出现在正式首页。
+普通页面默认采用网页视频 / 同步叠加。独立测试页可对照视频和新版原始 JSON；这些测试控制不出现在正式首页。
 
 ## 动画检查结论
 2026-11-06 用户上传的 V2 已替换。主动画为 480 帧 / 20 秒，叶子沿用现有 240 帧 / 10 秒版本；两层均为 3439×1080、24fps、透明背景。主动画保持原速，叶子在其中循环两次。
@@ -79,3 +80,6 @@ Lottie Canvas 播放器固定版本 5.13.0，vendor/ 包含 MIT 授权文件；�
 
 ## 验证与限制
 见 `docs/pre-footer-verification.md`。精确品牌数值、手机版仍待确认。此次未部署，也未提交任何申请或订阅表单。
+
+## FAQ 背景衔接
+Pre-footer 的天空渐变从透明起步，32% 处达到天空蓝。在启用 scroll-background 的页面，组件底色也设为透明，顶部直接透出 body 当前正在过渡的颜色，因此慢速换色、上滚反向切换和快速滚动都不会产生 FAQ / Pre-footer 色块接缝。未启用整页换色的页面和独立预览保留 darker-linen 底色。无需额外颜色动画或逐帧脚本，原触发点及双向时长不变。

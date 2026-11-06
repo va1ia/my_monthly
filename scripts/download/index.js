@@ -13,10 +13,11 @@ async function readJSON(path) {
   if (!response.ok) throw new Error(`Could not load ${path}`);
   return response.json();
 }
-const [navigation, hero, faq, colors, newsletter] = await Promise.all([
+const [navigation, hero, faq, colors, newsletter, background] = await Promise.all([
   readJSON('../../content/shared/navigation.json'), readJSON('../../content/home/hero.json'),
   readJSON('../../content/contact/faq.json'), readJSON('../../content/contact/faq-colors.json'),
-  readJSON('../../content/shared/newsletter.json').catch(() => ({ enabled: false }))
+  readJSON('../../content/shared/newsletter.json').catch(() => ({ enabled: false })),
+  readJSON('../../content/shared/pre-footer-background.json')
 ]);
 document.querySelector('#main').innerHTML = renderDownloadHero(hero.downloadHref, downloadContent.version) + renderFAQ();
 mountMenuBar(document.querySelector('#site-header'), { items: navigation.items, currentPage: 'download' });
@@ -24,4 +25,4 @@ mountFooter(document.querySelector('#site-footer'), { ...navigation, subscribe: 
 mountPointerParallax(document.querySelector('.download-hero'));
 mountFAQ(document.querySelector('.contact-faq'), faq, colors);
 
-mountScrollBackground(document.body, { triggerLine: .65, transitionMs: 2000, returnTransitionMs: 700, default: { colorToken: '--color-picnic-date' }, sections: [{ selector: '.contact-faq__inner', colorToken: '--color-darker-linen' }] });
+mountScrollBackground(document.body, background);

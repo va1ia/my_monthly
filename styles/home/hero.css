@@ -27,7 +27,7 @@
 .home-hero__marquee-track { display: flex; width: max-content; animation: home-logo-scroll var(--marquee-duration, 38s) linear infinite; }
 .home-hero__marquee[hidden] { display: none; }
 /* 以参考 PNG 中已调整的 SVG 导出尺寸为比例，取消等宽格子的内部留白。 */
-.home-hero__logos { --marquee-unit: clamp(.615px, .0576923vw, .854px); flex: none; display: flex; align-items: center; list-style: none; gap: calc(74 * var(--marquee-unit)); padding: 0 calc(74 * var(--marquee-unit)) 0 0; margin: 0; height: clamp(64px, 6vw, 89px); }
+.home-hero__logos { --marquee-unit: clamp(.615px, .0576923vw, .854px); flex: none; display: flex; align-items: center; list-style: none; gap: calc(74 * var(--marquee-unit)); padding: 0 calc(74 * var(--marquee-unit)) 0 0; margin: 0; height: clamp(64px, 7vw, 89px); }
 .home-hero__logos li { display: flex; align-items: center; justify-content: center; flex: none; width: calc(var(--logo-width) * var(--marquee-unit)); height: calc(var(--logo-height) * var(--marquee-unit)); }
 .home-hero__logos img { width: 100%; height: 100%; max-width: none; object-fit: contain; }
 .home-hero__marquee-toggle { position: absolute; right: 8px; bottom: 6px; border: 1px solid currentColor; border-radius: 50%; width: 28px; height: 28px; padding: 0; background: var(--color-darker-green); color: var(--color-morning-fog); cursor: pointer; opacity: 0; }

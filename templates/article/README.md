@@ -19,3 +19,5 @@
 
 ## 公共依赖
 接入页面时先引用 styles/shared.css，再加载本页样式。公共 Header、Footer 和按钮直接引用共享实现；不要复制到此目录。路径由最终构建方式确定。
+
+本类型页面不挂载 Pre-footer。调用共享 Footer 时使用 `mountFooter(host, { ...navigation, pageType: 'article' })`，即使未来改为自定义 URL 也保持排除。默认 `article/<slug>/` 路径同时有自动排除保护。

@@ -1,7 +1,9 @@
 /* 目录：1. 电脑版布局 2. 卡片与链接 3. 动画及背景 4. 焦点、手机占位与减少动画
    按用户 2026-10-30 截图还原，精确布局值待 Figma 确认。 */
 /* 1. 电脑版布局 */
-.pre-footer { position: relative; z-index: 1; isolation: isolate; margin-bottom: -1px; padding-top: clamp(28px, 3vw, 52px); overflow: visible; background: linear-gradient(180deg, var(--color-morning-fog), var(--color-linen-sheet) 18%, var(--color-pre-footer-sky) 52%, var(--color-pre-footer-sky) calc(100% - 2px), var(--color-picnic-date) calc(100% - 2px)); }
+.pre-footer { position: relative; z-index: 1; isolation: isolate; margin-bottom: -1px; padding-top: clamp(28px, 3vw, 52px); overflow: visible; background: linear-gradient(180deg, transparent, var(--color-pre-footer-sky) 32%, var(--color-pre-footer-sky) calc(100% - 2px), var(--color-picnic-date) calc(100% - 2px)) var(--color-darker-linen); }
+/* 顶部直接透出正在过渡的页面底色，每一帧都与 FAQ 连续；独立页面保留浅色底。 */
+.scroll-background .pre-footer { background-color: transparent; }
 .pre-footer__cards { position: relative; z-index: 2; width: min(76.5%, 1120px); margin-inline: auto; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 4.2vw, 64px); }
 .pre-footer__download-card, .pre-footer__ambassador-card, .pre-footer__events-card { position: relative; color: var(--color-before-dawn); text-decoration: none; border: 2px solid var(--color-before-dawn); border-radius: clamp(20px, 2vw, 30px); transition: transform 200ms ease, box-shadow 200ms ease; }
 .pre-footer__download-card { aspect-ratio: 340 / 383; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: clamp(18px, 2.2vw, 32px); padding: 7% 6%; background: var(--color-picnic-date); color: var(--color-morning-fog); text-align: center; }

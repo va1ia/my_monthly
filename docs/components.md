@@ -8,23 +8,25 @@
 | 组件 | 说明 | 变体 | 状态 |
 | --- | --- | --- | --- |
 | Menu bar | [组件说明](../components/menu-bar/README.md) | 桌面 / 手机；当前页标记 | 已实现 |
-| Pre-footer | [组件说明](../components/pre-footer/README.md) | 电脑版；视频 / 原始 JSON；同步叠加循环 | 已按截图接入首页与独立对照页，手机暂不加载 |
+| Pre-footer | [组件说明](../components/pre-footer/README.md) | 电脑版；视频 / 原始 JSON；同步叠加循环 | 普通页面由 Footer 默认挂载；文章 / 活动排除；手机暂不加载 |
 | Footer | [组件说明](../components/footer/README.md) | brand / dark / light | 已实现；Supabase 名单收集已连接 |
 | Home hero（页面专属） | [分区说明](../pages/home/sections/hero/README.md) | 桌面 / 平板 / 手机；减少动画 | 已实现背景视差、碰杯、tag 和 marquee；下载徽章使用原站左上位移及实色阴影 |
 | Contact cards（页面专属） | [分区说明](../pages/contact/sections/cards/README.md) | 桌面 / 平板 / 手机 | 卡片、背景视差已实现；手机按截图排列，悬停变灰 |
-| Contact FAQ（页面专属） | [分区说明](../pages/contact/sections/faq/README.md) | SVG 底图 + HTML 文案 / FAQ 链接预留；向下擦入与整页换色 | 已实现；Google Sheet Q&A: Preview 已连接 |
+| 共享 FAQ（Home / Contact / Download） | [分区说明](../pages/contact/sections/faq/README.md) | SVG 底图 + HTML 文案 / FAQ 链接预留；向下擦入与整页换色 | 已实现；Google Sheet Q&A: Preview 已连接 |
 | Contact form（页面专属） | [分区说明](../pages/contact/sections/form/README.md) | 等待 / 成功 / 失败 | Supabase 已连接；表单按截图修正，Zapier 分流已连接 |
 | Home user comments（页面专属） | [分区说明](../pages/home/sections/user-comments/README.md) | 桌面 / 手机；整组等高、弧线循环、非手机鼠标视差、减少动画 | 已实现；Home: user comments 已连接，每 60 秒同步 |
 | Button | [组件说明](../components/button/README.md) | 待设计确认 | 目录预留 |
 
 ## 新增与变更
+Pre-footer 默认规则：共享 Footer 自动在普通页面挂载一份，Home / Home / Contact / Download / Shop 已统一；文章 / 活动路径及 pageType:article / event 排除，技术预览通过 preFooter:false 关闭。首页不再单独重复渲染，销毁 Footer 时一并清理播放器。详见 Footer 说明和 docs/architecture.md。
+
 共享 FAQ：仅收起背景色块时叠加 300ms 透明度淡出；展开不淡入，保留原有擦入。
 
 共享 FAQ：色块收起时增加 360ms 反向擦出，展开保留 440ms 擦入；支持中途反向切换和减少动态效果。
 
-共享 FAQ：回答正文增加对称左右内边距（12–28px 随屏宽调整），比问题标题进一步内缩，Contact / Download 共用。
+共享 FAQ：回答正文增加对称左右内边距（12–28px 随屏宽调整），比问题标题进一步内缩，Home / Contact / Download 共用。
 
-共享 FAQ：横线两端按色块圆角半径内缩至切点，Contact / Download 和各屏宽同步，保留折叠交互及原行距。
+共享 FAQ：横线两端按色块圆角半径内缩至切点，Home / Contact / Download 和各屏宽同步，保留折叠交互及原行距。
 
 Contact Form：背景 pattern 底部 30% 渐变淡出至透明，桌面 / 手机共用图片蒙版，保留面板及输入内容不透明。
 
@@ -59,6 +61,12 @@ Shop 商品弹窗与本地购物车：[组件说明](../pages/shop/sections/prod
 
 Contact 表单 Get In Touch 按钮：与导航 Download 一致的左侧圆形扩散交互，支持键盘焦点、禁用状态与减少动画偏好。
 
-共享 FAQ：[组件说明](../components/faq/README.md)，Contact / Download 共用结构、样式与 Google Sheet 数据；原 Contact 入口兼容保留。Download 首屏：[分区说明](../pages/download/sections/hero/README.md)，双端素材、绿色背景与鼠标视差。
+共享 FAQ：[组件说明](../components/faq/README.md)，Home / Contact / Download 共用结构、样式与 Google Sheet 数据；原 Contact 入口兼容保留。Download 首屏：[分区说明](../pages/download/sections/hero/README.md)，双端素材、绿色背景与鼠标视差。
 
 Menu bar：支持 hiddenInMenu 配置，About 与 Shop 暂时在所有设备顶部菜单隐藏；Footer 保留。
+
+FAQ 前后的整页换色：Contact / Download 共用 content/shared/pre-footer-background.json：Pre-footer 顶部距离视口底部 80px 时开始由 picnic-date 过渡到 darker-linen，向下 2000ms、上滚恢复 700ms。FAQ 本身不再触发换色。手机上 Pre-footer 隐藏，不触发此过渡；Footer 保留独立绿色。
+
+FAQ / Pre-footer 衔接：天空渐变以透明起步，启用整页换色时直接透出 body 的动画底色，避免 2s 过渡中固定浅色顶部产生分界线；独立组件仍保留浅色底。
+
+首页 FAQ 使用 linen variant，固定 Darker Linen，不接入整页换色；与 Pre-footer 默认浅色顶部连续。Contact / Download 保留滚动换色。

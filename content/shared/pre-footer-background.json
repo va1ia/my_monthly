@@ -1,5 +1,6 @@
 {
-  "triggerLine": 0.65,
+  "triggerLine": 1,
+  "triggerOffsetPx": 80,
   "transitionMs": 2000,
   "returnTransitionMs": 700,
   "default": {
@@ -7,7 +8,7 @@
   },
   "sections": [
     {
-      "selector": ".contact-faq__inner",
+      "selector": ".pre-footer",
       "colorToken": "--color-darker-linen"
     }
   ]

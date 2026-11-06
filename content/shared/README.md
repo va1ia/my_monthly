@@ -3,6 +3,7 @@
 ## 目录
 - 配置字段
 - 当前链接状态
+- Pre-footer 背景切换
 
 ## 配置字段
 navigation.json 的 items 用于主导航和 Footer。每项含 id、label、href，可选 external（新窗口，附 noopener noreferrer）。legal 为法律链接；social 为 label、href、icon，icon 对应 assets/icons/ 中的文件名。
@@ -13,3 +14,6 @@ Shop 已指向 ./shop.html。Contact、Download、法律及社交链接来自 ht
 顶部菜单支持 navigation.json 项目的 hiddenInMenu: true；About / Shop 暂时隐藏，桌面和手机均不渲染，不进入键盘焦点。Footer 不受影响；恢复时删除该字段或设为 false。
 
 News 显示文案已改为 Press，保留原 news 标识与目标；新增 Event 指向 event.html。
+
+## Pre-footer 背景切换
+Contact / Download 共用 content/shared/pre-footer-background.json：Pre-footer 顶部距离视口底部 80px 时开始由 picnic-date 过渡到 darker-linen，向下 2000ms、上滚恢复 700ms。FAQ 本身不再触发换色。手机上 Pre-footer 隐藏，不触发此过渡；Footer 保留独立绿色。 triggerLine 为视口比例（1 即底边），triggerOffsetPx 为提前量；transitionMs / returnTransitionMs 为双向时长，default / sections 指定既有颜色变量。

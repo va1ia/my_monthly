@@ -1,7 +1,7 @@
 // 目录：1. 分区结构 2. 可访问折叠项与颜色
 import { escapeHTML } from '../../scripts/shared/dom.js';
-export function renderFAQ() {
-  return `<section class="contact-faq" aria-labelledby="faq-title"><div class="contact-faq__inner"><div class="contact-faq__note"><h2 id="faq-title" class="contact-faq__title">Questions?<br>We’ve got you.</h2><p>Need more info? Head over to our <a href="./faq.html">FAQ page</a> for quick answers and more details.</p></div><div class="contact-faq__list"></div></div></section>`;
+export function renderFAQ({ variant = 'default' } = {}) {
+  return `<section class="contact-faq${variant === 'linen' ? ' contact-faq--linen' : ''}" aria-labelledby="faq-title"><div class="contact-faq__inner"><div class="contact-faq__note"><h2 id="faq-title" class="contact-faq__title">Questions?<br>We’ve got you.</h2><p>Need more info? Head over to our <a href="./faq.html">FAQ page</a> for quick answers and more details.</p></div><div class="contact-faq__list"></div></div></section>`;
 }
 const safeColor = value => {
   const hex = typeof value === 'string' ? value.trim().replace(/^#/, '') : '';

@@ -5,6 +5,7 @@
 - 源文件与分类
 - 媒体验证
 - 页面验证
+- 默认挂载规则验证
 - 限制
 
 ## 本轮范围
@@ -30,6 +31,16 @@
 - 992 / 1280 / 1920px 无横向溢出，所有组件图片加载成功，包括分类后 SVG。
 - 390px 初次访问：pre-footer display:none，video src 为空，组件 SVG / 视频 / poster / JSON / vendor 请求数为 0。
 - 首页截图已查看，V2 与原有草坡、灌木、云及 Footer 的衔接正常；git diff --check 通过。
+
+## 默认挂载规则验证
+2026-11-06，默认接入改为共享 mountFooter 统一管理：
+- Home / Contact / Download / Shop 各一份 Pre-footer，位于 Footer 前；event.html 为零份。
+- pre-footer-preview.html 保留一份手动对照实例，component-preview.html 为零份，不重复自动挂载。
+- page-policy.test.mjs 检查默认页面、仓库子路径、event / article 索引和详情路径、自定义类型排除及预览开关，全部通过；当前不存在完整文章页面，因此文章路径以策略测试与浏览器 pageType:article 实例验证。
+- 390px 下四个普通页面中的 Pre-footer 均隐藏、无横向溢出，images / media / source / vendor 请求均为 0；Event 没有 Pre-footer 且请求为 0。
+- Contact 1368px 桌面截图已查看，素材均加载，视频为 3440×1080、20 秒，无横向溢出，草坡与 Footer 保持 1px 衔接重叠。
+- 通过隐藏的独立实例和本地模拟订阅器验证：成功状态只写入 Footer 自己的状态区，Pre-footer 状态保持空白；没有发送真实订阅。destroy() 后 host 无子元素，文章类型实例不挂载 Pre-footer。
+- 规则同步至根 README、架构、组件说明和普通 / 文章 / 活动模板。
 
 ## 限制
 V2 主 JSON 约 80MB，正常首页仅用约 16MB 视频，原 JSON 仅用于保存源文件与手动对照。完整大 JSON 对照测试期间浏览器运行时连接重置，原因未确认，本轮不将其记录为成功验证；边界逻辑另用轻量夹具通过。没有测量 Safari / Windows / 低内存设备性能。位图清晰度仍有原素材上限；MP4 含固定背景，在接缝裁切，跨 Footer 叶子需要透明 WebM / Canvas。手机版动画暂未接入。

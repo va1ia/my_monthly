@@ -28,9 +28,9 @@ Shop 入口 shop.html，分区 merch、product-dialog。结构 pages/shop/sectio
 复制 `templates/event/` 到 `event/<slug>/`，或 `templates/article/` 到 `article/<slug>/`。模板内 `page.html` 是非完整结构片段，待选定框架后转换为对应页面模块；不得直接当作完成的网页发布。所有页面专属文件留在这个目录，包括只为该页使用的组件、字体或下载文件。创建专属组件时也配 README。
 
 ## 共享边界
-Pre-footer 为 components/pre-footer/ 中的共享组件，结构、样式、播放控制、source/ 中的新版原始 JSON、media/ 中的三份播放资源、images/cards/ 与 images/garden/ 分类静态插画及 Lottie Canvas vendor 均封装在组件内。首页先行接入，pre-footer-preview.html 为独立电脑版对照页；不通过 Footer 默认挂载到其他页面。素材转换器位于 scripts/tools/prepare-pre-footer.py，原文件不修改。
+Pre-footer 为 components/pre-footer/ 中的共享组件，结构、样式、播放控制、source/ 中的新版原始 JSON、media/ 中的三份播放资源、images/cards/ 与 images/garden/ 分类静态插画及 Lottie Canvas vendor 均封装在组件内。普通页面默认由共享 mountFooter 自动挂载，Home / Contact / Download / Shop 已接入；文章和活动页面（包括 event.html 及 event/、article/ 路径）排除。page-policy.js 为统一判定入口；自定义文章 / 活动 URL 须传 `pageType: 'article'` / `'event'`，新普通页面不得再独立追加一份 Pre-footer。pre-footer-preview.html 和 component-preview.html 作为技术预览通过 preFooter:false 关闭自动挂载，前者保留手动实例用于对照。素材转换器位于 scripts/tools/prepare-pre-footer.py，原文件不修改。
 
-滚动整页换色由 scripts/shared/scroll-background.js 与 styles/scroll-background.css 复用；各页面只在 content/<page>/background.json 配置分区选择器、色板变量、触发线和时长。分区背景透明，不以渐变模拟换色。详见 scripts/shared/README.md。
+滚动整页换色由 scripts/shared/scroll-background.js 与 styles/scroll-background.css 复用；Contact / Download 共用 content/shared/pre-footer-background.json，以 Pre-footer 接近视口底部（提前 80px）触发，隐藏分区不触发；其他场景可在页面数据目录配置。分区背景透明，不以渐变模拟换色。详见 scripts/shared/README.md。
 
 真正跨页面复用的代码提取到 components/ 或 scripts/shared/；公共基础样式放 styles/foundations/。event/article 可以引用共享代码，但它们的专属文件不混入品牌页面的类型目录。素材避免为每个页面重复复制。页面目录本身不定义发布路由，后续由框架配置路由与资源路径。
 
@@ -39,6 +39,6 @@ Pre-footer 为 components/pre-footer/ 中的共享组件，结构、样式、播
 
 颜色统一在 styles/foundations/tokens.css 定义；组件、页面和预览直接使用色板新名称（如 --color-picnic-date、--color-linen-sheet），不再保留旧颜色别名。阴影值也集中在该文件；Footer 的 --footer-bg / --footer-fg 仅用于组件背景变体。SVG 原始素材保留原文件色值，不按最近颜色重染。
 
-Download 入口 download.html，结构 pages/download/sections/hero/，样式 styles/download/index.css，脚本 scripts/download/index.js，素材 assets/images/download/。首页 pattern 与 App Store 直接复用。FAQ 已提至 components/faq/ 与 scripts/shared/faq.js，Contact 原入口保留兼容转发，双页共用 content/contact/faq.json 和颜色配置。
+Download 入口 download.html，结构 pages/download/sections/hero/，样式 styles/download/index.css，脚本 scripts/download/index.js，素材 assets/images/download/。首页 pattern 与 App Store 直接复用。FAQ 已提至 components/faq/ 与 scripts/shared/faq.js，Contact 原入口保留兼容转发，Home / Contact / Download 三页共用 content/contact/faq.json 和颜色配置；首页在评论区之后、Pre-footer 之前挂载 FAQ。
 
 Event 活动索引入口 event.html，结构 pages/event/event.js、样式 styles/event/index.css、脚本 scripts/event/index.js；具体活动继续使用 event/<slug>/，不与索引混放。

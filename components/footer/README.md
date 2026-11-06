@@ -2,6 +2,7 @@
 
 ## 目录
 - 文件与布局
+- 默认 Pre-footer 规则
 - 接入接口
 - 背景变体
 - 订阅接口
@@ -15,12 +16,28 @@ footer.js 管理结构和接口，footer.css 管理样式。桌面为订阅/Logo
 
 页面导航和法律链接统一使用 400 字重；不显示下划线，悬停时以元素正中心为原点，在 180ms 内放大至 1.1 倍，移出还原。键盘焦点保留外框，减少动画偏好下即时切换。
 
+## 默认 Pre-footer 规则
+共享 Footer 默认在自身前方挂载一份 Pre-footer，结构位于同一 host 中。普通品牌页面不需要单独渲染或调用 mountPreFooter；当前 Home、Contact、Download、Shop 已统一使用此入口。移动端沿用 Pre-footer 的设备规则：992px 以下隐藏且不加载动画素材。
+
+page-policy.js 为唯一判定入口：
+
+- 普通页面默认启用，pageType 默认 auto。
+- event.html / events.html、article.html / articles.html 及 event/、events/、article/、articles/ 路径段自动排除，兼容站点子目录部署。
+- 自定义 URL 的活动 / 文章页必须传 pageType:'event' / 'article'；活动索引入口也显式声明，避免改路由后误加。
+- preFooter:false 只用于组件预览等技术页面或显式不挂载的调用；不能用 preFooter:true 绕过文章 / 活动排除。
+- pre-footer-preview.html 已手动挂载供测试，因此关闭 Footer 自动挂载；component-preview.html 只测试 Footer 变体，也显式关闭。
+
+Footer 的 destroy() 同时销毁自动挂载的 Pre-footer（视频、观察器及鼠标监听），然后清空 host。订阅状态始终限定在 .site-footer 内，避免与 Pre-footer 的状态提示混用。
+
+策略验证：`node components/footer/page-policy.test.mjs`。
+
 ## 接入接口
 ```js
 import { mountFooter } from './components/footer/footer.js';
 const footer = mountFooter(document.querySelector('#site-footer'), {
   ...navigation,
   variant: 'brand',
+  // pageType: 'article' / 'event'，内容页须声明；普通页面省略即可。
   // subscribe: async (email, { signal }) => { /* 等待真实服务成功，否则抛错 */ }
 });
 footer.setVariant('light');
