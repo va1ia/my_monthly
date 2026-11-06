@@ -20,7 +20,8 @@ export function mountPreFooter(section) {
   const options = {signal:controller.signal};
   const desktop = matchMedia('(min-width: 992px)');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const video = section.querySelector('video');
+  const video = section.querySelector('.pre-footer__video');
+  const loved = section.querySelector('.pre-footer__loved-video');
   const raw = section.querySelector('.pre-footer__raw');
   const toggle = section.querySelector('.pre-footer__motion-toggle');
   const status = section.querySelector('.pre-footer__status');
@@ -29,6 +30,7 @@ export function mountPreFooter(section) {
   let visible = false, near = false, paused = false, allowMotion = false, generation = 0;
   let format = video.canPlayType('video/webm; codecs="vp9"') ? 'webm' : 'mp4';
   let players = [], activePart = 0, loops = 0, rawController;
+  let lovedVisible = false, lovedFormat = loved.canPlayType('video/webm; codecs="vp9"') ? 'webm' : 'mp4';
 
   function canPlay() { return desktop.matches && visible && !document.hidden && !paused && (!reduced.matches || allowMotion); }
   function emit() {
@@ -46,6 +48,10 @@ export function mountPreFooter(section) {
     section.dispatchEvent(new CustomEvent('prefooterstate', {detail:{source,mode,state,loops,part:activePart + 1}}));
   }
   function update() {
+    const lovedMotion = desktop.matches && lovedVisible && !document.hidden && !paused && (!reduced.matches || allowMotion);
+    section.dataset.lovedMotion = lovedMotion ? 'playing' : 'paused';
+    if (lovedMotion && loved.readyState >= 2) loved.play().catch(() => {});
+    else loved.pause();
     const play = canPlay() && ready;
     if (source === 'video') {
       if (play) video.play().catch(() => { paused = true; emit(); });
@@ -63,7 +69,34 @@ export function mountPreFooter(section) {
       if (!image.getAttribute('src')) image.src = image.dataset.preFooterSrc;
     });
     video.poster = resource('./media/garden-poster.webp');
+    if (!loved.getAttribute('src')) {
+      loved.src = resource(`./media/cards/loved.${lovedFormat}`);
+      loved.load();
+    }
   }
+  function lovedFallback() {
+    if (lovedFormat !== 'webm') return false;
+    lovedFormat = 'mp4';
+    loved.src = resource('./media/cards/loved.mp4');
+    loved.load();
+    return true;
+  }
+  loved.addEventListener('loadeddata', () => {
+    if (lovedFormat === 'webm') {
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 1;
+      try {
+        const context = canvas.getContext('2d', {willReadFrequently:true});
+        context.drawImage(loved, 0, 0, 1, 1, 0, 0, 1, 1);
+        if (context.getImageData(0, 0, 1, 1).data[3] > 0 && lovedFallback()) return;
+      } catch { if (lovedFallback()) return; }
+    }
+    section.dataset.lovedReady = 'true';
+    update();
+  }, options);
+  loved.addEventListener('error', () => {
+    if (!lovedFallback()) section.dataset.lovedReady = 'false';
+  }, options);
   function clearRaw() {
     rawController?.abort();
     rawController = null;
@@ -191,6 +224,11 @@ export function mountPreFooter(section) {
     visible = entries[0].isIntersecting;
     update();
   }, {threshold:0});
+  const lovedObserver = new IntersectionObserver(entries => {
+    lovedVisible = entries[0].isIntersecting;
+    update();
+  }, {threshold:0});
+  lovedObserver.observe(section.querySelector('.pre-footer__loved-art'));
   loadObserver.observe(section); playObserver.observe(section.querySelector('.pre-footer__garden'));
   desktop.addEventListener('change', () => {
     if (desktop.matches) { ensureLoaded(); players.forEach(player => player.resize()); }
@@ -215,7 +253,9 @@ export function mountPreFooter(section) {
     },
     destroy() {
       generation++; controller.abort(); parallax.destroy(); clearRaw();
-      loadObserver.disconnect(); playObserver.disconnect();
+      loadObserver.disconnect(); playObserver.disconnect(); lovedObserver.disconnect();
+      loved.pause(); loved.removeAttribute('src'); loved.load();
+      section.dataset.lovedMotion = 'paused';
       video.pause(); video.removeAttribute('src'); video.load();
     }
   };

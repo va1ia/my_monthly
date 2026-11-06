@@ -70,3 +70,5 @@ FAQ 前后的整页换色：Contact / Download 共用 content/shared/pre-footer-
 FAQ / Pre-footer 衔接：天空渐变以透明起步，启用整页换色时直接透出 body 的动画底色，避免 2s 过渡中固定浅色顶部产生分界线；独立组件仍保留浅色底。
 
 首页 FAQ 使用 linen variant，固定 Darker Linen，不接入整页换色；与 Pre-footer 默认浅色顶部连续。Contact / Download 保留滚动换色。
+
+Pre-footer Loved：使用镜像、裁剪对齐后的透明循环视频，角色及静态后备以 scale 1.045 显示并左移自身宽度的 4%，四个原有小装饰以不同节奏轻微上下漂浮；各自可见时播放、离屏暂停，支持减少动态效果和共享暂停控制。原始 MOV 归 source/，播放媒体归 media/cards/。

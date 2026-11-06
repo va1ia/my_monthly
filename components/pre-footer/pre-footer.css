@@ -19,8 +19,18 @@
 /* 2. 卡片与链接 */
 .pre-footer__cards h2 { margin: 0; font-size: var(--text-pre-footer-title); font-weight: 500; line-height: 1.2; }
 .pre-footer__loved-art { position: relative; width: 50%; height: 42%; min-height: 145px; }
-.pre-footer__loved-art > img:first-child { width: 100%; height: 100%; object-fit: contain; }
-.pre-footer__loved-deco { position: absolute; width: 140%; max-width: none; left: -20%; top: 25%; }
+.pre-footer__loved-poster { width: 100%; height: 100%; object-fit: contain; }
+.pre-footer__loved-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; pointer-events: none; }
+.pre-footer__loved-poster, .pre-footer__loved-video { transform: translateX(-4%) scale(1.045); transform-origin: center; }
+.pre-footer[data-loved-ready="true"] .pre-footer__loved-poster { visibility: hidden; }
+.pre-footer[data-loved-ready="true"] .pre-footer__loved-video { opacity: 1; }
+.pre-footer__loved-deco { position: absolute; width: 140%; height: auto; max-width: none; left: -20%; top: 25%; overflow: visible; pointer-events: none; }
+.pre-footer__loved-spark { animation: loved-float 4.8s ease-in-out infinite; animation-play-state: paused; }
+.pre-footer__loved-spark:nth-child(2) { animation-duration: 5.6s; animation-delay: -2.4s; }
+.pre-footer__loved-spark:nth-child(3) { animation-duration: 5.2s; animation-delay: -1.3s; }
+.pre-footer__loved-spark:nth-child(4) { animation-duration: 6.2s; animation-delay: -3.6s; }
+.pre-footer[data-loved-motion="playing"] .pre-footer__loved-spark { animation-play-state: running; }
+@keyframes loved-float { 0%, 100% { transform: translateY(-6px); } 50% { transform: translateY(6px); } }
 .pre-footer__app { display: block; width: 44%; max-width: 179px; border-radius: 6px; }
 .pre-footer__app img { width: 100%; height: auto; }
 /* 箭头仅为整卡链接的视觉提示，没有独立点击或 hover。 */
@@ -39,7 +49,7 @@
 .pre-footer__ground { position: absolute; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; }
 .pre-footer__ground { z-index: 0; }
 .pre-footer__bushes { position: absolute; z-index: 2; left: 0; bottom: -2vw; width: 100%; height: auto; max-width: none; pointer-events: none; }
-.pre-footer__bushes--left { bottom: -6vw; clip-path: inset(0 50% 0 0); }
+.pre-footer__bushes--left { bottom: -4vw; clip-path: inset(0 50% 0 0); }
 .pre-footer__bushes--right { clip-path: inset(0 0 0 50%); }
 /* 原画布高 1080，裁掉脚底以下空白；动画按原比例播放。 */
 .pre-footer__video, .pre-footer__raw { position: absolute; z-index: 1; top: 0; left: 0; display: block; width: 100%; height: calc(100% * 1080 / 920); }
@@ -57,6 +67,7 @@
 .pre-footer__garden :focus-visible { outline-color: var(--color-morning-fog); }
 @media (max-width: 991px) { .pre-footer { display: none; } }
 @media (prefers-reduced-motion: reduce) {
+  .pre-footer__loved-spark { animation: none; }
   .pre-footer__arrow::before, .pre-footer__arrow > span, .pre-footer__motion-toggle, .pre-footer__download-card, .pre-footer__ambassador-card, .pre-footer__events-card { transition: none; }
   .pre-footer__motion-toggle { opacity: 1; }
 }

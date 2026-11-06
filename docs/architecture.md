@@ -28,7 +28,7 @@ Shop 入口 shop.html，分区 merch、product-dialog。结构 pages/shop/sectio
 复制 `templates/event/` 到 `event/<slug>/`，或 `templates/article/` 到 `article/<slug>/`。模板内 `page.html` 是非完整结构片段，待选定框架后转换为对应页面模块；不得直接当作完成的网页发布。所有页面专属文件留在这个目录，包括只为该页使用的组件、字体或下载文件。创建专属组件时也配 README。
 
 ## 共享边界
-Pre-footer 为 components/pre-footer/ 中的共享组件，结构、样式、播放控制、source/ 中的新版原始 JSON、media/ 中的三份播放资源、images/cards/ 与 images/garden/ 分类静态插画及 Lottie Canvas vendor 均封装在组件内。普通页面默认由共享 mountFooter 自动挂载，Home / Contact / Download / Shop 已接入；文章和活动页面（包括 event.html 及 event/、article/ 路径）排除。page-policy.js 为统一判定入口；自定义文章 / 活动 URL 须传 `pageType: 'article'` / `'event'`，新普通页面不得再独立追加一份 Pre-footer。pre-footer-preview.html 和 component-preview.html 作为技术预览通过 preFooter:false 关闭自动挂载，前者保留手动实例用于对照。素材转换器位于 scripts/tools/prepare-pre-footer.py，原文件不修改。
+Pre-footer 为 components/pre-footer/ 中的共享组件，结构、样式、播放控制、source/ 中的新版原始 JSON、media/ 中的三份花园播放资源及 media/cards/ 中的 Loved 视频、images/cards/ 与 images/garden/ 分类静态插画及 Lottie Canvas vendor 均封装在组件内。普通页面默认由共享 mountFooter 自动挂载，Home / Contact / Download / Shop 已接入；文章和活动页面（包括 event.html 及 event/、article/ 路径）排除。page-policy.js 为统一判定入口；自定义文章 / 活动 URL 须传 `pageType: 'article'` / `'event'`，新普通页面不得再独立追加一份 Pre-footer。pre-footer-preview.html 和 component-preview.html 作为技术预览通过 preFooter:false 关闭自动挂载，前者保留手动实例用于对照。素材转换器位于 scripts/tools/prepare-pre-footer.py，原文件不修改。
 
 滚动整页换色由 scripts/shared/scroll-background.js 与 styles/scroll-background.css 复用；Contact / Download 共用 content/shared/pre-footer-background.json，以 Pre-footer 接近视口底部（提前 80px）触发，隐藏分区不触发；其他场景可在页面数据目录配置。分区背景透明，不以渐变模拟换色。详见 scripts/shared/README.md。
 

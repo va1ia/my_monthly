@@ -11,4 +11,4 @@
 | garden/ | cloud.svg、ground.svg、bushes.svg；花园及 Footer 衔接的装饰 |
 
 ## 引用与维护
-由上级 pre-footer.js 的相对 URL 引用。文件仅移动归类，SVG 路径和色值不改写；源动画放 source/，生成媒体放 media/，不混放在这里。替换同名插画后刷新页面即可；删除或改名时同步检查代码引用。App Store 徽章继续复用全站已有素材，不在此复制。
+由上级 pre-footer.js 的相对 URL 引用。Loved 动态视频放 media/cards/，loved.svg 保留为加载 / 失败后备；四个装饰以 loved-deco.svg 原路径内联到 pre-footer.js 的 lovedDecorations，更新装饰时同步四条路径。文件仅移动归类，SVG 路径和色值不改写；源动画放 source/，生成媒体放 media/，不混放在这里。替换同名插画后刷新页面即可；删除或改名时同步检查代码引用。App Store 徽章继续复用全站已有素材，不在此复制。

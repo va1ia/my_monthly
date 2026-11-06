@@ -10,10 +10,11 @@
 - 加载与可访问性
 - 素材准备与来源
 - 验证与限制
+- Loved 动态卡片
 
 ## 目录归类
-- source/：唯一一套原始 JSON 和来源说明。
-- media/：当前透明视频、MP4 后备和 poster，仅三份播放文件。
+- source/：唯一一套花园原始 JSON、Loved 原始 MOV 和来源说明。
+- media/：花园透明视频、MP4 后备和 poster；cards/ 放 Loved 卡片的透明 WebM 与 MP4 后备。
 - images/cards/：Loved、Loved 装饰、Calm 和 Calendar。
 - images/garden/：Cloud、Ground 和 Bushes。
 - vendor/：Lottie 对照播放器及授权；组件根目录只放代码、样式、测量报告和说明。
@@ -55,7 +56,7 @@
 - 云朵复用 `scripts/shared/pointer-parallax.js`，视口鼠标 X ±2vw、Y 0–4vw，平滑跟随；云组 bottom 从 24vw 调为 25vw，整体略上移，位移幅度保持；减少动态效果 / 粗指针下归零，销毁组件时解绑。
 - 三卡复刻原站 200ms 悬停：左卡 translate(.35vw,-.35vw)，深色阴影向左下 .7vw；右上 / 右下 translate(-.35vw,-.35vw)，分别为绿色 / 红色阴影向右下 .7vw。键盘聚焦整卡时同样呈现，减少动态效果时移除过渡。右侧两卡的箭头使用原站 system-ui 字形，3.8vw 圆形底色从 translateX(-100%) 滑至 0，箭头变为所在卡片的底色；均随整卡 hover / focus 触发，没有独立按钮交互。
 
-- `images/cards/loved.svg`、`images/cards/calm.svg` 使用用户上传版本；Calm 位于 Ambassador 链接内部，宽 56%、右 -12%、底 -54%，随父卡 transform 同步移动。
+- Loved 改用 source/loved.mov 转出的动态视频；images/cards/loved.svg 保留为加载 / 失败后备。Calm 位于 Ambassador 链接内部，宽 56%、右 -12%、底 -54%，随父卡 transform 同步移动。
 - Calendar 按原站 8vw 宽度，贴齐卡片外缘 right:0 / bottom:0；Events 使用无结构边框 + ::after 2px 视觉描边，插画延伸至外缘后由 overflow:hidden 沿圆角裁切，描边覆盖其上。Events z-index:1，Ambassador z-index:2，避免 Events 的描边穿过 Calm 插画。
 
 ## 加载与可访问性
@@ -83,3 +84,12 @@ Lottie Canvas 播放器固定版本 5.13.0，vendor/ 包含 MIT 授权文件；�
 
 ## FAQ 背景衔接
 Pre-footer 的天空渐变从透明起步，32% 处达到天空蓝。在启用 scroll-background 的页面，组件底色也设为透明，顶部直接透出 body 当前正在过渡的颜色，因此慢速换色、上滚反向切换和快速滚动都不会产生 FAQ / Pre-footer 色块接缝。未启用整页换色的页面和独立预览保留 darker-linen 底色。无需额外颜色动画或逐帧脚本，原触发点及双向时长不变。
+
+## Loved 动态卡片
+Loved 角色及静态后备以中心为基准使用 scale 1.045（在上一版 1.1 基础上缩小 5%），并左移自身宽度的 4%（1440px 屏幕约 9px）；不改变布局占位，四个装饰、标题和下载标记保持原尺寸与位置。
+
+用户上传 love.mov 已归入 source/loved.mov（原始 ProRes 4444、透明、1440×1440、24fps、43 帧，约 1.79 秒），不在网页直接加载。media/cards/loved.webm 为透明 VP9（约 144 KB），loved.mp4 为相同卡片绿底的兼容后备（约 136 KB）。裁剪全动画边界至 crop=1098:1284:240:70 后 hflip，缩放为 548×642，保持完整动作并与旧 SVG 的心形发束朝向、脚底和原插画容器对齐；CSS 不再额外镜像。WebM CRF 22、MP4 CRF 18，无音轨。
+
+四个小装饰沿用 loved-deco.svg 的路径、原坐标和颜色，内联到 pre-footer.js 的 lovedDecorations 中以分别控制动画；更新装饰源文件时须同步这里的四条路径。各自以 4.8 / 5.6 / 5.2 / 6.2 秒 ease-in-out 循环、负延时错开，上下 ±6 个 SVG 单位（1440px 屏幕显示约 ±4px），不旋转、不缩放。
+
+Loved 与花园分别按自身可见性播放；页面隐藏、手机宽度、全局暂停或减少动态效果时暂停，四个装饰同步受控。减少动态效果下装饰不动，视频保留首帧。原生 loop 保留约 1.79 秒原速；鼠标和键盘仍只激活整张下载卡片。离近 Pre-footer 才加载视频，隐藏手机版不请求 Loved 媒体；销毁时释放观察器、媒体和事件。WebM 解码失败或忽略透明度时自动切换 MP4，两个格式都失败则保留原静态 SVG。
