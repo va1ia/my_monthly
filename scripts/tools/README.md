@@ -20,4 +20,4 @@
 sync-shop-products.py 扫描 assets/images/shop/products/ 的编号 SVG，生成 content/shop/products.json（尺寸、编号、缓存版本）。--check 检查一致性；本地 preview.py 与 GitHub sync-shop-products 工作流共用。替换已有编号沿用位置；新增编号需配置布局，详见商品目录 README。
 
 ## Pre-footer 素材准备
-prepare-pre-footer.py 仅用于用户提供的一帧一张 WebP 的两份 JSON。通过 Pillow 和 FFmpeg 生成同步叠加 / 顺序播放的透明 VP9 WebM、含修正草坪的 MP4 后备、透明静态 poster 和体积报告，保留原 JSON。输出 3440×1080（原帧 3439×1080），VP9 CRF 22 / H.264 CRF 18，不再降至 1920 宽。完整行为与来源见 components/pre-footer/README.md。
+prepare-pre-footer.py 仅用于用户提供的一帧一张 WebP 的两份 JSON。通过 Pillow 和 FFmpeg 从 components/pre-footer/source/ 生成同步叠加的透明 VP9 WebM、含修正草坪的 MP4 后备、透明静态 poster 和体积报告；先写入临时目录，编码成功后替换 media/，不再生成顺序播放重复版本，保留原 JSON；按主动画帧数输出，短叶子图层以原速取模重复（V2 为主动画 20 秒、叶子 10 秒重复两次）。输出 3440×1080（原帧 3439×1080），VP9 CRF 22 / H.264 CRF 18，不再降至 1920 宽。完整行为与来源见 components/pre-footer/README.md。

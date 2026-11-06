@@ -1,7 +1,8 @@
 /* 目录：1. 面板与装饰 2. 输入框和状态 3. 响应式 */
 .contact-form { position: relative; isolation: isolate; overflow: hidden; display: flex; justify-content: center; color: var(--color-darker-green); }
 .contact-form__pattern { position: absolute; z-index: -1; inset: 0; opacity: .8; pointer-events: none; }
-.contact-form__pattern img { width: 100%; }
+/* 渐变作用于图片自身，避免素材高度短于分区时仍露出硬边。 */
+.contact-form__pattern img { width: 100%; -webkit-mask-image: linear-gradient(to bottom, #000 70%, #0008 85%, transparent 100%); mask-image: linear-gradient(to bottom, #000 70%, #0008 85%, transparent 100%); }
 .contact-form__panel { display: flex; justify-content: space-between; gap: 32px; width: 88vw; max-width: 1100px; border-radius: 24px; margin: 8vw 0; padding: min(3.3vw, 54px) min(3.3vw, 54px) min(3vw, 40px); background: var(--color-morning-fog); }
 .contact-form__intro { width: 38%; }
 .contact-form__intro h1 { margin: 0 0 4px; font-size: var(--text-contact-title); font-weight: 500; line-height: 1.2; }

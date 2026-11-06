@@ -11,15 +11,13 @@ mountFooter(document.querySelector('#site-footer'), navigation);
 document.querySelector('#pre-footer-demo').innerHTML = renderPreFooter();
 const section = document.querySelector('.pre-footer');
 const player = mountPreFooter(section);
-const mode = document.querySelector('#animation-mode');
 const source = document.querySelector('#animation-source');
 const state = document.querySelector('#animation-state');
 const states = {idle:'靠近分区时加载', loading:'正在加载素材…', ready:'已准备好', playing:'播放中', paused:'已暂停', error:'加载失败，保留预览图'};
 section.addEventListener('prefooterstate', event => {
   const detail = event.detail;
-  state.textContent = `${source.selectedOptions[0].textContent} / ${mode.selectedOptions[0].textContent} / ${states[detail.state]}${detail.loops ? ` / 已循环 ${detail.loops} 次` : ''}`;
+  state.textContent = `${source.selectedOptions[0].textContent} / 同步叠加 · 20 秒循环 / ${states[detail.state]}${detail.loops ? ` / 已循环 ${detail.loops} 次` : ''}`;
 });
-function select() { player.select(source.value, mode.value); }
-mode.addEventListener('change', select);
+function select() { player.select(source.value); }
 source.addEventListener('change', select);
 document.querySelector('#animation-restart').addEventListener('click', () => player.restart());

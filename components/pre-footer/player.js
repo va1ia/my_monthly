@@ -24,7 +24,8 @@ export function mountPreFooter(section) {
   const raw = section.querySelector('.pre-footer__raw');
   const toggle = section.querySelector('.pre-footer__motion-toggle');
   const status = section.querySelector('.pre-footer__status');
-  let source = 'video', mode = 'overlay', ready = false, loading = false, failed = false;
+  const mode = 'overlay';
+  let source = 'video', ready = false, loading = false, failed = false;
   let visible = false, near = false, paused = false, allowMotion = false, generation = 0;
   let format = video.canPlayType('video/webm; codecs="vp9"') ? 'webm' : 'mp4';
   let players = [], activePart = 0, loops = 0, rawController;
@@ -51,9 +52,8 @@ export function mountPreFooter(section) {
       else video.pause();
     } else {
       players.forEach((player, index) => {
-        const show = mode === 'overlay' || activePart === index;
-        raw.children[index].hidden = !show;
-        if (play && show) player.play(); else player.pause();
+        raw.children[index].hidden = false;
+        if (play) player.play(); else player.pause();
       });
     }
     emit();
@@ -73,15 +73,12 @@ export function mountPreFooter(section) {
   }
   function completed(index) {
     if (source !== 'lottie') return;
-    if (mode === 'overlay') {
-      if (index !== 0) return;
+    if (index === 0) {
       loops++;
       players.forEach(player => player.goToAndStop(0, true));
     } else {
-      if (index !== activePart) return;
-      activePart = activePart === 0 ? 1 : 0;
-      if (activePart === 0) loops++;
-      players[activePart].goToAndStop(0, true);
+      // 叶子保留自己的 10 秒节奏，主动画按新版 20 秒播放。
+      players[index].goToAndStop(0, true);
     }
     update();
   }
@@ -90,7 +87,7 @@ export function mountPreFooter(section) {
     const signal = rawController.signal;
     const [library, ...data] = await Promise.all([
       lottieLibrary(),
-      ...['default1.json','default2.json'].map(async file => {
+      ...['source/garden.json','source/leaves.json'].map(async file => {
         const response = await fetch(resource(`./${file}`), {signal});
         if (!response.ok) throw new Error(`${file} could not be loaded`);
         return response.json();
@@ -128,7 +125,7 @@ export function mountPreFooter(section) {
     const token = generation;
     if (source === 'video') {
       raw.hidden = true; video.hidden = false;
-      video.src = resource(`./media/garden-${mode}.${format}`);
+      video.src = resource(`./media/garden.${format}`);
       video.load();
     } else {
       video.pause();
@@ -143,9 +140,9 @@ export function mountPreFooter(section) {
     }
     emit();
   }
-  function select(nextSource, nextMode) {
-    if (!['video','lottie'].includes(nextSource) || !['overlay','sequential'].includes(nextMode)) throw new Error('Unknown pre-footer playback mode');
-    source = nextSource; mode = nextMode;
+  function select(nextSource) {
+    if (!['video','lottie'].includes(nextSource)) throw new Error('Unknown pre-footer playback mode');
+    source = nextSource;
     generation++; clearRaw(); video.pause();
     lastVideoTime = 0;
     ready = false; loading = false; failed = false; activePart = 0; loops = 0;
@@ -156,7 +153,7 @@ export function mountPreFooter(section) {
     if (format !== 'webm') return false;
     format = 'mp4';
     ready = false; loading = true; lastVideoTime = 0;
-    video.src = resource(`./media/garden-${mode}.mp4`);
+    video.src = resource(`./media/garden.mp4`);
     video.load(); emit();
     return true;
   }

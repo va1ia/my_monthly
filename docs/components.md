@@ -8,7 +8,7 @@
 | 组件 | 说明 | 变体 | 状态 |
 | --- | --- | --- | --- |
 | Menu bar | [组件说明](../components/menu-bar/README.md) | 桌面 / 手机；当前页标记 | 已实现 |
-| Pre-footer | [组件说明](../components/pre-footer/README.md) | 电脑版；视频 / 原始 Lottie；同步叠加 / 顺序播放 | 已按截图接入首页与独立对照页，手机暂不加载 |
+| Pre-footer | [组件说明](../components/pre-footer/README.md) | 电脑版；视频 / 原始 JSON；同步叠加循环 | 已按截图接入首页与独立对照页，手机暂不加载 |
 | Footer | [组件说明](../components/footer/README.md) | brand / dark / light | 已实现；Supabase 名单收集已连接 |
 | Home hero（页面专属） | [分区说明](../pages/home/sections/hero/README.md) | 桌面 / 平板 / 手机；减少动画 | 已实现背景视差、碰杯、tag 和 marquee；下载徽章使用原站左上位移及实色阴影 |
 | Contact cards（页面专属） | [分区说明](../pages/contact/sections/cards/README.md) | 桌面 / 平板 / 手机 | 卡片、背景视差已实现；手机按截图排列，悬停变灰 |
@@ -18,7 +18,17 @@
 | Button | [组件说明](../components/button/README.md) | 待设计确认 | 目录预留 |
 
 ## 新增与变更
-Pre-footer：原始图片序列型 Lottie 保留，默认使用约 8.9 MB、3440×1080 的透明 WebM，约 3.5 MB 的 MP4 作为兼容后备；草坪为独立 SVG，与 Footer 共用 #3D8054；接近视口时加载、离开视口暂停，支持减少动态效果。测试页可比较相同长度的两份动画同步叠加和先后播放。云朵复用首页鼠标视差；三卡使用原站方向与颜色的实色悬停阴影，并支持键盘焦点。三卡现在整卡链接，内部 App Store 图案 / 箭头不单独交互；箭头圆形底色随卡片悬停滑入。新版 Loved / Calm / Bushes 直接引用上传素材，角色跟随 Ambassador，Calendar 按卡片圆角裁切。灌木及动画叶子可溢出到 Footer 上方，装饰 pointer-events:none。草坪路径已延伸画布两侧，移除接缝补色伪元素并将草坪底部背景设为同绿，消除边缘缺口 / 横线。云较上一版上移 1vw，Events 描边独立覆盖日历且保留在 Calm 图标下方。
+共享 FAQ：仅收起背景色块时叠加 300ms 透明度淡出；展开不淡入，保留原有擦入。
+
+共享 FAQ：色块收起时增加 360ms 反向擦出，展开保留 440ms 擦入；支持中途反向切换和减少动态效果。
+
+共享 FAQ：回答正文增加对称左右内边距（12–28px 随屏宽调整），比问题标题进一步内缩，Contact / Download 共用。
+
+共享 FAQ：横线两端按色块圆角半径内缩至切点，Contact / Download 和各屏宽同步，保留折叠交互及原行距。
+
+Contact Form：背景 pattern 底部 30% 渐变淡出至透明，桌面 / 手机共用图片蒙版，保留面板及输入内容不透明。
+
+Pre-footer：原始图片序列型 Lottie 保留，默认使用约 16.0 MB、3440×1080 的透明 WebM，约 6.1 MB 的 MP4 作为兼容后备；草坪为独立 SVG，与 Footer 共用 #3D8054；接近视口时加载、离开视口暂停，支持减少动态效果。已替换 2026-11-06 V2 主动画（480 帧 / 20 秒），叶子仍每 10 秒重复；测试页仅对照视频和原始 JSON。images/cards/ 与 images/garden/ 归类静态插画，source/ 保留唯一一套源文件，media/ 仅保留 garden.webm、garden.mp4、garden-poster.webp，删除旧版、顺序版、重复 .lottie 和闲置 Loved poster。云朵复用首页鼠标视差；三卡使用原站方向与颜色的实色悬停阴影，并支持键盘焦点。三卡现在整卡链接，内部 App Store 图案 / 箭头不单独交互；箭头圆形底色随卡片悬停滑入。新版 Loved / Calm / Bushes 直接引用上传素材，角色跟随 Ambassador，Calendar 按卡片圆角裁切。灌木及动画叶子可溢出到 Footer 上方，装饰 pointer-events:none。草坪路径已延伸画布两侧，移除接缝补色伪元素并将草坪底部背景设为同绿，消除边缘缺口 / 横线。云较上一版上移 1vw，Events 描边独立覆盖日历且保留在 Calm 图标下方。
 
 Contact 表单移除字段聚焦时的外侧粗描边，保留原细边框、提交按钮键盘焦点与必填校验。
 

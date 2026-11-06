@@ -15,10 +15,9 @@
   <main id="main" tabindex="-1">
     <div class="pre-footer-test">
       <h1>Pre-footer 动画预览</h1>
-      <p>两个文件均为 10 秒。默认同步叠加字样与叶子；切换后可比较 1 → 2 的顺序播放。</p>
+      <p>新版字样与叶子同步播放，20 秒循环（叶子每 10 秒循环）；可对照网页视频与原始 JSON。</p>
       <div class="pre-footer-test__controls">
-        <label>播放方式<select id="animation-mode"><option value="overlay">同步叠加 · 10 秒循环</option><option value="sequential">先 1 后 2 · 20 秒循环</option></select></label>
-        <label>素材版本<select id="animation-source"><option value="video">网页视频 · 高清透明版约 8.9 MB</option><option value="lottie">原始 Lottie · 合计 44.4 MB</option></select></label>
+        <label>素材版本<select id="animation-source"><option value="video">网页视频 · 高清透明版约 16.0 MB</option><option value="lottie">原始 Lottie / 新版 JSON · 合计 85.7 MB</option></select></label>
         <button id="animation-restart" type="button">从头播放</button>
       </div>
       <p id="animation-state" role="status" aria-live="polite">正在准备预览…</p>

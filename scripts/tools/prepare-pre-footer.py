@@ -9,6 +9,7 @@ import hashlib
 import io
 import json
 import subprocess
+import tempfile
 from pathlib import Path
 from PIL import Image, ImageDraw
 
@@ -23,16 +24,17 @@ def read_part(name):
     path = SOURCE / name
     raw = path.read_bytes()
     data = json.loads(raw)
-    if (data['w'], data['h'], data['fr'], data['ip'], data['op']) != (3439, 1080, 24, 0, 240):
+    if (data['w'], data['h'], data['fr'], data['ip']) != (3439, 1080, 24, 0) or not isinstance(data['op'], int) or data['op'] <= 0:
         raise ValueError(f'{name}: composition changed; review timing before rebuilding')
     assets = {asset['id']: asset for asset in data['assets']}
     layers = sorted(data['layers'], key=lambda layer: layer['ip'])
-    if len(layers) != 240 or any(layer['ty'] != 2 or layer['ip'] != index or layer['op'] != index + 1 for index, layer in enumerate(layers)):
+    frames = data['op']
+    if len(layers) != frames or any(layer['ty'] != 2 or layer['ip'] != index or layer['op'] != index + 1 for index, layer in enumerate(layers)):
         raise ValueError('This converter is only for the supplied image-sequence Lotties')
     images = [assets[layer['refId']]['p'] for layer in layers]
     return images, {'file': name, 'bytes': len(raw), 'gzipBytes': len(gzip.compress(raw)),
-                    'sha256': hashlib.sha256(raw).hexdigest(), 'frames': 240, 'fps': 24,
-                    'durationSeconds': 10, 'width': 3439, 'height': 1080,
+                    'sha256': hashlib.sha256(raw).hexdigest(), 'frames': frames, 'fps': data['fr'],
+                    'durationSeconds': frames / data['fr'], 'width': 3439, 'height': 1080,
                     'embeddedImagePercent': round(sum(len(asset['p']) for asset in data['assets']) / len(raw) * 100, 2)}
 
 
@@ -70,29 +72,28 @@ def encoder(ffmpeg, destination):
 
 
 def build(ffmpeg):
-    output = SOURCE / 'media'
-    output.mkdir(exist_ok=True)
-    first, report_first = read_part('default1.json')
-    second, report_second = read_part('default2.json')
+    media = SOURCE / 'media'
+    media.mkdir(exist_ok=True)
+    temporary = tempfile.TemporaryDirectory(prefix='.garden-build-', dir=SOURCE)
+    output = Path(temporary.name)
+    first, report_first = read_part('source/garden.json')
+    second, report_second = read_part('source/leaves.json')
+    frames = len(first)
+    if frames % len(second):
+        raise ValueError('Leaf duration must divide the main animation duration for a seamless shared loop')
     plate = background()
-    paths = [output / f'garden-{mode}.{extension}' for extension in ['mp4','webm'] for mode in ['overlay','sequential']]
+    paths = [output / 'garden.mp4', output / 'garden.webm']
     processes = [encoder(ffmpeg, path) for path in paths]
     try:
-        for index in range(240):
+        for index in range(frames):
             base = decode(first[index])
-            merged = Image.alpha_composite(base, decode(second[index]))
+            merged = Image.alpha_composite(base, decode(second[index % len(second)]))
             processes[0].stdin.write(Image.alpha_composite(plate, merged).convert('RGB').tobytes())
-            processes[1].stdin.write(Image.alpha_composite(plate, base).convert('RGB').tobytes())
-            processes[2].stdin.write(merged.tobytes())
-            processes[3].stdin.write(base.tobytes())
+            processes[1].stdin.write(merged.tobytes())
             if index == 0:
                 merged.save(output / 'garden-poster.webp', quality=95)
             if index % 60 == 0:
-                print(f'Overlay and first segment: {index}/240', flush=True)
-        for index in range(240):
-            frame = decode(second[index])
-            processes[1].stdin.write(Image.alpha_composite(plate, frame).convert('RGB').tobytes())
-            processes[3].stdin.write(frame.tobytes())
+                print(f'Synchronized overlay: {index}/{frames}', flush=True)
         for process in processes:
             process.stdin.close()
             if process.wait() != 0:
@@ -101,17 +102,18 @@ def build(ffmpeg):
         for process in processes:
             if process.poll() is None:
                 process.kill()
-    report = {'sources': [report_first, report_second], 'sourceOrder': ['default1.json', 'default2.json'],
+    report = {'sources': [report_first, report_second], 'sourceOrder': ['source/garden.json', 'source/leaves.json'],
               'sky': SKY, 'outputSize': list(SIZE), 'fps': 24,
               'encoding': {'vp9Crf': 22, 'h264Crf': 18, 'sourceFrameSize': [3439, 1080]},
-              'overlay': {'file': paths[0].name, 'bytes': paths[0].stat().st_size, 'durationSeconds': 10},
-              'sequential': {'file': paths[1].name, 'bytes': paths[1].stat().st_size, 'durationSeconds': 20},
-              'transparentOverlay': {'file': paths[2].name, 'bytes': paths[2].stat().st_size, 'durationSeconds': 10},
-              'transparentSequential': {'file': paths[3].name, 'bytes': paths[3].stat().st_size, 'durationSeconds': 20},
-              'ground': GREEN, 'displayCropHeight': 920,
-              'note': 'WebM VP9 has alpha over native SVG terrain. MP4 precomposites corrected terrain as compatibility fallback. Original JSON untouched. Overlay synchronizes both sources; sequential does not hold the garden.'}
+              'video': {'file': paths[0].name, 'bytes': paths[0].stat().st_size, 'durationSeconds': report_first['durationSeconds']},
+              'transparentVideo': {'file': paths[1].name, 'bytes': paths[1].stat().st_size, 'durationSeconds': report_first['durationSeconds']},
+              'ground': GREEN, 'displayCropHeight': 920, 'leafRepeats': frames // len(second),
+              'note': 'WebM VP9 has alpha over native SVG terrain. MP4 precomposites corrected terrain as compatibility fallback. Canonical sources preserved byte-for-byte. Main animation keeps its native duration; shorter leaf layer repeats at its native speed.'}
+    for path in [*paths, output / 'garden-poster.webp']:
+        path.replace(media / path.name)
+    temporary.cleanup()
     (SOURCE / 'animation-report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
-    print(json.dumps({key:report[key] for key in ['overlay','sequential']}, indent=2), flush=True)
+    print(json.dumps({key:report[key] for key in ['video','transparentVideo']}, indent=2), flush=True)
 
 
 if __name__ == '__main__':

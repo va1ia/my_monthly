@@ -9,6 +9,8 @@
 form.js 的 renderContactForm(content.form) 渲染结构，styles/contact/form.css 管理样式。scripts/contact/form.js 提供 createContactSubmitter(config, request) 和 mountContactForm(section, submit)，可注入异步适配器；destroy 中断请求并清理监听。
 
 ## 状态与适配
+背景 pattern 图片底部 30% 使用透明蒙版逐渐淡出，桌面与手机素材共用；蒙版绑定图片自身高度，避免素材早于分区结束时留下硬边。表单面板和字段不参与淡出。
+
 输入框、下拉框和留言区聚焦时不增加外描边或阴影，保留原有细边框；提交按钮保留键盘焦点提示，必填校验不变。
 
 面板宽度为 88vw，最大 1000px；桌面内边距也设上限，避免超宽屏继续撑大表单。高度随内容增长，不裁切输入内容或提交状态。
