@@ -1,4 +1,5 @@
 // 目录：1. 懒加载播放器 2. 视频与原始 Lottie 对照 3. 可见性、暂停与清理
+import { preFooterMedia } from './media-sources.js';
 import { mountPointerParallax } from '../../scripts/shared/pointer-parallax.js';
 const resource = path => new URL(path, import.meta.url).href;
 let libraryPromise;
@@ -32,7 +33,7 @@ export function mountPreFooter(section) {
   let players = [], activePart = 0, loops = 0, rawController;
   let lovedVisible = false, lovedFormat = loved.canPlayType('video/webm; codecs="vp9"') ? 'webm' : 'mp4';
 
-  function canPlay() { return desktop.matches && visible && !document.hidden && !paused && (!reduced.matches || allowMotion); }
+  function canPlay() { return visible && !document.hidden && !paused && (!reduced.matches || allowMotion); }
   function emit() {
     const playing = ready && canPlay();
     const state = failed ? 'error' : loading ? 'loading' : ready ? (playing ? 'playing' : 'paused') : 'idle';
@@ -48,7 +49,7 @@ export function mountPreFooter(section) {
     section.dispatchEvent(new CustomEvent('prefooterstate', {detail:{source,mode,state,loops,part:activePart + 1}}));
   }
   function update() {
-    const lovedMotion = desktop.matches && lovedVisible && !document.hidden && !paused && (!reduced.matches || allowMotion);
+    const lovedMotion = lovedVisible && !document.hidden && !paused && (!reduced.matches || allowMotion);
     section.dataset.lovedMotion = lovedMotion ? 'playing' : 'paused';
     if (lovedMotion && loved.readyState >= 2) loved.play().catch(() => {});
     else loved.pause();
@@ -64,11 +65,15 @@ export function mountPreFooter(section) {
     }
     emit();
   }
+  const gardenMedia = () => (!desktop.matches && preFooterMedia.mobileGarden) || preFooterMedia.garden;
   function hydrate() {
     section.querySelectorAll('[data-pre-footer-src]').forEach(image => {
       if (!image.getAttribute('src')) image.src = image.dataset.preFooterSrc;
     });
-    video.poster = resource('./media/garden-poster.webp');
+    const media = gardenMedia();
+    video.poster = resource(media.poster);
+    section.style.setProperty('--garden-aspect-ratio', media.aspectRatio);
+    section.style.setProperty('--garden-frame-height-ratio', media.frameHeightRatio);
     if (!loved.getAttribute('src')) {
       loved.src = resource(`./media/cards/loved.${lovedFormat}`);
       loved.load();
@@ -152,13 +157,13 @@ export function mountPreFooter(section) {
     update();
   }
   function ensureLoaded() {
-    if (!desktop.matches || !near || ready || loading) return;
+    if (!near || ready || loading) return;
     hydrate();
     failed = false; loading = true;
     const token = generation;
     if (source === 'video') {
       raw.hidden = true; video.hidden = false;
-      video.src = resource(`./media/garden.${format}`);
+      video.src = resource(gardenMedia()[format]);
       video.load();
     } else {
       video.pause();
@@ -186,7 +191,7 @@ export function mountPreFooter(section) {
     if (format !== 'webm') return false;
     format = 'mp4';
     ready = false; loading = true; lastVideoTime = 0;
-    video.src = resource(`./media/garden.mp4`);
+    video.src = resource(gardenMedia().mp4);
     video.load(); emit();
     return true;
   }
@@ -205,7 +210,7 @@ export function mountPreFooter(section) {
     ready = true; loading = false; update();
   }, options);
   video.addEventListener('error', () => {
-    if (source !== 'video' || !desktop.matches) return;
+    if (source !== 'video') return;
     if (fallbackVideo()) return;
     ready = false; loading = false; failed = true;
     status.textContent = 'Animation unavailable. The preview image remains visible.';
@@ -229,10 +234,15 @@ export function mountPreFooter(section) {
     update();
   }, {threshold:0});
   lovedObserver.observe(section.querySelector('.pre-footer__loved-art'));
-  loadObserver.observe(section); playObserver.observe(section.querySelector('.pre-footer__garden'));
+  const imageObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) { hydrate(); imageObserver.disconnect(); }
+  }, {rootMargin:'400px 0px'});
+  imageObserver.observe(section);
+  loadObserver.observe(section.querySelector('.pre-footer__garden')); playObserver.observe(section.querySelector('.pre-footer__garden'));
   desktop.addEventListener('change', () => {
-    if (desktop.matches) { ensureLoaded(); players.forEach(player => player.resize()); }
-    else { if (loading && source === 'lottie') { generation++; clearRaw(); loading = false; } }
+    if (video.poster) hydrate();
+    if (source === 'video' && video.getAttribute('src') && video.getAttribute('src') !== resource(gardenMedia()[format])) select('video');
+    ensureLoaded(); players.forEach(player => player.resize());
     update();
   }, options);
   reduced.addEventListener('change', () => { allowMotion = false; update(); }, options);
@@ -253,7 +263,7 @@ export function mountPreFooter(section) {
     },
     destroy() {
       generation++; controller.abort(); parallax.destroy(); clearRaw();
-      loadObserver.disconnect(); playObserver.disconnect(); lovedObserver.disconnect();
+      loadObserver.disconnect(); playObserver.disconnect(); lovedObserver.disconnect(); imageObserver.disconnect();
       loved.pause(); loved.removeAttribute('src'); loved.load();
       section.dataset.lovedMotion = 'paused';
       video.pause(); video.removeAttribute('src'); video.load();

@@ -12,4 +12,5 @@ h1, h2, h3, h4, h5, h6 {
 }
 .text-title { font-size: var(--text-title); }
 .text-body { font-size: var(--text-body); }
+.text-larger { font-size: var(--text-larger); }
 .text-small { font-size: var(--text-small); }

@@ -1,4 +1,4 @@
-/* 目录：1. GT Eesti Display 2. Graphik
+/* 目录：1. GT Eesti Display 2. Graphik 3. Garabosse 4. BBH Sans Bogle
    字重依据提供的文件名登记，接入 Figma 时核对。
    Garabosse 的变体含义待确认，暂不猜测映射。
    这里只注册字体，不指定标题或正文的品牌字体。 */
@@ -157,3 +157,12 @@
 
 /* Shop 截图招牌暂定使用单独命名的 Gaillard·e，不推断其他变体映射。 */
 @font-face { font-family: "Garabosse Gaillarde"; src: url("../../assets/fonts/garabosse/Garabosse-Gaillard·e.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+
+/* Ambassador 页面预留字体，按实际使用加载。 */
+@font-face {
+  font-family: "BBH Sans Bogle";
+  src: url("../../assets/fonts/bbh-sans-bogle/bbh-sans-bogle-regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

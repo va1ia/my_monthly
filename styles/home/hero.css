@@ -42,21 +42,18 @@
   .home-hero__phone { width: 44vw; }
 }
 @media (max-width: 767px) {
-  .home-hero__scene { height: 205vw; min-height: 0; }
+  .home-hero__scene { height: 208.5vw; min-height: 0; }
   .home-hero__title { padding-top: 49vw; width: 90%; }
   .home-hero__title span:last-child { max-width: 88%; margin-inline: auto; }
-  .home-hero__pattern { inset: 0; }
-  .home-hero__pattern img { height: 100%; width: 100%; object-fit: cover; }
-  /* 手机 marquee 上方的下载留白同属遮挡面，覆盖插画尾端。 */
-  .home-hero__scene::after { content: ''; position: absolute; z-index: 1; inset: 178vw 0 0; background: var(--color-before-dawn); pointer-events: none; }
+  .home-hero__pattern { inset: 9vw 0 auto; }
+  .home-hero__pattern img { display: block; width: 100%; height: auto; transform: none; }
+  /* 手臂尾端随插画伸出左右边界，不用横向色块截断插画与背景。 */
   .home-hero__phones { top: 96vw; }
-  .home-hero__phone { width: 96vw; }
-  .home-hero__phone--left { transform: translate3d(calc(-4px * (1 - var(--phone-progress))), calc(4px * var(--phone-progress)), 0) rotate(calc(-4deg * (1 - var(--phone-progress)))); }
-  .home-hero__phone--right { transform: translate3d(calc(4px * (1 - var(--phone-progress))), calc(4px * var(--phone-progress)), 0) rotate(calc(4deg * (1 - var(--phone-progress)))); }
-  .home-hero__download { position: absolute; top: 181.7vw; left: 50%; transform: translateX(-50%); margin: 0; width: 27vw; min-width: 0; }
-  .home-hero__tag--1 { top: 52%; left: auto; right: 4%; }
-  .home-hero__tag--2 { top: 60.5%; left: 1%; }
-  .home-hero__tag--3 { top: 74%; left: auto; right: 22%; }
+  .home-hero__phone { width: 100vw; }
+  .home-hero__phone--left { transform: translate3d(calc(-2.95vw - 4px * (1 - var(--phone-progress))), calc(4px * var(--phone-progress)), 0) rotate(calc(2deg + 3deg * var(--phone-progress))); }
+  .home-hero__phone--right { transform: translate3d(calc(2.95vw + 4px * (1 - var(--phone-progress))), calc(4px * var(--phone-progress)), 0) rotate(calc(-2deg - 3deg * var(--phone-progress))); }
+  .home-hero__download { position: absolute; top: 180vw; left: 50%; transform: translateX(-50%); margin: 0; width: 35.5vw; min-width: 0; }
+  .home-hero__tags { display: none; }
   .home-hero__logos { --marquee-unit: max(.4615px, .125vw); height: 13vw; min-height: 48px; }
   .home-hero__marquee-toggle { opacity: 1; width: 24px; height: 24px; }
 }
@@ -69,5 +66,6 @@
   .home-hero__phone { transform: translateY(12px); }
 }
 @media (prefers-reduced-motion: reduce) and (max-width: 767px) {
-  .home-hero__phone { transform: translateY(4px); }
+  .home-hero__phone--left { transform: translate(-2.95vw, 4px) rotate(5deg); }
+  .home-hero__phone--right { transform: translate(2.95vw, 4px) rotate(-5deg); }
 }

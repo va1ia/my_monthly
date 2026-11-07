@@ -1,4 +1,4 @@
-/* 目录：1. 电脑版布局 2. 卡片与链接 3. 动画及背景 4. 焦点、手机占位与减少动画
+/* 目录：1. 电脑版布局 2. 卡片与链接 3. 动画及背景 4. 焦点、手机版与减少动画
    按用户 2026-10-30 截图还原，精确布局值待 Figma 确认。 */
 /* 1. 电脑版布局 */
 .pre-footer { position: relative; z-index: 1; isolation: isolate; margin-bottom: -1px; padding-top: clamp(28px, 3vw, 52px); overflow: visible; background: linear-gradient(180deg, transparent, var(--color-pre-footer-sky) 32%, var(--color-pre-footer-sky) calc(100% - 2px), var(--color-picnic-date) calc(100% - 2px)) var(--color-darker-linen); }
@@ -45,17 +45,17 @@
 .pre-footer__calendar { position: absolute; z-index: 1; width: 8vw; max-width: 31%; right: 0; bottom: 0; pointer-events: none; }
 /* 3. 动画及背景 */
 .pre-footer__clouds { position: absolute; z-index: 1; width: 98%; max-width: none; bottom: 25vw; left: 1%; pointer-events: none; transform: translate3d(var(--pattern-x, 0vw), var(--pattern-y, 0vw), 0); }
-.pre-footer__garden { position: relative; z-index: 0; margin-top: 6vw; aspect-ratio: 3439 / 920; background: linear-gradient(var(--color-pre-footer-sky) 94%, var(--color-picnic-date) 94%); overflow: visible; }
+.pre-footer__garden { position: relative; z-index: 0; margin-top: 6vw; aspect-ratio: var(--garden-aspect-ratio, 3439 / 920); background: linear-gradient(var(--color-pre-footer-sky) 94%, var(--color-picnic-date) 94%); overflow: visible; }
 .pre-footer__ground { position: absolute; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; }
 .pre-footer__ground { z-index: 0; }
 .pre-footer__bushes { position: absolute; z-index: 2; left: 0; bottom: -2vw; width: 100%; height: auto; max-width: none; pointer-events: none; }
 .pre-footer__bushes--left { bottom: -4vw; clip-path: inset(0 50% 0 0); }
 .pre-footer__bushes--right { clip-path: inset(0 0 0 50%); }
 /* 原画布高 1080，裁掉脚底以下空白；动画按原比例播放。 */
-.pre-footer__video, .pre-footer__raw { position: absolute; z-index: 1; top: 0; left: 0; display: block; width: 100%; height: calc(100% * 1080 / 920); }
+.pre-footer__video, .pre-footer__raw { position: absolute; z-index: 1; top: 0; left: 0; display: block; width: 100%; height: calc(100% * var(--garden-frame-height-ratio, 1.173913)); }
 .pre-footer__video { object-fit: fill; pointer-events: none; }
 /* 不透明后备仅显示到草坪接缝，避免盖住 Footer 文本。 */
-.pre-footer[data-animation-format="mp4"] .pre-footer__video { clip-path: inset(0 0 calc(100% * 160 / 1080) 0); }
+.pre-footer[data-animation-format="mp4"] .pre-footer__video { clip-path: inset(0 0 calc(100% - 100% / var(--garden-frame-height-ratio, 1.173913)) 0); }
 .pre-footer__raw { isolation: isolate; pointer-events: none; }
 .pre-footer__raw > div { position: absolute; inset: 0; }
 .pre-footer__raw canvas { display: block; width: 100%; height: 100%; }
@@ -65,7 +65,31 @@
 /* 4. 可访问性与设备范围 */
 .pre-footer :focus-visible { outline: 3px solid var(--color-before-dawn); outline-offset: 5px; }
 .pre-footer__garden :focus-visible { outline-color: var(--color-morning-fog); }
-@media (max-width: 991px) { .pre-footer { display: none; } }
+/* 手机和平板采用同一列卡片；末尾暂时完整显示电脑版花园。 */
+@media (max-width: 991px) {
+  .pre-footer { padding-top: clamp(24px, 5vw, 44px); overflow-x: clip; }
+  .pre-footer__cards { width: 86%; max-width: 580px; grid-template-columns: 1fr; gap: calc(clamp(24px, 6vw, 40px) - 4px); }
+  .pre-footer__download-card, .pre-footer__ambassador-card, .pre-footer__events-card { border-radius: clamp(18px, 5vw, 26px); }
+  .pre-footer__download-card { aspect-ratio: 340 / 403; gap: 5vw; padding: 6vw; }
+  .pre-footer__loved-art { width: 54%; height: auto; aspect-ratio: 548 / 642; min-height: 0; }
+  .pre-footer__loved-deco { width: 190%; left: -45%; top: 28%; }
+  .pre-footer__cards h2 { font-size: var(--text-pre-footer-mobile-title); }
+  .pre-footer__download-card h2 { font-size: var(--text-pre-footer-mobile-download-title); }
+  .pre-footer__app { width: 48%; max-width: 179px; }
+  .pre-footer__right { gap: calc(clamp(24px, 6vw, 40px) - 4px); }
+  .pre-footer__ambassador-card, .pre-footer__events-card { min-height: clamp(160px, 46vw, 270px); padding: min(7vw, 40px) min(7.5vw, 44px); }
+  .pre-footer__ambassador-card h2, .pre-footer__events-card h2 { max-width: 96%; }
+  /* 下方两卡沿用 PC：箭头入口、角色的相对位置、圆角内裁切日历。 */
+  .pre-footer__arrow { width: clamp(32px, 9.5vw, 48px); height: clamp(32px, 9.5vw, 48px); margin-top: 3vw; }
+  .pre-footer__arrow > span { font-size: clamp(32px, 9.5vw, 48px); }
+  .pre-footer__calm { width: 62%; right: -16%; height: auto; }
+  .pre-footer__calendar { width: 28%; height: auto; }
+  /* 云层直接使用 PC 完整原图，保留数量、形状及内部相对坐标。 */
+  .pre-footer__clouds { transform: none; }
+  .pre-footer__garden { margin-top: 50vw; }
+  .pre-footer__motion-toggle { right: 10px; bottom: 4px; min-height: 32px; padding: 5px 10px; font-size: var(--text-small); opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pre-footer__loved-spark { animation: none; }
   .pre-footer__arrow::before, .pre-footer__arrow > span, .pre-footer__motion-toggle, .pre-footer__download-card, .pre-footer__ambassador-card, .pre-footer__events-card { transition: none; }

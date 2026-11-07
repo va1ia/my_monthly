@@ -5,8 +5,8 @@
 .contact-form__pattern img { width: 100%; -webkit-mask-image: linear-gradient(to bottom, #000 70%, #0008 85%, transparent 100%); mask-image: linear-gradient(to bottom, #000 70%, #0008 85%, transparent 100%); }
 .contact-form__panel { display: flex; justify-content: space-between; gap: 32px; width: 88vw; max-width: 1100px; border-radius: 24px; margin: 8vw 0; padding: min(3.3vw, 54px) min(3.3vw, 54px) min(3vw, 40px); background: var(--color-morning-fog); }
 .contact-form__intro { width: 38%; }
-.contact-form__intro h1 { margin: 0 0 4px; font-size: var(--text-contact-title); font-weight: 500; line-height: 1.2; }
-.contact-form__intro p { margin: 0; font-size: var(--text-contact-intro); line-height: 1.5; }
+.contact-form__intro h1 { margin: 0 0 6px; font-size: var(--text-contact-title); font-weight: 500; line-height: 1.2; }
+.contact-form__intro p { margin: 0; line-height: 1.5; }
 .contact-form__body { width: 54%; max-width: 100%; }
 .contact-form__fields { display: flex; flex-wrap: wrap; justify-content: space-between; gap: clamp(16px, 1.6vw, 28px) 8px; }
 .contact-form__fields[hidden] { display: none; }
@@ -14,14 +14,14 @@
 .contact-form__field--first { width: calc(58% - 4px); }
 .contact-form__field--last { width: calc(42% - 4px); }
 .contact-form__label { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.contact-form__field input, .contact-form__field select, .contact-form__field textarea { display: block; width: 100%; height: clamp(44px, 3.8vw, 64px); border: 1.2px solid var(--color-darker-green); border-radius: 6px; padding: 8px clamp(12px, 1.4vw, 28px); background: var(--color-white); color: var(--color-darker-green); font-size: var(--text-contact-field); line-height: 1.4; }
+.contact-form__field input, .contact-form__field select, .contact-form__field textarea { display: block; width: 100%; height: clamp(44px, 3.8vw, 64px); border: 1.5px solid var(--color-darker-green); border-radius: 6px; padding: 8px clamp(12px, 1.4vw, 28px); background: var(--color-white); color: var(--color-darker-green); font-size: var(--text-body); line-height: 1.4; }
 .contact-form__field input::placeholder, .contact-form__field textarea::placeholder { color: var(--color-input-placeholder); opacity: 1; }
 .contact-form__field--select { position: relative; }
-.contact-form__field--select::after { content: ''; position: absolute; right: 22px; top: 50%; width: 8px; height: 8px; border-right: 1.5px solid var(--color-white); border-bottom: 1.5px solid var(--color-white); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+.contact-form__field--select::after { content: ''; position: absolute; right: 22px; top: 50%; width: 8px; height: 8px; border-right: 2px solid var(--color-white); border-bottom: 2px solid var(--color-white); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
 .contact-form__field select { appearance: none; -webkit-appearance: none; padding-right: 48px; border-color: var(--color-picnic-date); color: var(--color-white); background: var(--color-picnic-date); cursor: pointer; }
 .contact-form__field textarea { height: clamp(288px, 28vw, 480px); padding-top: clamp(12px, 1.4vw, 24px); resize: vertical; }
-.contact-form__submit { min-height: clamp(40px, 4vw, 64px); min-width: clamp(172px, 17vw, 280px); border: 1px solid var(--color-darker-green); border-radius: 10px; padding: 9px 20px; margin-top: 6px; background: var(--color-lighter-sunset); color: var(--color-before-dawn); cursor: pointer; font-size: var(--text-contact-field); font-weight: 500; }
-.contact-form__submit { position: relative; isolation: isolate; overflow: hidden; }
+.contact-form__submit { min-height: clamp(40px, 4vw, 64px); min-width: clamp(172px, 17vw, 280px); border: 1.5px solid var(--color-darker-green); border-radius: 10px; padding: 9px 20px; margin-top: 6px; background: var(--color-lighter-sunset); color: var(--color-darker-green); cursor: pointer; font-size: var(--text-body); font-weight: 400; }
+.contact-form__submit { position: relative; isolation: isolate; overflow: hidden; -webkit-text-stroke: .5px currentColor; }
 /* 同导航 Download：圆形色块从左侧展开，文字保持在上层。 */
 .contact-form__submit::before { content: ''; position: absolute; z-index: -1; width: 36px; height: 36px; left: -36px; top: calc(50% - 18px); border-radius: 50%; background: var(--color-sunset-blush); transform: scale(1); transition: transform 300ms ease; pointer-events: none; }
 .contact-form__submit:not(:disabled):hover::before, .contact-form__submit:not(:disabled):focus-visible::before { transform: scale(18); transition-timing-function: cubic-bezier(.25, .46, .45, .94); }
@@ -37,19 +37,18 @@
   .contact-form__body { width: 55%; }
 }
 @media (max-width: 767px) {
-  .contact-form__panel { flex-direction: column; padding: 8vw 6vw 6vw; margin: 10vw 0 16vw; }
+  /* 蒙版贴合分区底边，只在最后 40–64px 淡出，避免图片被分区提前截断。 */
+  .contact-form__pattern img { height: 100%; object-fit: cover; object-position: top; -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - clamp(40px, 12vw, 64px)), transparent 100%); mask-image: linear-gradient(to bottom, #000 calc(100% - clamp(40px, 12vw, 64px)), transparent 100%); }
+  .contact-form__panel { flex-direction: column; gap: 10vw; border-radius: min(5vw, 24px); padding: 10vw 6vw 11vw; margin: 18vw 0 16vw; }
   .contact-form__intro, .contact-form__body { width: 100%; }
   .contact-form__fields { gap: 16px 8px; }
   .contact-form__field input, .contact-form__field textarea, .contact-form__field select { height: 44px; }
-  .contact-form__field--first { width: calc(63% - 4px); }
-  .contact-form__field--last { width: calc(37% - 4px); }
-  .contact-form__field textarea { height: clamp(240px, 74vw, 400px); }
-  .contact-form__submit { min-width: 156px; }
-}
-@media (max-width: 359px) {
   .contact-form__field--first { width: calc(60% - 4px); }
   .contact-form__field--last { width: calc(40% - 4px); }
+  .contact-form__field textarea { height: clamp(240px, 70vw, 440px); }
+  .contact-form__submit { min-width: 44vw; max-width: 100%; margin: 4px auto 0; }
+}
+@media (max-width: 359px) {
   .contact-form__field input { padding-inline: 8px; }
 }
-@media (max-width: 479px) { .contact-form__panel { border-radius: 12px; } }
 @media (prefers-reduced-motion: reduce) { .contact-form__submit::before { transition: none; } }

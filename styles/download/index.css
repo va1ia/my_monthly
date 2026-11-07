@@ -20,7 +20,8 @@
 }
 /* 3. 下载入口在插画上方；手机用独立素材。 */
 @media (max-width: 767px) {
-  .download-hero { height: 255vw; min-height: 0; max-height: none; }
+  .download-page .contact-faq { padding-block: clamp(32px, 12vw, 60px); }
+  .download-hero { height: 255vw; min-height: 0; max-height: none; margin-bottom: -6vw;}
   .download-hero__copy { top: 42vw; left: 10%; width: 80%; text-align: center; }
   .download-hero__copy h1 { font-size: var(--text-home-hero); max-width: 76%; margin-inline: auto; line-height: 1.2; }
   .download-hero__badge { width: 35vw; margin: 12vw auto 0; }

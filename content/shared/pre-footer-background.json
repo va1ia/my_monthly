@@ -8,6 +8,11 @@
   },
   "sections": [
     {
+      "selector": ".contact-faq",
+      "media": "(max-width: 767px)",
+      "colorToken": "--color-darker-linen"
+    },
+    {
       "selector": ".pre-footer",
       "colorToken": "--color-darker-linen"
     }

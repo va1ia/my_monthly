@@ -16,11 +16,12 @@ scroll-background.js 导出 mountScrollBackground(target, config, { onChange })�
 跨页配置放 content/shared/，页面专属配置放 content/<page>/。字段：
 - triggerLine：0–1 的视口高度比例；分区顶部上行越过该线时应用状态，回到线下时回退。
 - triggerOffsetPx：相对触发线的像素偏移，默认 0；正数可在分区进入视口前提前切换。display:none 的分区跳过。
+- sections 中可选 media：CSS 媒体查询；不匹配时跳过此状态，窗口尺寸变化时重新判断。
 - transitionMs：整体颜色切换时长，默认 400ms；减少动态效果偏好下即时切换。
 - default：初始状态，colorToken 使用既有 CSS 颜色变量名称。
 - sections：按页面从上到下排列的 selector / colorToken 状态；采用最后一个越过触发线的分区，越过其末尾继续保留，直到下一状态。可附加页面专属字段（例如 footerVariant），由 onChange 处理。
 
-Contact / Download 共用 content/shared/pre-footer-background.json：Pre-footer 顶部距离视口底部 80px 时开始由 picnic-date 过渡到 darker-linen，向下 2000ms、上滚恢复 700ms。FAQ 本身不再触发换色。手机上 Pre-footer 隐藏，不触发此过渡；Footer 保留独立绿色。Pre-footer 顶部通过透明天空渐变直接透出 body 的过渡底色，无需另起动画，换色中也与 FAQ 无缝衔接。
+Contact / Download 共用 content/shared/pre-footer-background.json：Pre-footer 顶部距离视口底部 80px 时开始由 picnic-date 过渡到 darker-linen，向下 2000ms、上滚恢复 700ms。桌面仍由 Pre-footer 触发；手机版（≤767px）由 FAQ 顶部进入同一触发线时开始换色，弥补 Pre-footer 隐藏时没有触发点的问题。Footer 保留独立绿色。Pre-footer 顶部通过透明天空渐变直接透出 body 的过渡底色，无需另起动画，换色中也与 FAQ 无缝衔接。
 
 ## 接入与清理
 页面结构及共享 Footer（含 Pre-footer）挂载后调用 mountScrollBackground；onChange 初次及状态变化时执行。滚动和窗口变化合并为每帧一次读取，ResizeObserver 与字体加载完成时重算，兼容恢复滚动位置。返回 refresh() 主动重算及 destroy()，后者移除监听、观察器并恢复原内联变量和类。页面卸载时调用 destroy()。

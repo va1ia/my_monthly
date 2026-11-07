@@ -9,10 +9,11 @@
 字体集中在 styles/foundations/fonts.css 注册，随 styles/shared.css 加载。页面不要重复定义 @font-face；待 Figma 确认用途后，在 tokens.css 中统一指定正文和标题字体。导航/Footer 已使用 Graphik；手机导航与标题使用 GT Eesti Display。其他页面的文字规范仍待 Figma 确认。声明字体不会预加载所有文件，浏览器按实际使用情况加载。
 
 ## 字体登记
-字重暂依据文件名映射，尚未核验字体内部元数据。
+现有字重暂依据文件名映射；新导入的 BBH Sans Bogle 已核验内部 family、Regular 样式和字重 400。
 
 | 文件 | CSS 字重 | 样式 | 状态 |
 | --- | --- | --- | --- |
+| `bbh-sans-bogle/bbh-sans-bogle-regular.ttf` | 400 | normal | 已注册为 BBH Sans Bogle，预留给 Ambassador 页面 |
 | `GT-Eesti-Display-Medium.woff2` | 500 | normal | 已注册 |
 | `garabosse/Garabosse-Gaillard·e.woff2` | 待确认 | 待确认 | Shop 招牌暂用独立 family（400），最终用途待确认 |
 | `garabosse/Garabosse-Mignon·ne.woff2` | 待确认 | 待确认 | 仅登记，待确认变体用途 |
@@ -44,3 +45,5 @@
 - 字体 Web 使用授权来源尚未记录。
 
 Shop 展示墙招牌暂用 Garabosse Gaillard·e，CSS family 为 Garabosse Gaillarde，集中注册于 foundations/fonts.css；其余变体不推断映射。
+
+BBH Sans Bogle：用户上传的 BBHSansBogle-Regular.ttf 按目录规范归类并重命名，字体字节未修改。后续 Ambassador 页面可使用 font-family: "BBH Sans Bogle", sans-serif 和 font-weight: 400；目前仅注册，不应用到现有页面，也不预加载。

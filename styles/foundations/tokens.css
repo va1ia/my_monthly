@@ -15,9 +15,12 @@
   --font-heading: "GT Eesti Display", "Graphik", sans-serif;
   --text-small: 0.875rem;
   /* Pre-footer 按截图暂定。天空色与生成的视频底色一致。 */
+  --text-pre-footer-mobile-title: clamp(22px, 6.8vw, 34px);
+  --text-pre-footer-mobile-download-title: clamp(24px, 7.5vw, 38px);
   --text-pre-footer-title: clamp(28px, 3.2vw, 44px);
   --color-pre-footer-sky: #b8eafa;
   --text-body: 1rem;
+  --text-larger: 1.1rem;
   --text-title: clamp(2rem, 5vw, 4rem);
   /* 首页截图局部尺寸，待 Figma 确认。 */
   --text-home-hero: clamp(42px, 4.15vw, 80px);
@@ -25,6 +28,10 @@
   --text-home-comment: clamp(11px, 1vw, 16px);
   /* Contact 原站测量值，待 Figma 确认。 */
   --text-faq-question: clamp(22px, 2.3vw, 34px);
+  /* FAQ 手机便签与问题按参考截图暂定，保留桌面字号。 */
+  --text-faq-note-title-mobile: clamp(20px, 6vw, 34px);
+  --text-faq-note-body-mobile: clamp(12px, 3vw, 16px);
+  --text-faq-question-mobile: clamp(20px, 6vw, 34px);
   --text-contact-card-title: 30px;
   --text-contact-title: clamp(36px, 3.2vw, 56px);
   --text-contact-intro: clamp(14px, 1.2vw, 24px);
@@ -78,7 +85,7 @@
   --page-gutter: clamp(1rem, 4vw, 3rem);
 }
 @media (max-width: 767px) {
-  :root { --text-home-hero: 9.3vw; --text-home-tag: 3vw; --text-home-comment: clamp(10px, 2.5vw, 16px); --text-contact-title: 9vw; --text-contact-intro: 14px; --text-contact-field: 16px; }
+  :root { --text-body: 0.8rem; --text-larger: 0.9rem; --text-home-hero: 9.3vw; --text-home-tag: 3vw; --text-home-comment: clamp(10px, 2.5vw, 16px); --text-contact-title: 9vw; --text-contact-intro: 14px; --text-contact-field: 16px; }
 }
 
 @media (max-width: 767px) { :root { --text-shop-sign: clamp(18px, 4.8vw, 30px); } }

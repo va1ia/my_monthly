@@ -1,4 +1,4 @@
-// 目录：1. 共享 Pre-footer 结构 2. 电脑版媒体延迟加载标记
+// 目录：1. 共享 Pre-footer 结构 2. 响应式媒体延迟加载标记
 import { linkAttributes } from '../../scripts/shared/dom.js';
 const asset = name => new URL(`./${name}`, import.meta.url).href;
 const downloadPage = new URL('../../download.html', import.meta.url).href;

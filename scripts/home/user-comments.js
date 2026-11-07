@@ -47,7 +47,8 @@ export function mountUserComments(section, source = {}) {
   }
   function layout() {
     const width = section.clientWidth;
-    spacing = originals[0].offsetWidth + width * (width < 768 ? .065 : .027);
+    // 读取真实 gap，手机与桌面的 CSS 间距都用于同一圆弧计算。
+    spacing = originals[0].offsetWidth + (parseFloat(getComputedStyle(track).columnGap) || 0);
     radius = width < 768 ? width * 2.4 : width * 1.5;
     draw();
   }

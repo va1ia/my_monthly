@@ -30,12 +30,22 @@
 .contact-faq__icon::before, .contact-faq__icon::after { content: ''; position: absolute; left: 0; top: 10px; width: 22px; height: 2px; background: currentColor; }
 .contact-faq__icon::after { transform: rotate(90deg); transition: transform 180ms ease; }
 .contact-faq__item[open] .contact-faq__icon::after { transform: rotate(0); }
-.contact-faq__answer { padding: 16px clamp(32px, 4vw, 60px) 4px 32px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: var(--text-body); line-height: 1.5; }
+.contact-faq__answer { padding: 16px clamp(32px, 4vw, 60px) 4px 32px; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.5; }
 .contact-faq__item summary:focus-visible { outline: 2px solid var(--color-darker-green); outline-offset: 6px; }
 @media (max-width: 991px) {
   .contact-faq__inner { display: block; width: 92%; }
   .contact-faq__note { margin: 0 auto 28px; max-width: 420px; padding: 36px 36px 44px; }
   .contact-faq__item { padding: 14px 12px; }
 }
-@media (max-width: 359px) { .contact-faq__note { padding: 28px 28px 40px; } }
+/* 手机版：窄便签居中，下面的问题列表保持通栏，按截图比例排版。 */
+@media (max-width: 767px) {
+  .contact-faq { padding: clamp(32px, 12vw, 60px) 0 2vw; }
+  .contact-faq__note { width: 66%; max-width: 360px; margin-bottom: 4vw; gap: 3vw; padding: 8.5vw 6vw 5.5vw; }
+  .contact-faq__note::before { width: 19%; height: 10%; top: -5%; }
+  .contact-faq__title { font-size: var(--text-faq-note-title-mobile); line-height: 1.1; }
+  .contact-faq__note p { font-size: var(--text-faq-note-body-mobile); line-height: 1.35; }
+  .contact-faq__item { padding: 4vw 3.5vw; }
+  .contact-faq__item summary { font-size: var(--text-faq-question-mobile); gap: 4vw; }
+  .contact-faq__answer { padding-inline: 5vw; }
+}
 @media (prefers-reduced-motion: reduce) { .contact-faq__icon::after, .contact-faq__note a, .contact-faq__item::before, .contact-faq__item::details-content { transition: none; } .contact-faq__item[open] .contact-faq__answer { animation: none; } }

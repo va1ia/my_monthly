@@ -8,7 +8,7 @@
 | 组件 | 说明 | 变体 | 状态 |
 | --- | --- | --- | --- |
 | Menu bar | [组件说明](../components/menu-bar/README.md) | 桌面 / 手机；当前页标记 | 已实现 |
-| Pre-footer | [组件说明](../components/pre-footer/README.md) | 电脑版；视频 / 原始 JSON；同步叠加循环 | 普通页面由 Footer 默认挂载；文章 / 活动排除；手机暂不加载 |
+| Pre-footer | [组件说明](../components/pre-footer/README.md) | 桌面双列 / 手机单列；视频 / 原始 JSON；同步叠加循环 | 普通页面由 Footer 默认挂载；文章 / 活动排除；手机暂用电脑版花园 |
 | Footer | [组件说明](../components/footer/README.md) | brand / dark / light | 已实现；Supabase 名单收集已连接 |
 | Home hero（页面专属） | [分区说明](../pages/home/sections/hero/README.md) | 桌面 / 平板 / 手机；减少动画 | 已实现背景视差、碰杯、tag 和 marquee；下载徽章使用原站左上位移及实色阴影 |
 | Contact cards（页面专属） | [分区说明](../pages/contact/sections/cards/README.md) | 桌面 / 平板 / 手机 | 卡片、背景视差已实现；手机按截图排列，悬停变灰 |
@@ -18,6 +18,8 @@
 | Button | [组件说明](../components/button/README.md) | 待设计确认 | 目录预留 |
 
 ## 新增与变更
+Pre-footer 手机布局：≤991px 三卡纵向排列，保留桌面文案和整卡链接，沿用 PC 最终版箭头入口和 Calm / Calendar 的视觉规则，云层使用 PC 完整原图并等比缩放。Loved 与花园沿用按可见性播放和暂停；手机版花园暂用桌面视频，替换入口为 components/pre-footer/media-sources.js 的 mobileGarden。
+
 Pre-footer 默认规则：共享 Footer 自动在普通页面挂载一份，Home / Home / Contact / Download / Shop 已统一；文章 / 活动路径及 pageType:article / event 排除，技术预览通过 preFooter:false 关闭。首页不再单独重复渲染，销毁 Footer 时一并清理播放器。详见 Footer 说明和 docs/architecture.md。
 
 共享 FAQ：仅收起背景色块时叠加 300ms 透明度淡出；展开不淡入，保留原有擦入。
@@ -65,10 +67,36 @@ Contact 表单 Get In Touch 按钮：与导航 Download 一致的左侧圆形扩
 
 Menu bar：支持 hiddenInMenu 配置，About 与 Shop 暂时在所有设备顶部菜单隐藏；Footer 保留。
 
-FAQ 前后的整页换色：Contact / Download 共用 content/shared/pre-footer-background.json：Pre-footer 顶部距离视口底部 80px 时开始由 picnic-date 过渡到 darker-linen，向下 2000ms、上滚恢复 700ms。FAQ 本身不再触发换色。手机上 Pre-footer 隐藏，不触发此过渡；Footer 保留独立绿色。
+FAQ 前后的整页换色：Contact / Download 共用 content/shared/pre-footer-background.json：Pre-footer 顶部距离视口底部 80px 时开始由 picnic-date 过渡到 darker-linen，向下 2000ms、上滚恢复 700ms。桌面仍由 Pre-footer 触发；手机版（≤767px）由 FAQ 顶部进入同一触发线时开始换色，弥补 Pre-footer 隐藏时没有触发点的问题。Footer 保留独立绿色。
 
 FAQ / Pre-footer 衔接：天空渐变以透明起步，启用整页换色时直接透出 body 的动画底色，避免 2s 过渡中固定浅色顶部产生分界线；独立组件仍保留浅色底。
 
 首页 FAQ 使用 linen variant，固定 Darker Linen，不接入整页换色；与 Pre-footer 默认浅色顶部连续。Contact / Download 保留滚动换色。
 
 Pre-footer Loved：使用镜像、裁剪对齐后的透明循环视频，角色及静态后备以 scale 1.045 显示并左移自身宽度的 4%，四个原有小装饰以不同节奏轻微上下漂浮；各自可见时播放、离屏暂停，支持减少动态效果和共享暂停控制。原始 MOV 归 source/，播放媒体归 media/cards/。
+
+共享 FAQ 答案使用 .text-larger（--text-larger: 1.1rem），比常规正文 1rem 稍大；该工具类集中于 foundations/typography.css，可供其他分区复用。
+
+首页手机版构图（2026-11-06）：Hero 背景按原比例定位，取消手臂底部横向遮挡，让素材尾端延伸到屏幕两侧；下载徽章宽度 35.5vw。评论卡片中心下移至 71%，宽度 52vw、间距 11vw，弧线同步读取 CSS 间距。详见 Hero / User comments 分区说明。
+
+首页手机版碰杯：隐藏三条 tag；两个手机额外向内旋转，从初始 ±2° 随滚动至 ±5°，终点向外各偏移 2.95vw，使上角刚好接触，避免重叠。减少动画直接显示碰杯姿态，非手机版保留原标签与动画。
+
+共享 FAQ 手机版布局：顶部便签缩窄并居中（列表容器 64%，最大 360px），标题、说明和问题字号按截图比例调整；问题列表保持较宽布局，优化便签下方留白、条目间距和正文内缩。仅 ≤767px 生效，Home / Contact / Download 共用，背景色保留。详见 [FAQ 说明](../components/faq/README.md)。
+
+共享 FAQ 手机版上下留白改为 clamp(32px, 12vw, 60px)，左右为 0；全站 .text-larger 手机字号为 1rem，桌面为 1.1rem，由 tokens.css 统一维护。
+
+Contact 手机卡片与表单（2026-11-06）：下移粉色 / 蓝色玩偶，文字按主体中心定位；表单使用单列、姓名同排 60/40、增加介绍下方留白、较高留言区和居中按钮。FAQ 补上手机换色触发点；Download 手机 FAQ 同步使用 clamp(32px, 12vw, 60px) 的上下留白。详见 Contact cards / form / FAQ 说明。
+
+Contact 表单字号与描边：介绍段落改用 .text-larger，字段和按钮统一普通正文 --text-body；现有字段、按钮边框及下拉箭头加粗为 2px。
+
+Contact 手机表单背景：图片高度贴合分区，蒙版仅覆盖最底部 clamp(40px, 12vw, 64px)，在实际底边完全透明，缩短渐变并消除提前裁切的硬边；桌面仍保留原 30% 淡出。
+
+Contact 的 Get In Touch 按钮文字使用 .2px 同色描边，轻微增加字重。
+
+Pre-footer 手机下方两卡以 PC 最终版为准：移除旧稿按钮和日历附加云，恢复箭头与圆形色块交互、角色比例及卡片内的日历圆角裁切；手机独立云层改为两朵，PC 保持原云组。
+
+Pre-footer 移动端统一 PC 原图：取消手机云朵的截取与复制，整组云沿用 PC；Calm 继承 PC 定位，仅等比缩小 .9；Calendar 依 PC 卡片比例缩至 22.13%，保留原始宽高比与圆角裁切。
+
+Pre-footer 手机人物与日历已恢复用户手动值：Calm width 62% / right -16%，无额外 scale；Calendar width 28%。
+
+Pre-footer 手机三卡的两处纵向 gap 均在原基础上减少 4px，桌面间距不变。

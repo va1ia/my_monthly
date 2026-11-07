@@ -17,7 +17,7 @@ footer.js 管理结构和接口，footer.css 管理样式。桌面为订阅/Logo
 页面导航和法律链接统一使用 400 字重；不显示下划线，悬停时以元素正中心为原点，在 180ms 内放大至 1.1 倍，移出还原。键盘焦点保留外框，减少动画偏好下即时切换。
 
 ## 默认 Pre-footer 规则
-共享 Footer 默认在自身前方挂载一份 Pre-footer，结构位于同一 host 中。普通品牌页面不需要单独渲染或调用 mountPreFooter；当前 Home、Contact、Download、Shop 已统一使用此入口。移动端沿用 Pre-footer 的设备规则：992px 以下隐藏且不加载动画素材。
+共享 Footer 默认在自身前方挂载一份 Pre-footer，结构位于同一 host 中。普通品牌页面不需要单独渲染或调用 mountPreFooter；当前 Home、Contact、Download、Shop 已统一使用此入口。991px 以下采用纵向三卡，按接近视口与可见性加载 / 播放动画。
 
 page-policy.js 为唯一判定入口：
 

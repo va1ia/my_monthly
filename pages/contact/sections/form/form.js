@@ -4,7 +4,7 @@ const asset = name => new URL(`../../../../assets/images/contact/form/${name}.sv
 export function renderContactForm(content) {
   return `<section class="contact-form" aria-labelledby="contact-title">
     <picture class="contact-form__pattern" aria-hidden="true"><source media="(max-width: 767px)" srcset="${asset('bg-pattern-phone')}"><img src="${asset('bg-pattern-pc')}" alt="" loading="lazy"></picture>
-    <div class="contact-form__panel"><div class="contact-form__intro"><h1 id="contact-title">${escapeHTML(content.title)}</h1><p>${escapeHTML(content.description)}</p></div>
+    <div class="contact-form__panel"><div class="contact-form__intro"><h1 id="contact-title">${escapeHTML(content.title)}</h1><p class="text-larger">${escapeHTML(content.description)}</p></div>
       <div class="contact-form__body"><form class="contact-form__fields" aria-label="Website Contact Form">
         <label class="contact-form__field contact-form__field--first"><span class="contact-form__label">First Name</span><input name="firstName" autocomplete="given-name" placeholder="First Name" maxlength="256" required></label>
         <label class="contact-form__field contact-form__field--last"><span class="contact-form__label">Last Name</span><input name="lastName" autocomplete="family-name" placeholder="Last Name" maxlength="256" required></label>

@@ -16,4 +16,4 @@ Shop 已指向 ./shop.html。Contact、Download、法律及社交链接来自 ht
 News 显示文案已改为 Press，保留原 news 标识与目标；新增 Event 指向 event.html。
 
 ## Pre-footer 背景切换
-Contact / Download 共用 content/shared/pre-footer-background.json：Pre-footer 顶部距离视口底部 80px 时开始由 picnic-date 过渡到 darker-linen，向下 2000ms、上滚恢复 700ms。FAQ 本身不再触发换色。手机上 Pre-footer 隐藏，不触发此过渡；Footer 保留独立绿色。 triggerLine 为视口比例（1 即底边），triggerOffsetPx 为提前量；transitionMs / returnTransitionMs 为双向时长，default / sections 指定既有颜色变量。
+Contact / Download 共用 content/shared/pre-footer-background.json：Pre-footer 顶部距离视口底部 80px 时开始由 picnic-date 过渡到 darker-linen，向下 2000ms、上滚恢复 700ms。桌面仍由 Pre-footer 触发；手机版（≤767px）由 FAQ 顶部进入同一触发线时开始换色，弥补 Pre-footer 隐藏时没有触发点的问题。Footer 保留独立绿色。 triggerLine 为视口比例（1 即底边），triggerOffsetPx 为提前量；transitionMs / returnTransitionMs 为双向时长，default / sections 指定既有颜色变量。

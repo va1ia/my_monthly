@@ -59,8 +59,8 @@
 @media (max-width: 767px) {
   .home-comments { height: 199vw; min-height: 0; }
   .home-comments__phone { width: 73%; top: 17%; }
-  .home-comments__group { top: 66%; gap: 6.5vw; transform: translateY(-50%); }
-  .home-comments__card { flex-basis: 55vw; width: 55vw; min-height: 39vw; padding: 3.5vw; border-radius: 3vw; }
+  .home-comments__group { top: 71%; gap: 11vw; transform: translateY(-50%); }
+  .home-comments__card { flex-basis: 52vw; width: 52vw; min-height: 37vw; padding: 3.3vw; border-radius: 3vw; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-comments__pattern { transform: none; }

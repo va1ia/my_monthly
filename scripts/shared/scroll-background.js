@@ -18,7 +18,7 @@ export function mountScrollBackground(target, config, { onChange = () => {} } = 
     let nextIndex = -1;
     for (const [index, entry] of sections.entries()) {
       // 手机隐藏的 Pre-footer 不应因空矩形 top=0 而触发换色。
-      if (!entry.element.getClientRects().length) continue;
+      if (!entry.element.getClientRects().length || (entry.state.media && !matchMedia(entry.state.media).matches)) continue;
       if (entry.element.getBoundingClientRect().top <= innerHeight * line + offset) { next = entry.state; nextIndex = index; }
     }
     if (next === current) return;

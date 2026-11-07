@@ -8,5 +8,5 @@ const safeColor = value => {
   return /^[a-f\d]{6}$/i.test(hex) ? `#${hex}` : '#dae3c3';
 };
 export function renderFAQItems(items, palette) {
-  return items.map((item, index) => `<details class="contact-faq__item" style="--faq-color:${safeColor(palette.colors?.[index] || palette.fallback)}"><summary><span>${escapeHTML(item.question)}</span><span class="contact-faq__icon" aria-hidden="true"></span></summary><div class="contact-faq__answer">${escapeHTML(item.answer)}</div></details>`).join('');
+  return items.map((item, index) => `<details class="contact-faq__item" style="--faq-color:${safeColor(palette.colors?.[index] || palette.fallback)}"><summary><span>${escapeHTML(item.question)}</span><span class="contact-faq__icon" aria-hidden="true"></span></summary><div class="contact-faq__answer text-larger">${escapeHTML(item.answer)}</div></details>`).join('');
 }

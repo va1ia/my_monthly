@@ -9,7 +9,7 @@
 form.js 的 renderContactForm(content.form) 渲染结构，styles/contact/form.css 管理样式。scripts/contact/form.js 提供 createContactSubmitter(config, request) 和 mountContactForm(section, submit)，可注入异步适配器；destroy 中断请求并清理监听。
 
 ## 状态与适配
-背景 pattern 图片底部 30% 使用透明蒙版逐渐淡出，桌面与手机素材共用；蒙版绑定图片自身高度，避免素材早于分区结束时留下硬边。表单面板和字段不参与淡出。
+背景 pattern 桌面图片底部 30% 使用透明蒙版逐渐淡出；手机图片高度贴合分区，以 object-fit:cover 顶部对齐，仅在底部 clamp(40px, 12vw, 64px) 淡出到透明，避免渐变过早开始，或图片蒙版终点超出分区而被提前截断。表单面板和字段不参与淡出。
 
 输入框、下拉框和留言区聚焦时不增加外描边或阴影，保留原有细边框；提交按钮保留键盘焦点提示，必填校验不变。
 
@@ -21,3 +21,11 @@ form.js 的 renderContactForm(content.form) 渲染结构，styles/contact/form.c
 
 ## 后端
 contact-submit 校验公开 key、来源、请求大小与字段后写入私有 contact_submissions。数据库确认才返回 ok:true。Zapier 已接入新增留言记录，合作及一般问题发往 hello@mymonthly.co，技术支持发往 support@mymonthly.co。详见 docs/contact.md。
+
+手机版表单跟进（2026-11-06）：面板仍为 88vw，顶部间隔 18vw，内边距 8vw 6vw 10vw，圆角 min(5vw, 24px)；介绍与字段之间保留 12vw，说明复用全站 .text-larger，跟随当前手机字号 token。姓名字段改为 60/40，留言区高度 clamp(240px, 70vw, 440px)，提交按钮居中且最小宽度 44vw。字段仍保持 16px 字号及 44px 高度，保留原校验与提交接口。
+
+浏览器复核：320、390、767、768、1440px 面板和字段无横向溢出；390px 填入临时值检查原生必填校验通过、按钮键盘焦点可见，随后清空。未提交真实留言，后端与分流逻辑未修改。
+
+表单文字与边框：标题下说明使用 .text-larger；输入框、下拉框、留言区和提交按钮统一使用 --text-body（1rem）。字段与按钮边框加粗为 2px，下拉箭头同为 2px；保留原颜色、圆角和焦点行为。
+
+Get In Touch 按钮文字额外使用 .2px currentColor 描边，轻微加粗，字号与按钮外框不变。

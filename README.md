@@ -14,16 +14,16 @@
 
 Contact 联系卡片、We hear you 表单与 Q&A 已实现，预览 http://127.0.0.1:4173/contact.html。Supabase 与 Zapier 留言邮件分流已连接并通过真实运行验证；见 [Contact 接入](docs/contact.md)。
 
-Q&A 支持两列 Google Sheet CSV 自动读取，已连接 MM Website Copy 的 Q&A: Preview 工作表；颜色独立 JSON，按顺序逐条对应。首页、Contact 与 Download 共用 FAQ；首页 FAQ 固定显示 Darker Linen，Contact / Download 的整页换色在 Pre-footer 快进入视口（提前 80px）时开始，配置在 content/shared/pre-footer-background.json。见 [Q&A 说明](pages/contact/sections/faq/README.md)。
+Q&A 支持两列 Google Sheet CSV 自动读取，已连接 MM Website Copy 的 Q&A: Preview 工作表；颜色独立 JSON，按顺序逐条对应。首页、Contact 与 Download 共用 FAQ；首页 FAQ 固定显示 Darker Linen，Contact / Download 的整页换色在桌面 Pre-footer、手机 FAQ 快进入视口（提前 80px）时开始，配置在 content/shared/pre-footer-background.json。见 [Q&A 说明](pages/contact/sections/faq/README.md)。
 
 Shop 商品展示墙、商品弹窗、收藏和本地购物车已实现，预览 http://127.0.0.1:4173/shop.html；商品 SVG 独立放在 assets/images/shop/products/，按编号替换后自动更新。说明见 [Shop 展示墙](pages/shop/sections/merch/README.md)；Stripe 美国配送收款接口已预留但未开启，见 [收款接入](docs/shop-checkout.md)。
 
-电脑版 Pre-footer 默认加入普通页面 Footer 前（目前 Home / Contact / Download / Shop）；文章与活动页自动排除，后续新增普通页面接入共享 Footer 即可，不需单独挂载。默认同步叠加的透明视频约 16.0 MB（V2，3440×1080，20 秒；MP4 后备约 6.1 MB），独立对照页为 http://127.0.0.1:4173/pre-footer-preview.html，可对照新版原始 JSON，固定同步叠加循环。新版源文件保留在 components/pre-footer/source/，静态插画按 images/cards/ 与 images/garden/ 归类，手机不加载。见 [Pre-footer 说明](components/pre-footer/README.md)。
+响应式 Pre-footer 默认加入普通页面 Footer 前（目前 Home / Contact / Download / Shop）；文章与活动页自动排除，后续新增普通页面接入共享 Footer 即可，不需单独挂载。默认同步叠加的透明视频约 16.0 MB（V2，3440×1080，20 秒；MP4 后备约 6.1 MB），独立对照页为 http://127.0.0.1:4173/pre-footer-preview.html，可对照新版原始 JSON，固定同步叠加循环。新版源文件保留在 components/pre-footer/source/，静态插画按 images/cards/ 与 images/garden/ 归类，手机纵向排列三卡，花园暂用电脑版，后续替换入口为 components/pre-footer/media-sources.js。见 [Pre-footer 说明](components/pre-footer/README.md)。
 
 首页评论区已加入手机 SVG、整组等高的弧线循环评论与非手机端鼠标背景视差；已连接 Google Sheet 第三个工作表 Home: user comments，每 60 秒同步，无新增本地 JSON。见 [评论区说明](pages/home/sections/user-comments/README.md)。
 
 ## 当前状态
-首页 landing、导航和 Footer 已按参考站及用户截图实现；使用上传的 Logo、插画、社交图标和字体。首页评论区与电脑版 Pre-footer 已实现，其余后续分区待开发，未配置部署。Newsletter 已连接 Supabase 保存名单（本地预览与 GitHub Pages 来源）；尚未接入邮件发送服务。共享链接配置见 content/shared/README.md。
+首页 landing、导航和 Footer 已按参考站及用户截图实现；使用上传的 Logo、插画、社交图标和字体。首页评论区与桌面 / 手机 Pre-footer 已实现，其余后续分区待开发，未配置部署。Newsletter 已连接 Supabase 保存名单（本地预览与 GitHub Pages 来源）；尚未接入邮件发送服务。共享链接配置见 content/shared/README.md。
 
 ## 文件结构
 ```text

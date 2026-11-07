@@ -13,6 +13,6 @@ Pattern 双端定位与首页一致：桌面顶部 3vw、图片等比自然高�
 
 按用户红线收短桌面首屏至 56vw（600–968px），保持标题和手机的原有纵向位置；手机插画桌面宽度封顶 744px，避免超宽屏截断。Pattern 在桌面底部用透明遮罩轻微淡出，整页滚动换色继续由共享模块控制，不加入黑色渐变。手机布局保持。已检查 390、768、1199、1440、1920 宽度，无横向溢出，桌面插画底部位于首屏内。
 
-Contact / Download 共用 content/shared/pre-footer-background.json：Pre-footer 顶部距离视口底部 80px 时开始由 picnic-date 过渡到 darker-linen，向下 2000ms、上滚恢复 700ms。FAQ 本身不再触发换色。手机上 Pre-footer 隐藏，不触发此过渡；Footer 保留独立绿色。
+Contact / Download 共用 content/shared/pre-footer-background.json：Pre-footer 顶部距离视口底部 80px 时开始由 picnic-date 过渡到 darker-linen，向下 2000ms、上滚恢复 700ms。桌面由 Pre-footer 触发；手机版（≤767px）由 FAQ 顶部进入同一触发线时换色，Footer 保留独立绿色。
 
 滚动背景支持 returnTransitionMs：回到前一个分区状态时使用独立时长，未配置则沿用 transitionMs。Contact / Download 变 beige 保持 2000ms，返回绿色为 700ms；浏览器已验证双向时长。
