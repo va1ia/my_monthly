@@ -14,8 +14,8 @@
 - 手机版布局与素材替换
 
 ## 目录归类
-- source/：唯一一套花园原始 JSON、Loved 原始 MOV 和来源说明。
-- media/：花园透明视频、MP4 后备和 poster；cards/ 放 Loved 卡片的透明 WebM 与 MP4 后备。
+- source/：桌面 garden / leaves JSON、独立 garden-mobile JSON、Loved 原始 MOV 和来源说明。
+- media/：桌面 garden 与手机 garden-mobile 各自的透明视频、MP4 后备和 poster；cards/ 放 Loved 卡片的透明 WebM 与 MP4 后备。
 - images/cards/：Loved、Loved 装饰、Calm 和 Calendar。
 - images/garden/：Cloud、Ground 和 Bushes。
 - vendor/：Lottie 对照播放器及授权；组件根目录只放代码、样式、测量报告和说明。
@@ -81,7 +81,7 @@ Lottie Canvas 播放器固定版本 5.13.0，vendor/ 包含 MIT 授权文件；�
 重新生成视频：运行 `scripts/tools/prepare-pre-footer.py --ffmpeg /path/to/ffmpeg`，输入固定为 source/ 中两份文件；按主动画帧数导出，短叶子图层以原速取模循环，时长须整除主动画，输出先在临时目录完成，再替换 media/，需要 Pillow 和 FFmpeg，仅为素材准备依赖，不是网站运行依赖。脚本限制为本批相同时间轴的一帧一图导出；未来换成矢量动画需重新评估，不会误按本转换器处理。
 
 ## 验证与限制
-见 `docs/pre-footer-verification.md`。精确品牌数值和最终手机版花园素材仍待确认。此次未部署，也未提交任何申请或订阅表单。
+见 `docs/pre-footer-verification.md`。精确品牌数值仍待确认；手机版已接入用户上传的独立构图。此次未部署，也未提交任何申请或订阅表单。
 
 ## FAQ 背景衔接
 Pre-footer 的天空渐变从透明起步，32% 处达到天空蓝。在启用 scroll-background 的页面，组件底色也设为透明，顶部直接透出 body 当前正在过渡的颜色，因此慢速换色、上滚反向切换和快速滚动都不会产生 FAQ / Pre-footer 色块接缝。未启用整页换色的页面和独立预览保留 darker-linen 底色。无需额外颜色动画或逐帧脚本，原触发点及双向时长不变。
@@ -98,9 +98,13 @@ Loved 与花园分别按自身可见性播放；页面隐藏、全局暂停或�
 ## 手机版布局与素材替换
 2026-11-06 按用户截图实现：≤991px 为居中纵向三卡，宽度 86%（最大 580px）；下载卡保留角色、四个装饰、标题与 App Store 提示。Ambassador / Events 遵从 PC 最终版，使用相同箭头入口及悬停圆形色块，不使用旧稿黑色按钮。Calm 继承 PC 宽度和定位，只额外等比缩小至 .9；Calendar 按 PC 常规卡片比例缩为 22.13%，贴齐右下角并沿圆角裁切。云层直接使用 PC 完整原图，保留原始形状、数量及内部相对坐标。下方接花园及 Footer。
 
-底部暂时完整复用电脑版花园。资源入口为 media-sources.js：garden 是默认桌面资源；mobileGarden 当前为 null，自动回退 garden。手机素材完成后，填写 mobileGarden 的 webm / mp4 / poster 路径（相对组件目录）、aspectRatio（显示区宽高比）、frameHeightRatio（完整视频高度与显示区高度之比），无需修改卡片或页面入口。原始 Lottie 对照仍使用现有电脑版 JSON。
+2026-11-09 接入用户上传的 Json WebsiteMobileHeader.json，原始字节归档为 source/garden-mobile.json（28,953,823 字节）。独立两行字样及角色构图，1648×889、24fps、258 帧、10.75 秒；不额外叠加桌面叶子。转换沿用桌面 VP9 CRF 22 / H.264 CRF 18，无音轨；仅在底部补 1px 透明像素满足编码偶数高，输出 1648×890。media/garden-mobile.webm 为 4,193,576 字节，MP4 为 1,920,832 字节，poster 为 108,938 字节，完整哈希见 mobile-animation-report.json。
 
-手机沿用按可见性播放、离屏暂停、减少动画首帧和键盘暂停 / 继续；暂停按钮常显。尺寸按截图暂定，最终花园构图待新素材。
+资源入口为 media-sources.js：≥992px 使用 garden，≤991px 使用 mobileGarden，显示区比例 1648 / 889，frameHeightRatio 为 890 / 889，durationSeconds 为 10.75。原始 Lottie 对照仍使用电脑版 JSON 及桌面比例。草坡 SVG 使用 preserveAspectRatio=none 按显示区铺满，MP4 预合成相同的草坡；手机完整云组按新版花园高度上移，避免遮挡字样。
+
+重新生成手机媒体：python3 scripts/tools/prepare-pre-footer.py --variant mobile --ffmpeg /path/to/ffmpeg；默认不传 --variant 时继续只生成桌面媒体，不覆盖另一端。
+
+手机沿用按可见性播放、离屏暂停、减少动画首帧和键盘暂停 / 继续；暂停按钮常显。卡片尺寸按已有截图保留，花园使用新上传素材原比例。
 
 移动端与 PC 对齐跟进：移除截取 / 复制的手机云朵，直接使用 PC 完整 cloud.svg，保留所有云朵原始形状和相对坐标。Calm 继承 PC 的 56% 宽度、right -12% / bottom -54%，仅以左下角为基准等比缩小至 .9；Calendar 按 PC 常规卡片内比例设为 22.13%，高度保持 auto。手机不再重新指定角色的 62% 宽度和 -16% 位置。
 

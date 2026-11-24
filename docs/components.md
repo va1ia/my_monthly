@@ -7,8 +7,9 @@
 ## 组件清单
 | 组件 | 说明 | 变体 | 状态 |
 | --- | --- | --- | --- |
+| Press archive（页面专属） | [分区说明](../pages/press/sections/archive/README.md) | 桌面 / 手机；统一 20px / 3° 抬起；减少动画 | 六篇文章按日期排序；三周年和十月 Version 2.5 封面、链接已更新；共享订阅与背景视差 |
 | Menu bar | [组件说明](../components/menu-bar/README.md) | 桌面 / 手机；当前页标记 | 已实现 |
-| Pre-footer | [组件说明](../components/pre-footer/README.md) | 桌面双列 / 手机单列；视频 / 原始 JSON；同步叠加循环 | 普通页面由 Footer 默认挂载；文章 / 活动排除；手机暂用电脑版花园 |
+| Pre-footer | [组件说明](../components/pre-footer/README.md) | 桌面双列 / 手机单列；视频 / 原始 JSON；同步叠加循环 | 普通页面由 Footer 默认挂载；文章 / 活动排除；手机使用独立两行花园动画 |
 | Footer | [组件说明](../components/footer/README.md) | brand / dark / light | 已实现；Supabase 名单收集已连接 |
 | Home hero（页面专属） | [分区说明](../pages/home/sections/hero/README.md) | 桌面 / 平板 / 手机；减少动画 | 已实现背景视差、碰杯、tag 和 marquee；下载徽章使用原站左上位移及实色阴影 |
 | Contact cards（页面专属） | [分区说明](../pages/contact/sections/cards/README.md) | 桌面 / 平板 / 手机 | 卡片、背景视差已实现；手机按截图排列，悬停变灰 |
@@ -18,7 +19,19 @@
 | Button | [组件说明](../components/button/README.md) | 待设计确认 | 目录预留 |
 
 ## 新增与变更
-Pre-footer 手机布局：≤991px 三卡纵向排列，保留桌面文案和整卡链接，沿用 PC 最终版箭头入口和 Calm / Calendar 的视觉规则，云层使用 PC 完整原图并等比缩放。Loved 与花园沿用按可见性播放和暂停；手机版花园暂用桌面视频，替换入口为 components/pre-footer/media-sources.js 的 mobileGarden。
+Newsletter 说明留白：文字下移一份额外间距，文件夹及卡片整组下移两份，首屏同步增高；桌面每份 20–40px、手机 16–24px，使文字上下实际拉开，保持卡片相对位置与底部衔接。
+
+Newsletter 订阅区：弧形标题缩至容器 90% 并居中，说明小字上下各增加 8px padding，桌面 / 手机同步。
+
+Newsletter 介绍文字：one 与 LinkedIn 使用 Graphik SemiBold Italic（600 / italic），LinkedIn 常驻下划线、悬停透明度 .65，保留公司主页直达链接，桌面 / 手机共用。
+
+临时导航：Press 显示名改为 Newsletter，Event 与 About / Shop 一同隐藏；Footer 页面列表使用与 Menu bar 相同的 hiddenInMenu 规则，只显示 Newsletter / Contact / Download。法律链接独立保留。Footer 三个社交图标在当前基础上再左移 4px（合计 -8px），桌面 / 手机同步。
+
+Press 归档微调：slot-1 稍上移、slot-4 稍下移，桌面 / 手机同步；介绍文字恢复原站灰绿色 #999f88。
+
+Press 归档：Summer Calling 下移，使底边藏入文件夹；十月刊向中间左移。Press 页 Pre-footer 顶部底色与最前层文件夹 #eeeee1 一致，桌面 / 手机共用，保留共享天空渐变。
+
+Pre-footer 手机布局：≤991px 三卡纵向排列，保留桌面文案和整卡链接，沿用 PC 最终版箭头入口和 Calm / Calendar 的视觉规则，云层使用 PC 完整原图并等比缩放。Loved 与花园沿用按可见性播放和暂停；手机版花园使用独立 10.75 秒透明视频，资源入口为 components/pre-footer/media-sources.js 的 mobileGarden。
 
 Pre-footer 默认规则：共享 Footer 自动在普通页面挂载一份，Home / Home / Contact / Download / Shop 已统一；文章 / 活动路径及 pageType:article / event 排除，技术预览通过 preFooter:false 关闭。首页不再单独重复渲染，销毁 Footer 时一并清理播放器。详见 Footer 说明和 docs/architecture.md。
 
@@ -100,3 +113,5 @@ Pre-footer 移动端统一 PC 原图：取消手机云朵的截取与复制，�
 Pre-footer 手机人物与日历已恢复用户手动值：Calm width 62% / right -16%，无额外 scale；Calendar width 28%。
 
 Pre-footer 手机三卡的两处纵向 gap 均在原基础上减少 4px，桌面间距不变。
+
+Pre-footer 手机花园（2026-11-09）：接入用户新 JSON，保留 source/garden-mobile.json，生成独立透明 WebM / MP4 / poster；≤991px 自动切换，原速 10.75 秒循环，保留懒加载、离屏暂停和减少动态效果。手机云组跟随新版花园高度上移，草坡按显示区铺满。

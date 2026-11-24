@@ -7,6 +7,8 @@
 - 命名与入口
 
 ## 品牌页面
+Press 入口为 `press.html`；结构 `pages/press/sections/archive/`，样式 `styles/press/index.css`，脚本 `scripts/press/index.js`，数据 `content/press/archive.json`，素材 `assets/images/press/archive/`。首屏与 Footer 共用订阅适配器，背景复用 pointer-parallax；Pre-footer 由共享 Footer 自动挂载。
+
 类型目录下直接用页面名，不设 branding 中间层。每页样式入口放在自己的目录中：`styles/<page>/index.css`。
 
 以首页 hero 为例，各类型保持同一页面/分区路径：
@@ -28,9 +30,9 @@ Shop 入口 shop.html，分区 merch、product-dialog。结构 pages/shop/sectio
 复制 `templates/event/` 到 `event/<slug>/`，或 `templates/article/` 到 `article/<slug>/`。模板内 `page.html` 是非完整结构片段，待选定框架后转换为对应页面模块；不得直接当作完成的网页发布。所有页面专属文件留在这个目录，包括只为该页使用的组件、字体或下载文件。创建专属组件时也配 README。
 
 ## 共享边界
-Pre-footer 采用桌面双列与 ≤991px 单列三卡，桌面 / 手机均按可见性播放。手机花园暂时复用电脑版，components/pre-footer/media-sources.js 集中管理默认资源和可选 mobileGarden；图片与花园视频分别在接近自身视口时加载。
+Pre-footer 采用桌面双列与 ≤991px 单列三卡，桌面 / 手机均按可见性播放。手机花园使用独立两行构图，components/pre-footer/media-sources.js 集中管理桌面 garden 与手机 mobileGarden；图片与花园视频分别在接近自身视口时加载。
 
-Pre-footer 为 components/pre-footer/ 中的共享组件，结构、样式、播放控制、source/ 中的新版原始 JSON、media/ 中的三份花园播放资源及 media/cards/ 中的 Loved 视频、images/cards/ 与 images/garden/ 分类静态插画及 Lottie Canvas vendor 均封装在组件内。普通页面默认由共享 mountFooter 自动挂载，Home / Contact / Download / Shop 已接入；文章和活动页面（包括 event.html 及 event/、article/ 路径）排除。page-policy.js 为统一判定入口；自定义文章 / 活动 URL 须传 `pageType: 'article'` / `'event'`，新普通页面不得再独立追加一份 Pre-footer。pre-footer-preview.html 和 component-preview.html 作为技术预览通过 preFooter:false 关闭自动挂载，前者保留手动实例用于对照。素材转换器位于 scripts/tools/prepare-pre-footer.py，原文件不修改。
+Pre-footer 为 components/pre-footer/ 中的共享组件，结构、样式、播放控制、source/ 中的新版原始 JSON、media/ 中桌面与手机各三份花园播放资源及 media/cards/ 中的 Loved 视频、images/cards/ 与 images/garden/ 分类静态插画及 Lottie Canvas vendor 均封装在组件内。普通页面默认由共享 mountFooter 自动挂载，Home / Contact / Download / Shop 已接入；文章和活动页面（包括 event.html 及 event/、article/ 路径）排除。page-policy.js 为统一判定入口；自定义文章 / 活动 URL 须传 `pageType: 'article'` / `'event'`，新普通页面不得再独立追加一份 Pre-footer。pre-footer-preview.html 和 component-preview.html 作为技术预览通过 preFooter:false 关闭自动挂载，前者保留手动实例用于对照。素材转换器位于 scripts/tools/prepare-pre-footer.py，原文件不修改。
 
 滚动整页换色由 scripts/shared/scroll-background.js 与 styles/scroll-background.css 复用；Contact / Download 共用 content/shared/pre-footer-background.json，以 Pre-footer 接近视口底部（提前 80px）触发，隐藏分区不触发；其他场景可在页面数据目录配置。分区背景透明，不以渐变模拟换色。详见 scripts/shared/README.md。
 

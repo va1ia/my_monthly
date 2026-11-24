@@ -15,13 +15,13 @@
   <main id="main" tabindex="-1">
     <div class="pre-footer-test">
       <h1>Pre-footer 动画预览</h1>
-      <p>新版字样与叶子同步播放，20 秒循环（叶子每 10 秒循环）；可对照网页视频与原始 JSON。</p>
+      <p>桌面版字样与叶子同步播放，20 秒循环；手机版使用独立两行构图，10.75 秒循环。原始 JSON 对照保留桌面版。</p>
       <div class="pre-footer-test__controls">
-        <label>素材版本<select id="animation-source"><option value="video">网页视频 · 高清透明版约 16.0 MB</option><option value="lottie">原始 Lottie / 新版 JSON · 合计 85.7 MB</option></select></label>
+        <label>素材版本<select id="animation-source"><option value="video">网页视频 · 桌面约 16.0 MB / 手机约 4.2 MB</option><option value="lottie">原始 Lottie / 新版 JSON · 合计 85.7 MB</option></select></label>
         <button id="animation-restart" type="button">从头播放</button>
       </div>
       <p id="animation-state" role="status" aria-live="polite">正在准备预览…</p>
-      <p class="pre-footer-test__mobile">本轮仅测试电脑版。手机动画待接入，此屏宽不会加载动画文件。</p>
+      <p class="pre-footer-test__mobile">当前屏宽使用手机版动画，支持按可见性播放和暂停。</p>
     </div>
     <div id="pre-footer-demo"></div>
   </main>

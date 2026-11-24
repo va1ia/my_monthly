@@ -1,0 +1,48 @@
+{
+  "sources": [
+    {
+      "file": "source/garden-mobile.json",
+      "bytes": 28953823,
+      "gzipBytes": 21539092,
+      "sha256": "b975b26d6f7f5950323ca5538e32d9181f76f089ad16bcb3e61c0e793d2cbb51",
+      "frames": 258,
+      "fps": 24,
+      "durationSeconds": 10.75,
+      "width": 1648,
+      "height": 889,
+      "embeddedImagePercent": 99.26
+    }
+  ],
+  "outputSize": [
+    1648,
+    890
+  ],
+  "fps": 24,
+  "displayCropHeight": 889,
+  "encoding": {
+    "vp9Crf": 22,
+    "h264Crf": 18,
+    "sourceFrameSize": [
+      1648,
+      889
+    ],
+    "paddingBottom": 1
+  },
+  "video": {
+    "file": "garden-mobile.mp4",
+    "bytes": 1920832,
+    "durationSeconds": 10.75
+  },
+  "transparentVideo": {
+    "file": "garden-mobile.webm",
+    "bytes": 4193576,
+    "durationSeconds": 10.75
+  },
+  "poster": {
+    "file": "garden-mobile-poster.webp",
+    "bytes": 108938
+  },
+  "sky": "#b8eafa",
+  "ground": "#3d8054",
+  "note": "Standalone mobile composition at native speed. No desktop leaf overlay. Original source bytes preserved; one transparent bottom row added for even encoding height."
+}

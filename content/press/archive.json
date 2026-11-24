@@ -1,0 +1,10 @@
+{
+  "items": [
+    { "id": "almost-over", "image": "almost-over.jpeg", "publishedAt": "2025-11-18", "title": "Mark Your Calendars: Version 2.0 Goes Live December 1st!", "href": "https://www.linkedin.com/pulse/mark-your-calendars-version-20-goes-live-december-1st-your-monthly-z8o5c/" },
+    { "id": "new-year", "image": "new-year.jpeg", "publishedAt": "2026-01-18", "title": "New Features, Events & What’s Next for My Monthly", "href": "https://www.linkedin.com/pulse/new-features-events-whats-next-my-monthly-your-monthly-yzgic/" },
+    { "id": "merch-and-widgets", "image": "merch-and-widgets.jpeg", "publishedAt": "2026-05-18", "title": "Brand New Resources & Spring Socials!", "href": "https://www.linkedin.com/pulse/brand-new-resources-spring-socials-your-monthly-pikac/" },
+    { "id": "summer-calling", "image": "summer-calling.jpeg", "publishedAt": "2026-06-18", "title": "Summer is Calling... Pick up the Phone!", "href": "https://www.linkedin.com/pulse/summer-calling-pick-up-phone-your-monthly-12lhc/" },
+    { "id": "turning-three", "image": "turning-three.jpeg", "publishedAt": "2026-07-18", "title": "It's July 18th, and we're officially 3!", "href": "https://www.linkedin.com/pulse/its-july-18th-were-officially-3-your-monthly-4r6kc/" },
+    { "id": "version-two-five", "image": "version-two-five.png", "publishedAt": "2026-10-18", "title": "Cozy News for Cozy Season", "href": "https://www.linkedin.com/pulse/cozy-news-season-your-monthly-bnpbc/" }
+  ]
+}

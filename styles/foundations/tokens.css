@@ -14,6 +14,13 @@
   --font-body: "Graphik", system-ui, sans-serif;
   --font-heading: "GT Eesti Display", "Graphik", sans-serif;
   --text-small: 0.875rem;
+  /* Press 订阅框按本页 Figma 稿映射，非新增全站品牌字号。 */
+  --text-press-email: clamp(16px, 1.5vw, 24px);
+  --text-press-submit: clamp(32px, 3vw, 52px);
+  --text-press-intro: clamp(14px, 1.2vw, 20px);
+  /* Press 最前层文件夹 SVG 原色，仅用于本页底部衔接。 */
+  --color-press-folder: #eeeee1;
+  --color-press-intro: #999f88; /* 原站 newsletter 介绍文字色。 */
   /* Pre-footer 按截图暂定。天空色与生成的视频底色一致。 */
   --text-pre-footer-mobile-title: clamp(22px, 6.8vw, 34px);
   --text-pre-footer-mobile-download-title: clamp(24px, 7.5vw, 38px);

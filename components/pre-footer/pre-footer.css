@@ -65,7 +65,7 @@
 /* 4. 可访问性与设备范围 */
 .pre-footer :focus-visible { outline: 3px solid var(--color-before-dawn); outline-offset: 5px; }
 .pre-footer__garden :focus-visible { outline-color: var(--color-morning-fog); }
-/* 手机和平板采用同一列卡片；末尾暂时完整显示电脑版花园。 */
+/* 手机和平板采用同一列卡片；末尾使用独立手机版花园构图。 */
 @media (max-width: 991px) {
   .pre-footer { padding-top: clamp(24px, 5vw, 44px); overflow-x: clip; }
   .pre-footer__cards { width: 86%; max-width: 580px; grid-template-columns: 1fr; gap: calc(clamp(24px, 6vw, 40px) - 4px); }
@@ -85,7 +85,7 @@
   .pre-footer__calm { width: 62%; right: -16%; height: auto; }
   .pre-footer__calendar { width: 28%; height: auto; }
   /* 云层直接使用 PC 完整原图，保留数量、形状及内部相对坐标。 */
-  .pre-footer__clouds { transform: none; }
+  .pre-footer__clouds { bottom: calc(100vw * 889 / 1648 + 4vw); transform: none; }
   .pre-footer__garden { margin-top: 50vw; }
   .pre-footer__motion-toggle { right: 10px; bottom: 4px; min-height: 32px; padding: 5px 10px; font-size: var(--text-small); opacity: 1; }
 }

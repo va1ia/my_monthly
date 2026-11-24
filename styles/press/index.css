@@ -1,0 +1,82 @@
+/* 目录：1. 页面和背景 2. 订阅区 3. 文件夹与卡片 4. 手机 5. 减少动画 */
+.press-page { background: var(--color-linen-sheet); }
+/* 共享天空渐变透明起点接续文件夹原色，桌面 / 手机一致。 */
+.press-page .pre-footer { background-color: var(--color-press-folder); }
+.press-archive { --archive-base-height: 82.1181vw; --archive-responsive-offset: 0px; --intro-space-extra: clamp(20px, 2vw, 40px); position: relative; isolation: isolate; overflow: hidden; height: calc(var(--archive-base-height) + 2 * var(--intro-space-extra)); color: var(--color-picnic-date); }
+.press-archive__backdrop { position: absolute; z-index: -1; top: -.58vw; left: -1.03%; width: 104.6%; pointer-events: none; transform: translate3d(var(--pattern-x, 0vw), var(--pattern-y, 0vw), 0); }
+.press-archive__backdrop img { width: 100%; max-width: none; }
+
+/* 2. 使用现有字体、正文样式和订阅服务；标题保留原始矢量图。 */
+.press-archive__signup { position: absolute; z-index: 10; top: 18.24vw; left: 50%; width: 55.48%; transform: translateX(-50%); text-align: center; }
+.press-archive__title { width: 90%; margin: 0 auto; }
+.press-archive__title img { width: 100%; height: auto; }
+.press-archive__form { position: relative; display: flex; align-items: center; width: 60%; margin: .1vw auto 0; border-bottom: 2px solid currentColor; }
+.press-archive__form input { width: 100%; min-width: 0; padding: .5em 0; border: 0; border-radius: 0; outline: none; background: transparent; color: var(--color-darker-green); font-size: var(--text-press-email); }
+.press-archive__form input::placeholder { color: inherit; opacity: 1; }
+.press-archive__form:has(input:focus-visible) { border-bottom-width: 3px; }
+.press-archive__form button { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border: 0; padding: 0; background: transparent; color: inherit; cursor: pointer; font-family: var(--font-arrow); font-size: var(--text-press-submit); line-height: 1; transition: transform 180ms ease; }
+.press-archive__form button:hover { transform: translateX(3px); }
+.press-archive__form button:disabled { opacity: .5; cursor: wait; }
+.press-archive__status { position: absolute; top: 100%; left: -5%; width: 110%; margin: .3rem 0 0; color: var(--color-darker-green); line-height: 1.2; }
+.press-archive__intro { max-width: 43.8vw; margin: calc(2.25vw + var(--intro-space-extra)) auto 0; padding-block: var(--space-1); font-size: var(--text-press-intro); line-height: 1.35; color: var(--color-press-intro);}
+.press-archive__intro strong { font-weight: 600; font-style: italic; }
+.press-archive__intro a { color: inherit; text-decoration: underline; text-underline-offset: .2em; transition: opacity 180ms ease; }
+.press-archive__intro a:hover { opacity: .65; }
+.press-archive a:focus-visible, .press-archive button:focus-visible { outline: 3px solid var(--color-darker-green); outline-offset: 6px; }
+
+/* 3. Figma 文件夹原图旋转 / 镜像后等比显示；只在页面容器内裁切。 */
+/* 说明下移一份间距，整组卡片下移两份，首屏同步增高，真正拉开文字上下距离。 */
+.press-archive__collection { position: absolute; inset: 0; pointer-events: none; transform: translateY(calc(var(--archive-responsive-offset) + 2 * var(--intro-space-extra))); }
+.press-archive__folder { position: absolute; z-index: var(--layer); left: 0; width: 79.9252%; transform: matrix(0, 1, 1, 0, 0, 0); transform-origin: 0 0; }
+.press-archive__folder img { width: 100%; max-width: none; height: auto; }
+.press-archive__folder--back { left: 100%; top: 65.4687vw; transform: rotate(90deg); }
+.press-archive__folder--blue { top: 49.8437vw; }
+.press-archive__folder--gold { top: 58.177vw; }
+.press-archive__folder--pink { top: 66.5104vw; }
+.press-archive__folder--linen { top: 74.8453vw; }
+.press-archive__card { position: absolute; z-index: 2; display: block; width: 25%; aspect-ratio: 16 / 9; border-radius: 1.25vw; pointer-events: auto; transform: rotate(var(--rest-rotation)); transform-origin: 0 0; transition: transform 200ms cubic-bezier(.215,.61,.355,1); }
+.press-archive__card img { width: 100%; height: auto; border-radius: inherit; }
+.press-archive__card:hover, .press-archive__card:focus-visible { transform: translateY(-20px) rotate(calc(var(--rest-rotation) - 3deg)); }
+.press-archive__card:focus-visible { z-index: 11; }
+/* 内容按日期排序后依次占用位置；所有卡片统一上移 20px、逆时针旋转 3°。 */
+.press-archive__card--slot-1 { left: 9.6913%; top: 39.3082vw; --rest-rotation: 5.335deg; }
+.press-archive__card--slot-2 { left: 62.2583%; top: 44.467vw; --rest-rotation: -3.483deg; }
+.press-archive__card--slot-3 { z-index: 4; left: 39.7996%; top: 47.773vw; --rest-rotation: 3.375deg; }
+.press-archive__card--slot-4 { z-index: 6; left: 9.1208%; top: 58.1825vw; --rest-rotation: -1.006deg; }
+.press-archive__card--slot-5 { z-index: 6; left: 68.8185%; top: 57.6825vw; --rest-rotation: 5.355deg; }
+.press-archive__card--slot-6 { z-index: 8; left: 48%; top: 67.7333vw; --rest-rotation: -3.595deg; }
+
+/* 中屏为正文及订阅反馈留出额外空间。 */
+@media (min-width: 768px) and (max-width: 991px) {
+  .press-archive { --archive-base-height: 86.1181vw; --archive-responsive-offset: 4vw; }
+}
+/* 4. 手机使用独立标题及背景，封面按 402px 设计画布重新排布。 */
+@media (max-width: 767px) {
+  .press-archive { --archive-base-height: 181.47vw; --intro-space-extra: clamp(16px, 4vw, 24px); }
+  .press-archive__backdrop { top: 25.12vw; left: -5.47%; width: 160.2%; transform: none; }
+  .press-archive__signup { top: 54vw; width: 80%; }
+  .press-archive__title img { width: 100%; }
+  .press-archive__form { width: 92%; margin-top: -4vw; }
+  .press-archive__intro { max-width: 90%; margin-top: calc(8.5vw + var(--intro-space-extra)); font-size: var(--text-small); }
+  .press-archive__folder--back { top: 164.85vw; }
+  .press-archive__folder--blue { top: 144.25vw; }
+  .press-archive__folder--gold { top: 153.58vw; }
+  .press-archive__folder--pink { top: 162.91vw; }
+  .press-archive__folder--linen { top: 172.24vw; }
+  .press-archive__card { width: 30%; border-radius: 1.5vw; }
+  .press-archive__card--slot-1 { left: 3.9077%; top: 131.0747vw; }
+  .press-archive__card--slot-2 { left: 57.7838%; top: 136.4215vw; }
+  .press-archive__card--slot-3 { left: 37.1919%; top: 142.6287vw; }
+  .press-archive__card--slot-4 { left: 5.2127%; top: 155.5189vw; }
+  .press-archive__card--slot-5 { left: 68.1441%; top: 154.5189vw; }
+  .press-archive__card--slot-6 { left: 50%; top: 164.8209vw; }
+}
+@media (max-width: 374px) {
+  .press-archive { --archive-base-height: 191.47vw; --archive-responsive-offset: 10vw; }
+}
+/* 5. 尊重减少动态效果偏好。 */
+@media (prefers-reduced-motion: reduce) {
+  .press-archive__backdrop { transform: none; }
+  .press-archive__card, .press-archive__form button, .press-archive__intro a { transition: none; }
+  .press-archive__card:hover, .press-archive__card:focus-visible { transform: rotate(var(--rest-rotation)); }
+}

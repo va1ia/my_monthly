@@ -46,7 +46,7 @@ export function mountPreFooter(section) {
     toggle.setAttribute('aria-pressed', String(!playing));
     toggle.setAttribute('aria-label', playing ? 'Pause garden animation' : 'Play garden animation');
     toggle.textContent = playing ? 'Pause animation' : 'Play animation';
-    section.dispatchEvent(new CustomEvent('prefooterstate', {detail:{source,mode,state,loops,part:activePart + 1}}));
+    section.dispatchEvent(new CustomEvent('prefooterstate', {detail:{source,mode,state,loops,part:activePart + 1,duration:gardenMedia().durationSeconds}}));
   }
   function update() {
     const lovedMotion = lovedVisible && !document.hidden && !paused && (!reduced.matches || allowMotion);
@@ -65,7 +65,8 @@ export function mountPreFooter(section) {
     }
     emit();
   }
-  const gardenMedia = () => (!desktop.matches && preFooterMedia.mobileGarden) || preFooterMedia.garden;
+  // 原始 JSON 对照保留桌面双层构图；默认视频随断点切换独立手机资源。
+  const gardenMedia = () => (source === 'video' && !desktop.matches && preFooterMedia.mobileGarden) || preFooterMedia.garden;
   function hydrate() {
     section.querySelectorAll('[data-pre-footer-src]').forEach(image => {
       if (!image.getAttribute('src')) image.src = image.dataset.preFooterSrc;

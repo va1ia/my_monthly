@@ -16,7 +16,7 @@ const state = document.querySelector('#animation-state');
 const states = {idle:'靠近分区时加载', loading:'正在加载素材…', ready:'已准备好', playing:'播放中', paused:'已暂停', error:'加载失败，保留预览图'};
 section.addEventListener('prefooterstate', event => {
   const detail = event.detail;
-  state.textContent = `${source.selectedOptions[0].textContent} / 同步叠加 · 20 秒循环 / ${states[detail.state]}${detail.loops ? ` / 已循环 ${detail.loops} 次` : ''}`;
+  state.textContent = `${source.selectedOptions[0].textContent} / ${detail.duration} 秒循环 / ${states[detail.state]}${detail.loops ? ` / 已循环 ${detail.loops} 次` : ''}`;
 });
 function select() { player.select(source.value); }
 source.addEventListener('change', select);

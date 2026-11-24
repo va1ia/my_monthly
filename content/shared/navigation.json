@@ -9,12 +9,13 @@
     {
       "id": "event",
       "label": "Event",
-      "href": "./event.html"
+      "href": "./event.html",
+      "hiddenInMenu": true
     },
     {
       "id": "news",
-      "label": "Press",
-      "href": "?page=news"
+      "label": "Newsletter",
+      "href": "./press.html"
     },
     {
       "id": "shop",

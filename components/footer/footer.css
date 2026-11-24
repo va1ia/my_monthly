@@ -24,7 +24,7 @@
 .site-footer :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 .site-footer__form input:focus { outline: none; box-shadow: none; }
 .site-footer__form:has(input:focus-visible) { border-bottom-width: 2px; }
-.site-footer__social { display: flex; gap: 12px; margin-top: 40px; transform: translateX(-4px); }
+.site-footer__social { display: flex; gap: 12px; margin-top: 40px; transform: translateX(-8px); }
 .site-footer__social a { display: grid; place-items: center; width: 32px; height: 36px; }
 .site-footer__social-icon { display: block; width: 25px; height: 25px; background: currentColor; mask: var(--social-icon) center / contain no-repeat; transition: transform 180ms ease; transform-origin: center center; }
 .site-footer__social a:hover .site-footer__social-icon { transform: scale(1.1); }

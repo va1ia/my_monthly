@@ -14,7 +14,7 @@ export function mountFooter(host, { items, legal, social, variant = 'brand', sub
       <p class="site-footer__status" id="${id}-status" role="status" aria-live="polite"></p>
       <a class="site-footer__brand" href="./" aria-label="My Monthly home"><img width="207" height="45" alt="My Monthly"></a>
     </div>
-    <nav class="site-footer__navigation" aria-label="Footer navigation">${items.map(item=>`<a ${linkAttributes(item)}>${escapeHTML(item.label)}</a>`).join('')}</nav>
+    <nav class="site-footer__navigation" aria-label="Footer navigation">${items.filter(item => !item.hiddenInMenu).map(item=>`<a ${linkAttributes(item)}>${escapeHTML(item.label)}</a>`).join('')}</nav>
     <div class="site-footer__right"><nav class="site-footer__legal" aria-label="Legal">${legal.map(item=>`<a ${linkAttributes(item)}>${escapeHTML(item.label)}</a>`).join('')}</nav>
     <div class="site-footer__social">${social.map(item=>`<a ${linkAttributes({...item,external:true})} aria-label="${escapeHTML(item.label)}"><span class="site-footer__social-icon" style="--social-icon: url('${asset(item.icon)}')" aria-hidden="true"></span></a>`).join('')}</div></div>
     </div><p class="site-footer__copyright">© Copyright My Monthly ${escapeHTML(year)}. All Rights Reserved.</p></footer>`;
