@@ -63,14 +63,18 @@ export function mountPreFooter(section) {
   }
   // 原始 JSON 对照保留桌面双层构图；默认视频随断点切换独立手机资源。
   const gardenMedia = () => (source === 'video' && !desktop.matches && preFooterMedia.mobileGarden) || preFooterMedia.garden;
+  function applyMediaGeometry() {
+    const media = gardenMedia();
+    section.style.setProperty('--garden-aspect-ratio', media.aspectRatio);
+    section.style.setProperty('--garden-frame-height-ratio', media.frameHeightRatio);
+  }
   function hydrate() {
     section.querySelectorAll('[data-pre-footer-src]').forEach(image => {
       if (!image.getAttribute('src')) image.src = image.dataset.preFooterSrc;
     });
     const media = gardenMedia();
     video.poster = resource(media.poster);
-    section.style.setProperty('--garden-aspect-ratio', media.aspectRatio);
-    section.style.setProperty('--garden-frame-height-ratio', media.frameHeightRatio);
+    applyMediaGeometry();
     if (!loved.getAttribute('src')) {
       loved.src = resource(`./media/cards/loved.${lovedFormat}`);
       loved.load();
@@ -237,6 +241,7 @@ export function mountPreFooter(section) {
   imageObserver.observe(section);
   loadObserver.observe(section.querySelector('.pre-footer__garden')); playObserver.observe(section.querySelector('.pre-footer__garden'));
   desktop.addEventListener('change', () => {
+    applyMediaGeometry();
     if (video.poster) hydrate();
     if (source === 'video' && video.getAttribute('src') && video.getAttribute('src') !== resource(gardenMedia()[format])) select('video');
     ensureLoaded(); players.forEach(player => player.resize());
@@ -244,6 +249,8 @@ export function mountPreFooter(section) {
   }, options);
   reduced.addEventListener('change', update, options);
   document.addEventListener('visibilitychange', update, options);
+  // 懒加载前先预留当前设备的画布高度，避免手机首次靠近 Footer 时突然增长。
+  applyMediaGeometry();
   emit();
   return {
     select,

@@ -27,7 +27,6 @@ export function renderHero(content, logos = []) {
     </div>
     <div class="home-hero__marquee" aria-label="Press and community"${logos.length ? '' : ' hidden'}>
       <div class="home-hero__marquee-track"><ul class="home-hero__logos">${renderMarqueeLogos(logos)}</ul></div>
-      <button class="home-hero__marquee-toggle" type="button" aria-label="Pause logo animation" aria-pressed="false"><span aria-hidden="true">Ⅱ</span></button>
     </div>
   </section>`;
 }

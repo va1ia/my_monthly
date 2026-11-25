@@ -1,5 +1,6 @@
 // 目录：1. 默认 Pre-footer 与 Footer 结构 2. 订阅适配接口 3. 背景变体与清理
 import { mountNewsletterForm } from '../../scripts/shared/newsletter.js';
+import { mountMobilePageCanvas } from '../../scripts/shared/mobile-page-canvas.js';
 import { escapeHTML, linkAttributes } from '../../scripts/shared/dom.js';
 import { renderPreFooter } from '../pre-footer/pre-footer.js';
 import { mountPreFooter } from '../pre-footer/player.js';
@@ -23,12 +24,15 @@ export function mountFooter(host, { items, legal, social, variant = 'brand', sub
   const form = footer.querySelector('form');
   const status = footer.querySelector('[role="status"]');
   mountNewsletterForm(form, status, subscribe, { signal: controller.signal });
+  let pageCanvas;
   function setVariant(value) {
     if (!['brand','dark','light','period'].includes(value)) throw new Error('Unknown footer variant');
     footer.dataset.variant = value;
+    pageCanvas?.refresh();
     host.querySelector('.site-footer__brand img').src = asset(value === 'light' ? 'wordmark-green' : 'wordmark-beige');
   }
   setVariant(variant);
+  pageCanvas = mountMobilePageCanvas(footer);
   const preFooterPlayer = includePreFooter ? mountPreFooter(host.querySelector('.pre-footer')) : null;
-  return { setVariant, destroy() { controller.abort(); preFooterPlayer?.destroy(); host.replaceChildren(); } };
+  return { setVariant, destroy() { controller.abort(); pageCanvas.destroy(); preFooterPlayer?.destroy(); host.replaceChildren(); } };
 }

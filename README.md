@@ -50,6 +50,7 @@ docs/history/            旧修改记录，供追溯使用
 详细归属、命名与复用规则见 [架构说明](docs/architecture.md)。字体授权见 [字体目录](assets/fonts/README.md)；设计交接和待确认值见 [设计交接](docs/design-handoff.md)。
 
 ## 共享功能与数据
+- 手机页面边缘底色由共享 Footer 自动匹配首屏 / 页脚，覆盖 Safari 回弹区域；桌面配色不变。见 [Footer 说明](components/footer/README.md)。
 - 全站组件从 [组件索引](docs/components.md) 查找；普通页面由 Footer 自动挂载 Pre-footer，文章和活动排除，Ambassador 使用自己的结尾。
 - 导航、订阅、简略 FAQ 和滚动换色配置放在 [共享数据](content/shared/README.md)。顶部当前显示 Newsletter / Contact / Download，Footer 另有 State of Period。
 - Home / Contact / Download 共用 Q&A: Preview；完整 FAQ 独立读取 Q&A: All。同步与失败后备见 [FAQ 组件](components/faq/README.md)。

@@ -64,7 +64,7 @@
 - Calendar 按原站 8vw 宽度，贴齐卡片外缘 right:0 / bottom:0；Events 使用无结构边框 + ::after 2px 视觉描边，插画延伸至外缘后由 overflow:hidden 沿圆角裁切，描边覆盖其上。Events z-index:1，Ambassador z-index:2，避免 Events 的描边穿过 Calm 插画。
 
 ## 加载与可访问性
-- 接近分区 400px 内才请求视频与插画，视频 `preload=none`；默认首页不请求原始 JSON 或 Lottie 播放器。
+- 接近分区 400px 内才请求视频与插画，视频 `preload=none`；组件挂载时先按 media-sources.js 预留当前设备画布比例，不等懒加载后才设置，避免手机快速到底时增加约 106px 页面高度；默认首页不请求原始 JSON 或 Lottie 播放器。
 - 分区离开视口或标签页隐藏时暂停；回到视口后恢复。原始 JSON 仅在测试页明确选择 Lottie 时加载。
 - 减少动态效果偏好下停在首帧；不提供手动覆盖此偏好的按钮。
 - 正式页面不提供暂停 / 继续按钮或手动播放状态；测试页保留可键盘操作的重新开始与对照选择。辅助技术只读整体花园说明，装饰插画使用空 alt。

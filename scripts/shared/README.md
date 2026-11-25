@@ -7,6 +7,7 @@
 - CSV 解析
 - 文件归属
 - 滚动背景配置
+- 手机页面画布
 - 接入与清理
 - 验证
 
@@ -33,6 +34,9 @@ scroll-background.js 导出 mountScrollBackground(target, config, { onChange })�
 - sections：按页面从上到下排列的 selector / colorToken 状态；采用最后一个越过触发线的分区，越过其末尾继续保留，直到下一状态。可附加页面专属字段（例如 footerVariant），由 onChange 处理。
 
 Contact / Download 共用 content/shared/pre-footer-background.json：≥768px 以 FAQ 顶部为稳定判断点，越过视口中线时由 picnic-date 过渡到 darker-linen；≤767px 延后到第二个问题的 summary 顶部进入视窗底边时触发，不再提前 80px。手机触发后，展开上方答案或向下滚动不回退底色；真正上滚退出触发点时恢复绿色，避免布局变化造成误回退。向下 2000ms、上滚返回触发线之前恢复绿色为 700ms；Footer 保留独立绿色。Pre-footer 顶部通过透明天空渐变直接透出 body 的过渡底色，无需另起动画，换色中也与 FAQ 无缝衔接。
+
+## 手机页面画布
+mobile-page-canvas.js 的 mountMobilePageCanvas(footer) 由共享 Footer 管理。只在 ≤767px 将 html 画布底色匹配首屏 / 可见分区、菜单面板或页脚；桌面恢复原变量。首页 body.home-page 在手机预设首屏深色，避免模块加载前白底；不修改各分区与 FAQ 的原背景。函数返回 refresh()/destroy()，Footer 变体改变时刷新；销毁清理窗口 / visualViewport / 媒体查询监听及 ResizeObserver / MutationObserver。CSS 入口在 foundations/layout.css 的手机页面画布段。
 
 ## 接入与清理
 页面结构及共享 Footer（含 Pre-footer）挂载后调用 mountScrollBackground；onChange 初次及状态变化时执行。滚动和窗口变化合并为每帧一次读取，ResizeObserver 与字体加载完成时重算，兼容恢复滚动位置。每次重算重新查找 selector，以支持 FAQ 同步后替换的第二题节点与初次尚未插入的条目。返回 refresh() 主动重算及 destroy()，后者移除监听、观察器并恢复原内联变量和类。页面卸载时调用 destroy()。

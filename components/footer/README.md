@@ -5,6 +5,7 @@
 - 默认 Pre-footer 规则
 - 接入接口
 - 背景变体
+- 手机页面画布
 - 订阅接口
 
 ## 文件与布局
@@ -60,6 +61,9 @@ footer.setVariant('light');
 
 切换接口同步更新颜色与 Logo。新增背景时同步 JS 允许值、CSS 变量映射和本说明。
 
+## 手机页面画布
+mountFooter 同时挂载 scripts/shared/mobile-page-canvas.js，仅 ≤767px 在 html 上设置 --mobile-page-background：默认匹配当前首屏 / 分区底色，Footer 进入视窗后匹配其实际背景，菜单打开时匹配面板。监听滚动、visualViewport、页面恢复、内容高度与 Footer 变体，覆盖 Safari 页面回弹 / 视口外的白色或 beige 底色。body 的 Q&A 换色与分区背景不变；桌面移除变量，destroy 清理监听 / 观察器并恢复原值。活动页 period 变体仍使用自身深棕色，不强制改成品牌绿。
+
 ## 订阅接口
 提交状态复用 scripts/shared/newsletter.js 的 mountNewsletterForm，与 Press 保持各自原有成功文案；防止重复提交，每份表单独立锁定。Footer 的取消信号继续用于组件卸载时清理监听与请求，等待时同步设置 aria-busy。
 
@@ -67,3 +71,5 @@ footer.setVariant('light');
 未传 subscribe 时仅显示尚未连接服务的提示，不发送、不存储邮箱，不伪造订阅成功。提供适配器后使用浏览器邮箱校验，等待期间禁用提交，成功/失败通过 aria-live 公告。适配器需以真实服务的确认结果 resolve/reject，并可使用传入的 AbortSignal。后端验证、限流和服务凭据应在实际接入时配置。
 
 Supabase 订阅接口已部署并通过本地预览真实提交验证，GitHub Pages 公开网页也已验证通过；接入步骤见 [部署说明](../../docs/newsletter.md)。
+
+手机画布验证：Chrome / WebKit、390×844，首页、Contact、Download、Newsletter、Ambassador、FAQ、两页法律、Shop、活动索引及活动详情共 11 个入口。顶部画布匹配各页首屏，底部匹配实际 Footer（品牌绿或活动深棕），菜单打开时匹配面板；Footer 底边与视口底边误差 <1px，未记录 JavaScript 错误。切回 1440px 后移除手机画布变量。此为本机浏览器模拟，不等同实体 iPhone 回弹测试。

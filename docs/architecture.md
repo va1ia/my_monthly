@@ -51,7 +51,7 @@ Pre-footer 为 components/pre-footer/ 中的共享组件，结构、样式、播
 ## 数据与交互入口
 页面入口保留各自内容加载与挂载顺序，JSON 统一经 `scripts/shared/data.js` 读取；路径以站点目录为基准，兼容子目录部署。没有独立行为的转发文件直接删除，引用指向实际实现。组件专属交互留在组件或所属页面，不为统一入口再套一层页面框架。
 
-Home / Contact / Download 的 FAQ 来源统一在 `content/shared/faq.json`；完整 FAQ 的 All 来源继续由 `content/faq/source.json` 管理。Newsletter 的服务适配和表单状态共同维护于 `scripts/shared/newsletter.js`，Press 与 Footer 保留各自成功文案。
+Home / Contact / Download 的 FAQ 来源统一在 `content/shared/faq.json`；完整 FAQ 的 All 来源继续由 `content/faq/source.json` 管理。Newsletter 的服务适配和表单状态共同维护于 `scripts/shared/newsletter.js`，Press 与 Footer 保留各自成功文案。共享 Footer 还统一管理 `scripts/shared/mobile-page-canvas.js`：≤767px 的 html 画布匹配首屏 / 页脚 / 菜单，保留各分区和 body 的原底色；桌面不启用。首页通过 body.home-page 预设手机首屏深色。
 
 只在有实际实现时创建组件目录，尚未实现的 Button 不保留空目录；未来需要时按组件规范新增。保留页面样式 index.css 入口，即使它只负责引入共享样式，方便独立调整和直接定位。
 

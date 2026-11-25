@@ -10,6 +10,7 @@
 - Logo 视觉比例调整
 - 手机版构图调整（2026-11-06）
 - 手机菜单与自动滚动兼容修复（2026-11-25）
+- 暂停键移除与菜单装饰修复
 
 ## 范围
 2026-10-23，以本地 HTTP 预览、Tabbit Chromium 进行验证。检查实际渲染页面和交互，不以目录检查代替页面测试。未发布、未提交订阅表单。
@@ -69,3 +70,6 @@
 - 将浏览器 AbortSignal.any / timeout 设为不可用后，以模拟 CSV 响应验证评论仍能更新；不代表实体旧版 Safari 或真实 Sheet 服务联调。
 - 模拟 prefers-reduced-motion:reduce 时，Logo 无循环动画、评论保持静止；保留系统偏好，不强制覆盖。
 - 本轮未在实体 iOS Safari / Android 浏览器或真实低电量模式验证，尚无法确认用户所指每台设备的具体原因。
+
+## 暂停键移除与菜单装饰修复
+首页 Logo 与 Ambassador 公告的暂停按钮、样式与事件均已移除，减少动态效果分支保留。Chrome / WebKit 在 320 / 390 / 767px、DPR=3 的 Newsletter 菜单中，四球装饰边界完整落在列表滚动框与屏宽内；通过列表顶部扩展 30px、内边距增加 30px 保持文字位置。手机各选项伪元素 display=none，不再显示下划线，aria-current 装饰与键盘焦点仍保留。相关页面无横向溢出或 JavaScript 错误，已查看 390px Newsletter 菜单截图。

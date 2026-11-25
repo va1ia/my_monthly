@@ -24,7 +24,7 @@ function renderHero(data) {
     <div class="amb-hero__friend" aria-hidden="true">${image('hero','cloud-eye-body','amb-hero__friend-body')}<span class="amb-hero__eyes">${image('hero','cloud-eyes')}</span></div>
     <a class="amb-apply amb-hero__apply" href="${escapeHTML(data.applyUrl)}" ${external}>Apply Here</a>
   </section>
-  <div class="amb-marquee"><a href="${escapeHTML(data.instagramUrl)}" ${external}><span class="visually-hidden">${escapeHTML(data.marquee)}</span><span class="amb-marquee__track" aria-hidden="true">${Array.from({length:2},()=>`<span class="amb-marquee__group">${Array.from({length:3},()=>`${image('perks','marquee-star')}<span>${escapeHTML(data.marquee)}</span>`).join('')}</span>`).join('')}</span></a><button class="amb-marquee__pause" type="button" aria-label="Pause scrolling announcement" aria-pressed="false">Ⅱ</button></div>`;
+  <div class="amb-marquee"><a href="${escapeHTML(data.instagramUrl)}" ${external}><span class="visually-hidden">${escapeHTML(data.marquee)}</span><span class="amb-marquee__track" aria-hidden="true">${Array.from({length:2},()=>`<span class="amb-marquee__group">${Array.from({length:3},()=>`${image('perks','marquee-star')}<span>${escapeHTML(data.marquee)}</span>`).join('')}</span>`).join('')}</span></a></div>`;
 }
 
 function renderProgram(data) {
@@ -41,6 +41,7 @@ function renderProgram(data) {
         </div>
         <article class="amb-learning" aria-labelledby="amb-learning-title">
           ${image('program','folder-open-left','amb-learning__folder amb-learning__folder--left')}${image('program','folder-open-right','amb-learning__folder amb-learning__folder--right')}
+          <span class="amb-learning__back-sheet amb-learning__back-sheet--left" aria-hidden="true"></span><span class="amb-learning__back-sheet amb-learning__back-sheet--right" aria-hidden="true"></span>
           <div class="amb-learning__sheet"><h2 id="amb-learning-title">${escapeHTML(data.learningTitle)}</h2><ul>${learning.slice(0,2).join('')}</ul></div>
           <div class="amb-learning__sheet"><ul>${learning.slice(2).join('')}</ul><p class="amb-learning__end">${escapeHTML(data.learningEnd)}</p></div>
         </article>
@@ -51,7 +52,7 @@ function renderProgram(data) {
 
 function renderPerks(data) {
   const cards = data.perks.map((perk,i)=>`<div class="amb-perk amb-perk--${i}"><article class="amb-perk__paper" tabindex="0" aria-labelledby="amb-perk-${i}">${image('perks',perk.icon,'amb-perk__icon')}<h3 id="amb-perk-${i}">${escapeHTML(perk.title)}</h3><p>${escapeHTML(perk.body)}</p></article>${image('perks',`pin-${perk.pin}`,'amb-perk__pin')}</div>`).join('');
-  return `<section class="amb-perks" aria-labelledby="amb-perks-title">${image('perks','perks-pattern','amb-perks__pattern')}<div class="amb-perks__board"><h2 id="amb-perks-title">Program Perks</h2><div class="amb-perks__notes">${cards}</div></div>${image('perks','perks-ground','amb-perks__ground')}${image('perks','character-blue','amb-perks__blue')}${image('perks','character-green','amb-character')}</section>`;
+  return `<section class="amb-perks" aria-labelledby="amb-perks-title">${image('perks','perks-pattern','amb-perks__pattern amb-perks__pattern--desktop')}${image('perks','perks-pattern-phone-top','amb-perks__pattern amb-perks__pattern--phone-top')}${image('perks','perks-pattern-phone-bottom','amb-perks__pattern amb-perks__pattern--phone-bottom')}<div class="amb-perks__board"><h2 id="amb-perks-title">Program Perks</h2><div class="amb-perks__notes">${cards}</div></div>${image('perks','perks-ground','amb-perks__ground')}${image('perks','character-blue','amb-perks__blue')}${image('perks','character-green','amb-character')}</section>`;
 }
 
 export function renderAmbassador(data) {

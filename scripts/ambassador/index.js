@@ -1,4 +1,4 @@
-// 目录：1. 页面与共享组件 2. 云朵眼神与视差 3. 文件夹滚动与 Footer 停靠 4. 跑马灯
+// 目录：1. 页面与共享组件 2. 云朵眼神与视差 3. 文件夹滚动与 Footer 停靠 4. 响应式与生命周期
 import { readJSON } from '../shared/data.js';
 import { mountMenuBar } from '../../components/menu-bar/menu-bar.js';
 import { mountFooter } from '../../components/footer/footer.js';
@@ -17,11 +17,11 @@ mountMenuBar(document.querySelector('#site-header'), { items:navigation.items, c
 mountFooter(document.querySelector('#site-footer'), { ...navigation, preFooter:false, subscribe:createNewsletterSubscriber(newsletter) });
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+const finePointer = matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine)');
 const hero = document.querySelector('.amb-hero');
 const friend = document.querySelector('.amb-hero__friend');
 const eyes = document.querySelector('.amb-hero__eyes');
-let pointer = null;
+let pointer = null, cloudX = 0, cloudY = 0, eyeX = 0, eyeY = 0;
 document.addEventListener('pointermove', event => {
   if (event.pointerType !== 'touch' && finePointer.matches && !reduced.matches) {
     pointer = {x:event.clientX,y:event.clientY}; schedule();
@@ -55,7 +55,9 @@ function measure() {
   track.style.setProperty('--track-inset', `${inset}px`);
   dropDistance = Math.max(400, innerHeight*.82);
   const finalInset = Math.max(16,(viewport-learning.offsetWidth)/2);
-  slideDistance = Math.max(0, inset+panel+gap+learning.offsetWidth-viewport+finalInset);
+  const lastSheet = learning.querySelector('.amb-learning__sheet:last-child');
+  const paperOverhang = learning.offsetWidth > viewport ? learning.offsetWidth-lastSheet.offsetLeft-lastSheet.offsetWidth : 0;
+  slideDistance = Math.max(0, inset+panel+gap+learning.offsetWidth-paperOverhang-viewport+finalInset);
   tail = innerHeight*.24;
   section.style.height = `${innerHeight+dropDistance+slideDistance+tail}px`;
   start = section.getBoundingClientRect().top+scrollY;
@@ -66,13 +68,21 @@ function update() {
   const moving = !reduced.matches;
   const heroRect=hero.getBoundingClientRect();
   actions.classList.toggle('is-docked',actionsAnchor.getBoundingClientRect().top<=innerHeight-actions.offsetHeight);
-  friend.style.setProperty('--cloud-drift', `${moving?clamp(-heroRect.top,0,heroRect.height)*.16:0}px`);
-  if (pointer && moving && heroRect.bottom>0) {
-    // 从整个视口映射，不在鼠标靠近云朵时突然切换方向；计算不依赖眼睛自身位移。
-    const reach=Math.min(7,friend.offsetWidth*.045);
-    eyes.style.setProperty('--eye-x', `${(clamp(pointer.x/innerWidth)*2-1)*reach}px`);
-    eyes.style.setProperty('--eye-y', `${(clamp(pointer.y/innerHeight)*2-1)*reach*.65}px`);
-  } else { eyes.style.setProperty('--eye-x','0px');eyes.style.setProperty('--eye-y','0px'); }
+  // 四朵云共享滚动位移；负值让内容上行时云层额外上移 16%。
+  hero.style.setProperty('--cloud-scroll', `${moving?-clamp(-heroRect.top,0,heroRect.height)*.16:0}px`);
+  const following = pointer && moving && finePointer.matches && heroRect.bottom>0;
+  const nx = following ? clamp(pointer.x/innerWidth)*2-1 : 0;
+  const ny = following ? clamp(pointer.y/innerHeight)*2-1 : 0;
+  const reach = Math.min(7,friend.offsetWidth*.045);
+  const targetCloudX = nx*reach*.28, targetCloudY = ny*reach*.18;
+  const targetEyeX = nx*reach, targetEyeY = ny*reach*.65;
+  cloudX += (targetCloudX-cloudX)*.18; cloudY += (targetCloudY-cloudY)*.18;
+  eyeX += (targetEyeX-eyeX)*.25; eyeY += (targetEyeY-eyeY)*.25;
+  if (!moving) cloudX=cloudY=eyeX=eyeY=0;
+  hero.style.setProperty('--cloud-pointer-x', `${cloudX}px`);
+  hero.style.setProperty('--cloud-pointer-y', `${cloudY}px`);
+  eyes.style.setProperty('--eye-x', `${eyeX}px`); eyes.style.setProperty('--eye-y', `${eyeY}px`);
+  if (moving && Math.max(Math.abs(targetCloudX-cloudX),Math.abs(targetCloudY-cloudY),Math.abs(targetEyeX-eyeX),Math.abs(targetEyeY-eyeY))>.01) schedule();
   if (!moving) return;
   const travelled=clamp(scrollY-start,0,dropDistance+slideDistance+tail);
   const drop=clamp(travelled/dropDistance);
@@ -89,11 +99,4 @@ reduced.addEventListener('change',measure);
 const observer=new ResizeObserver(measure);observer.observe(dossier);observer.observe(learning);
 document.fonts.ready.then(measure);measure();
 
-const marquee=document.querySelector('.amb-marquee');
-const pause=marquee.querySelector('button');
-pause.addEventListener('click',()=>{
-  const paused=pause.getAttribute('aria-pressed')!=='true';
-  pause.setAttribute('aria-pressed',String(paused));
-  pause.setAttribute('aria-label',`${paused?'Play':'Pause'} scrolling announcement`);
-  pause.textContent=paused?'▶':'Ⅱ';marquee.classList.toggle('is-paused',paused);
-});
+finePointer.addEventListener('change',()=>{pointer=null;schedule();});

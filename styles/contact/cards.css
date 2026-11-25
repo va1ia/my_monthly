@@ -6,7 +6,8 @@
 .contact-cards__container { display: flex; align-items: flex-start; justify-content: center; }
 .contact-cards__card { position: relative; flex: none; width: 460px; margin-top: 10vw; }
 .contact-cards__card--loved { margin-top: 0; }
-.contact-cards__illustration { width: 100%; }
+.contact-cards__art { display: block; }
+.contact-cards__illustration { width: 100%; height: auto; }
 .contact-cards__card { transition: filter 180ms ease; }
 .contact-cards__copy a { transition: opacity 180ms ease; }
 @media (hover: hover) {

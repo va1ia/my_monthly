@@ -1,4 +1,4 @@
-// 目录：1. 原站关键帧映射 2. 滚动与鼠标平滑 3. 生命周期及 marquee 暂停
+// 目录：1. 原站关键帧映射 2. 滚动与鼠标平滑 3. 生命周期与清理
 const clamp = value => Math.max(0, Math.min(1, value));
 export function mountHeroMotion(hero) {
   const controller = new AbortController();
@@ -6,10 +6,8 @@ export function mountHeroMotion(hero) {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const desktopPointer = matchMedia('(min-width: 992px) and (hover: hover) and (pointer: fine)');
   const tags = [...hero.querySelectorAll('.home-hero__tag')];
-  const marquee = hero.querySelector('.home-hero__marquee');
-  const toggle = hero.querySelector('.home-hero__marquee-toggle');
   let frame = 0, previousTime = 0, progress = 0, targetProgress = 0;
-  let x = 0, y = 0, targetX = 0, targetY = 0, start = 0, travel = 1, paused = false;
+  let x = 0, y = 0, targetX = 0, targetY = 0, start = 0, travel = 1;
   function render() {
     const p = reduced.matches ? 1 : progress;
     hero.style.setProperty('--phone-progress', clamp(p / .16));
@@ -53,12 +51,6 @@ export function mountHeroMotion(hero) {
     schedule();
   }, {...options, passive:true});
   document.documentElement.addEventListener('pointerleave', () => { targetX = targetY = 0; schedule(); }, options);
-  toggle.addEventListener('click', () => {
-    paused = !paused; marquee.classList.toggle('is-paused', paused);
-    toggle.setAttribute('aria-pressed', String(paused));
-    toggle.setAttribute('aria-label', `${paused ? 'Resume' : 'Pause'} logo animation`);
-    toggle.firstElementChild.textContent = paused ? '▶' : 'Ⅱ';
-  }, options);
   measure(); progress = targetProgress; render();
   return {destroy() { controller.abort(); cancelAnimationFrame(frame); hero.classList.remove('is-animated'); }};
 }
