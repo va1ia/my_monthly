@@ -3,7 +3,7 @@
 /* 2. 页面与标题：与 Privacy Policy 共用背景色。 */
 .faq-page { --pre-footer-base-bg: var(--color-article-cream); background: var(--color-article-cream); }
 .contact-faq--full { padding: clamp(150px, 13vw, 200px) 0 40px; }
-.full-faq__title { margin: 0; font-family: var(--font-heading); font-size: var(--text-full-faq-title); font-weight: 500; line-height: 1; }
+.full-faq__title { margin: 0; font-family: var(--font-heading); font-size: clamp(56px, 8vw, 120px); font-weight: 500; line-height: 1; }
 .full-faq__questions { min-width: 0; }
 .contact-faq--full .contact-faq__list { overflow-wrap: anywhere; }
 /* 3. 状态与联系入口 */

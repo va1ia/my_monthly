@@ -11,14 +11,14 @@
 .press-archive__title { width: 90%; margin: 0 auto; }
 .press-archive__title img { width: 100%; height: auto; }
 .press-archive__form { position: relative; display: flex; align-items: center; width: 60%; margin: .1vw auto 0; border-bottom: 2px solid currentColor; }
-.press-archive__form input { width: 100%; min-width: 0; padding: .5em 0; border: 0; border-radius: 0; outline: none; background: transparent; color: var(--color-darker-green); font-size: var(--text-press-email); }
+.press-archive__form input { width: 100%; min-width: 0; padding: .5em 0; border: 0; border-radius: 0; outline: none; background: transparent; color: var(--color-darker-green); font-size: clamp(16px, 1.5vw, 24px); }
 .press-archive__form input::placeholder { color: inherit; opacity: 1; }
 .press-archive__form:has(input:focus-visible) { border-bottom-width: 3px; }
-.press-archive__form button { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border: 0; padding: 0; background: transparent; color: inherit; cursor: pointer; font-family: var(--font-arrow); font-size: var(--text-press-submit); line-height: 1; transition: transform 180ms ease; }
+.press-archive__form button { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border: 0; padding: 0; background: transparent; color: inherit; cursor: pointer; font-family: var(--font-arrow); font-size: clamp(32px, 3vw, 52px); line-height: 1; transition: transform 180ms ease; }
 .press-archive__form button:hover { transform: translateX(3px); }
 .press-archive__form button:disabled { opacity: .5; cursor: wait; }
 .press-archive__status { position: absolute; top: 100%; left: -5%; width: 110%; margin: .3rem 0 0; color: var(--color-darker-green); line-height: 1.2; }
-.press-archive__intro { max-width: 43.8vw; margin: calc(2.25vw + var(--intro-space-extra)) auto 0; padding-block: var(--space-1); font-size: var(--text-press-intro); line-height: 1.35; color: var(--color-press-intro);}
+.press-archive__intro { max-width: 43.8vw; margin: calc(2.25vw + var(--intro-space-extra)) auto 0; padding-block: var(--space-1); font-size: clamp(14px, 1.2vw, 20px); line-height: 1.35; color: var(--color-press-intro);}
 .press-archive__intro strong { font-weight: 600; font-style: italic; }
 .press-archive__intro a { color: inherit; text-decoration: underline; text-underline-offset: .2em; transition: opacity 180ms ease; }
 .press-archive__intro a:hover { opacity: .65; }

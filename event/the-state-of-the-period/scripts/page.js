@@ -1,14 +1,10 @@
 // 目录：1. 共享导航与页脚 2. 报名表单状态与接口
+import { readJSON } from '../../../scripts/shared/data.js';
 import { mountMenuBar } from '../../../components/menu-bar/menu-bar.js';
 import { mountFooter } from '../../../components/footer/footer.js';
 import { createNewsletterSubscriber } from '../../../scripts/shared/newsletter.js';
 
 const root = new URL('../../../', import.meta.url);
-async function readJSON(path) {
-  const response = await fetch(new URL(path, root));
-  if (!response.ok) throw new Error(`Could not load ${path}`);
-  return response.json();
-}
 
 const navigation = await readJSON('content/shared/navigation.json');
 for (const group of ['items', 'legal', 'social']) {

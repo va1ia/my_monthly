@@ -24,7 +24,7 @@
 - 样式入口：styles/faq/index.css，复用 components/faq/faq.css。
 - 表格来源 / 刷新间隔：content/faq/source.json，字段说明见相邻 README。
 - 问答背景：所有 FAQ 条目共用无色块结构，不再读取颜色配置；完整页透出 article-cream 底色。
-- 标题字号：styles/foundations/tokens.css 的 --text-full-faq-title；字体复用 --font-heading。
+- 标题字号：styles/faq/index.css 的 .full-faq__title；字体复用 --font-heading。
 
 ## 验证
 2026-11-25：公开 CSV 返回 200，浏览器状态为 connected，加载 16 条完整问答，与表格前两列映射一致。检查 320 / 390 / 820 / 1440px，无横向溢出；背景为 rgb(254,254,237)，标题实际使用 GT Eesti Display。键盘 Enter 可展开第一条，答案换行与既有色块 / 留白沿用共享组件。

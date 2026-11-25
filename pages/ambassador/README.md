@@ -20,7 +20,7 @@
 - `prefers-reduced-motion: reduce` 关闭眼神、视差、跑马灯和纸张旋转，文件夹所有文字改为正常文档流，不需要横向动画即可读取。偏好改变时重新测量。
 
 ## 文件归属
-`page.js` 为结构；`styles/ambassador/index.css` 为样式；`scripts/ambassador/index.js` 为数据与互动入口；文案与链接在 `content/ambassador/page.json`；素材在 `assets/images/ambassador/{hero,program,perks}/`。共享色板、字体与本页命名变量统一在 foundations 中。
+`page.js` 为结构；`styles/ambassador/index.css` 为样式；`scripts/ambassador/index.js` 为数据与互动入口；文案与链接在 `content/ambassador/page.json`；素材在 `assets/images/ambassador/{hero,program,perks}/`。共享色板与字体注册位于 foundations；本页特殊字体选择和字号在 styles/ambassador/index.css 中维护。
 
 ## 验证
 本次验证记录见 [Ambassador 验证](../../docs/ambassador-verification.md)。只对本页及修改的 Pre-footer 入口进行检查，不包含其他页面整体回归。

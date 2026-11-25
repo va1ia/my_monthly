@@ -17,7 +17,7 @@
 .pre-footer__ambassador-card:hover, .pre-footer__ambassador-card:focus-within { transform: translate(-.35vw, -.35vw); box-shadow: var(--shadow-pre-footer-ambassador); }
 .pre-footer__events-card:hover, .pre-footer__events-card:focus-within { transform: translate(-.35vw, -.35vw); box-shadow: var(--shadow-pre-footer-events); }
 /* 2. 卡片与链接 */
-.pre-footer__cards h2 { margin: 0; font-size: var(--text-pre-footer-title); font-weight: 500; line-height: 1.2; }
+.pre-footer__cards h2 { margin: 0; font-size: clamp(28px, 3.2vw, 44px); font-weight: 500; line-height: 1.2; }
 .pre-footer__loved-art { position: relative; width: 50%; height: 42%; min-height: 145px; }
 .pre-footer__loved-poster { width: 100%; height: 100%; object-fit: contain; }
 .pre-footer__loved-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; pointer-events: none; }
@@ -74,8 +74,8 @@
   .pre-footer__download-card { aspect-ratio: 340 / 403; gap: 5vw; padding: 6vw; }
   .pre-footer__loved-art { width: 54%; height: auto; aspect-ratio: 548 / 642; min-height: 0; }
   .pre-footer__loved-deco { width: 190%; left: -45%; top: 28%; }
-  .pre-footer__cards h2 { font-size: var(--text-pre-footer-mobile-title); }
-  .pre-footer__download-card h2 { font-size: var(--text-pre-footer-mobile-download-title); }
+  .pre-footer__cards h2 { font-size: clamp(22px, 6.8vw, 34px); }
+  .pre-footer__download-card h2 { font-size: clamp(24px, 7.5vw, 38px); }
   .pre-footer__app { width: 48%; max-width: 179px; }
   .pre-footer__right { gap: calc(clamp(24px, 6vw, 40px) - 4px); }
   .pre-footer__ambassador-card, .pre-footer__events-card { min-height: clamp(160px, 46vw, 270px); padding: min(7vw, 40px) min(7.5vw, 44px); }

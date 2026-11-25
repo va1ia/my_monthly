@@ -19,7 +19,7 @@
 
 按原站 reviewscontainer 的 group 排列方式，所有卡片置于同一横向 Flex group，用 align-items: stretch 保持等宽等高，高度由组内最长内容共同决定，保留完整文字和弧线。已移除悬停暂停、暂停按钮及左右切换；仅后台、离开视口和减少动画偏好停止自动滚动。mountUserComments 返回 refresh() / destroy()，清理请求、观察器与动画帧。
 
-非手机端（≥768px 且支持精细鼠标）复用 scripts/shared/pointer-parallax.js，与首屏同样映射 X ±2vw、Y 0–4vw，并平滑跟随；手机及减少动画模式静止。Contact 原有 mountContactMotion 接口重新导出共享实现，行为不变。
+非手机端（≥768px 且支持精细鼠标）复用 scripts/shared/pointer-parallax.js，与首屏同样映射 X ±2vw、Y 0–4vw，并平滑跟随；手机及减少动画模式静止。Contact 也直接引用共享实现，行为不变。
 
 ## 验证与待确认
 已在浏览器检查 320、390、768、1024、1920 宽度，无横向溢出或评论卡片内部文字裁切；查看桌面和手机截图；初版验证过键盘切换、暂停 / 恢复、减少动画偏好，未发现脚本错误。CSV 的逗号、嵌入引号、BOM、多行正文及 FAQ 共用解析器回归通过。模拟 Sheet 成功更新、正文转义、唯一辅助技术列表及请求失败保留内容均通过；已通过本地首页真实浏览器跨域读取验证，sourceState=connected，6 条评论的标题、日期与正文逐条匹配 Sheet，辅助技术列表同样为 6 条。

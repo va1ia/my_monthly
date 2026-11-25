@@ -10,7 +10,7 @@
 Terms of Service / Privacy Policy 共用 `renderLegalDocument({ title, updated, body })`，返回经过 HTML 转义的文章结构。共享挂载入口为 `scripts/shared/legal-page.js`，页面分别使用自己的 scripts / styles 入口。复用全站 Menu bar、默认 Pre-footer、brand Footer 和订阅适配器，不提供 Share 按钮、社交分享链接或分享脚本。
 
 ## 排版与可访问性
-参考原站：浅奶油背景、居中绿色标题、深色更新时间胶囊、640px 单栏正文、加粗条款名。手机两侧留白 7%，正文使用 16px 保证阅读；原站手机版为 15px。字号集中于 foundations/tokens.css，排版测量值待 Figma 确认，不新增最终品牌规范。
+参考原站：浅奶油背景、居中绿色标题、深色更新时间胶囊、640px 单栏正文、加粗条款名。手机两侧留白 7%，正文使用 16px 保证阅读；原站手机版为 15px。标题与正文尺寸在 legal-document.css 中维护；正文统一 1rem（默认 16px），更新时间复用全站小字。排版测量值待 Figma 确认，不新增最终品牌规范。
 
 两个法律页通过同一份 legal-document.css，将共享 --pre-footer-base-bg 设为正文使用的 --color-article-cream。FAQ 页使用同一接口。复用原组件从透明到天空蓝的渐变和动画素材，使顶部与正文自然衔接，无需复制文件或修改其他页面。
 

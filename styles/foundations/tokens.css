@@ -1,72 +1,32 @@
-/* 目录：1. 字体 2. 颜色 3. 间距与布局
-  颜色采用 Figma 色板；页面字号、间距待 Figma 确认。 */
+/* 目录：1. 通用文字 2. 颜色与阴影 3. 间距与布局
+   全站只保留通用字号；页面 / 组件专属尺寸在各自 CSS 中维护。
+   色板沿用原 Figma 命名，局部测量值仍待确认，不扩展为最终品牌规范。 */
 :root {
-  /* Ambassador Program：本页 Figma 映射，不扩展为全站品牌规范。 */
-  --font-ambassador-heading: "BBH Sans Bogle", "GT Eesti Display", sans-serif;
-  --text-ambassador-apply: clamp(20px, 3.5svh, 44px);
-  --text-ambassador-action: clamp(14px, 1.6vw, 28px);
-  --color-ambassador-folder: #946843;
-  /* 1. 字体 */
-  /* The State of the Period 原站局部值，不作为全站品牌规范。 */
-  --font-period-serif: "Bona Nova", Georgia, serif;
-  --text-period-subtitle: 1.5vw;
-  --text-period-subtitle-mobile: 2vh;
-  --text-period-consent: .75rem;
-  --text-period-consent-tablet: .6875rem;
-  --text-period-consent-mobile: .53125rem;
-  --text-period-description: 2.6vw;
-  --text-period-description-mobile: 2.8vh;
-  --color-period-red: #a03a2c;
-  --color-period-dark: #4c1e13;
-  /* Shop 招牌按截图暂用 Garabosse Gaillard·e，非最终品牌映射。 */
-  --font-shop-sign: "Garabosse Gaillarde", Georgia, serif;
-  --text-shop-product: clamp(26px, 3vw, 34px);
-  --text-shop-price: 26px;
-  --shadow-product-lift: 0 10px 6px #28282830;
-  --shadow-shop-dialog: 0 24px 80px #16382340;
-  --color-shop-overlay: #28282866;
-  --text-shop-sign: clamp(20px, 2.7vw, 48px);
-  --text-shop-announcement: clamp(11px, 1.25vw, 20px);
+  /* 1. 通用文字 */
   --font-body: "Graphik", system-ui, sans-serif;
   --font-heading: "GT Eesti Display", "Graphik", sans-serif;
-  /* 法律页按原站实测，待 Figma 确认。 */
-  --text-legal-title: 2.5rem;
-  --text-legal-body: 1.0625rem;
   --text-small: 0.875rem;
-  --text-full-faq-title: clamp(56px, 8vw, 120px);
-  /* Press 订阅框按本页 Figma 稿映射，非新增全站品牌字号。 */
-  --text-press-email: clamp(16px, 1.5vw, 24px);
-  --text-press-submit: clamp(32px, 3vw, 52px);
-  --text-press-intro: clamp(14px, 1.2vw, 20px);
-  /* Press 最前层文件夹 SVG 原色，仅用于本页底部衔接。 */
-  --color-press-folder: #eeeee1;
-  --color-press-intro: #999f88; /* 原站 newsletter 介绍文字色。 */
-  /* Pre-footer 按截图暂定。天空色与生成的视频底色一致。 */
-  --text-pre-footer-mobile-title: clamp(22px, 6.8vw, 34px);
-  --text-pre-footer-mobile-download-title: clamp(24px, 7.5vw, 38px);
-  --text-pre-footer-title: clamp(28px, 3.2vw, 44px);
-  --color-pre-footer-sky: #b8eafa;
+  --text-caption: 0.75rem;
   --text-body: 1rem;
   --text-larger: 1.1rem;
   --text-title: clamp(2rem, 5vw, 4rem);
-  /* 首页截图局部尺寸，待 Figma 确认。 */
-  --text-home-hero: clamp(42px, 4.15vw, 80px);
-  --text-home-tag: clamp(12px, 1.2vw, 20px);
-  --text-home-comment: clamp(11px, 1vw, 16px);
-  /* Contact 原站测量值，待 Figma 确认。 */
-  --text-faq-question: clamp(22px, 2.3vw, 34px);
-  /* FAQ 手机便签与问题按参考截图暂定，保留桌面字号。 */
-  --text-faq-note-title-mobile: clamp(20px, 6vw, 34px);
-  --text-faq-note-body-mobile: clamp(12px, 3vw, 16px);
-  --text-faq-question-mobile: clamp(20px, 6vw, 34px);
-  --text-contact-card-title: 30px;
-  --text-contact-title: clamp(36px, 3.2vw, 56px);
-  --text-contact-intro: clamp(14px, 1.2vw, 24px);
-  --text-contact-field: clamp(14px, 1vw, 20px);
   --leading-body: 1.6;
   --leading-heading: 1.15;
-  /* 2. 颜色：Figma 色板命名 */
-  /* Shop 展示墙来自用户截图，待最终色值确认。 */
+  --font-arrow: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* 2. 颜色与阴影 */
+  --color-ambassador-folder: #946843;
+  /* 活动页 / Footer period 共用原站色值。 */
+  --color-period-red: #a03a2c;
+  --color-period-dark: #4c1e13;
+  --shadow-product-lift: 0 10px 6px #28282830;
+  --shadow-shop-dialog: 0 24px 80px #16382340;
+  --color-shop-overlay: #28282866;
+  /* Newsletter 文件夹原色与介绍文字，仅供该页使用。 */
+  --color-press-folder: #eeeee1;
+  --color-press-intro: #999f88;
+  --color-pre-footer-sky: #b8eafa;
+  /* Shop 截图局部映射，待设计确认。 */
   --color-pegboard: #c2a77c;
   --color-pegboard-hole: #b2925d;
   --color-pegboard-shelf: #947643;
@@ -74,7 +34,6 @@
   --shadow-merch-shelf-mobile: 0 7px 10px #72501e33;
   --color-picnic-date: #3d8054;
   --color-darker-green: #2c5d3d;
-  /* 原站导航 #2c5d3df2：约 95% 不透明度。 */
   --color-menu-glass: color-mix(in srgb, var(--color-darker-green) 94.9%, transparent);
   --color-sunset-blush: #eea494;
   --color-lighter-sunset: #f2bdb1;
@@ -92,16 +51,14 @@
   --color-gold: #f1bf75;
   --color-darker-gold: #c08f30;
   --color-article-cream: #fefeed;
-
-  /* 阴影集中定义，保留原有透明度与外观。 */
   --shadow-menu: 0 5px 14px #16382326;
   --shadow-home-comment: 0 0 14px 4px #a7ae9266;
   --shadow-menu-open: 0 7px 18px #143b2b40;
-  --font-arrow: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --shadow-pre-footer-left: -.7vw .7vw 0 0 var(--color-before-dawn);
   --shadow-pre-footer-ambassador: .7vw .7vw 0 0 var(--color-picnic-date);
   --shadow-pre-footer-events: .7vw .7vw 0 0 var(--color-red);
   --shadow-app-download: .3vw .3vw 0 0 var(--color-darker-linen);
+
   /* 3. 间距与布局 */
   --space-1: 0.5rem;
   --space-2: 1rem;
@@ -112,9 +69,8 @@
   --page-gutter: clamp(1rem, 4vw, 3rem);
 }
 @media (max-width: 767px) {
-  :root { --text-body: 0.8rem; --text-larger: 0.9rem; --text-home-hero: 9.3vw; --text-home-tag: 3vw; --text-home-comment: clamp(10px, 2.5vw, 16px); --text-contact-title: 9vw; --text-contact-intro: 14px; --text-contact-field: 16px; }
+  :root {
+    --text-body: 0.8rem;
+    --text-larger: 0.9rem;
+  }
 }
-
-@media (max-width: 767px) { :root { --text-shop-sign: clamp(18px, 4.8vw, 30px); } }
-
-@media (max-width: 767px) { :root { --text-legal-title: 2rem; --text-legal-body: 1rem; } }

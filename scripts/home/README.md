@@ -20,4 +20,4 @@
 user-comments.js 提供等高 Flex group 圆弧布局、持续循环播放、共享鼠标背景视差与 Sheet CSV 同步。支持减少动画和后台暂停；返回 refresh()/destroy()。详见 pages/home/sections/user-comments/README.md。
 
 ## FAQ 与整页换色
-首页在评论区后挂载共享 renderFAQ / mountFAQ，加载 content/contact/faq.json；样式由 styles/home/index.css 引用共享组件。首页使用 renderFAQ({ variant: 'linen' })，固定显示 Darker Linen；不挂载整页滚动背景控制器，也不请求换色配置。手机和桌面一致，与 Pre-footer 默认浅色顶部衔接。Contact / Download 保留原渐变。
+首页在评论区后挂载共享 renderFAQ / mountFAQ，加载 content/shared/faq.json；样式由 styles/home/index.css 引用共享组件。首页使用 renderFAQ({ variant: 'linen' })，固定显示 Darker Linen；不挂载整页滚动背景控制器，也不请求换色配置。手机和桌面一致，与 Pre-footer 默认浅色顶部衔接。Contact / Download 保留原渐变。

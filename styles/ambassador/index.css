@@ -2,7 +2,7 @@
 /* 1. 页面与首屏 */
 .ambassador-page { background:var(--color-before-dawn); padding-bottom:calc(76px + env(safe-area-inset-bottom)); }
 .ambassador-page #main { overflow:clip; }
-.amb-program h2,.amb-perks h2 { font-family:var(--font-ambassador-heading); font-weight:400; text-transform:uppercase; letter-spacing:.02em; }
+.amb-program h2,.amb-perks h2 { font-family:"BBH Sans Bogle", "GT Eesti Display", sans-serif; font-weight:400; text-transform:uppercase; letter-spacing:.02em; }
 .amb-hero { height:min(72.1vw,calc(100svh - 116px)); max-height:1246px; min-height:650px; background:var(--color-blue); position:relative; overflow:clip; }
 .amb-hero__title { position:absolute; width:min(58.26%,calc((100svh - 116px)*.824)); max-width:1007px; aspect-ratio:1007 / 831; left:50%; top:12%; transform:translateX(-50%); }
 .amb-hero__part { position:absolute; height:auto; }
@@ -17,7 +17,7 @@
 .amb-apply { display:flex; align-items:center; justify-content:center; min-height:48px; padding:12px 24px; background:var(--color-lighter-sunset); color:var(--color-before-dawn); border:2px solid var(--color-before-dawn); border-radius:100px; text-decoration:none; line-height:1.1; transition:background .18s, transform .18s; }
 .amb-apply:hover { background:var(--color-sunset-blush); transform:translateY(-2px); }
 .amb-apply:focus-visible,.amb-program__controls button:focus-visible,.amb-marquee__pause:focus-visible,.amb-perk__paper:focus-visible { outline:3px solid var(--color-before-dawn); outline-offset:4px; }
-.amb-hero__apply { position:absolute; left:50%; top:82.5%; transform:translateX(-50%); width:min(32.1%,46svh); font-size:var(--text-ambassador-apply); }
+.amb-hero__apply { position:absolute; left:50%; top:82.5%; transform:translateX(-50%); width:min(32.1%,46svh); font-size:clamp(20px, 3.5svh, 44px); }
 .amb-hero__apply:hover { transform:translate(-50%,-2px); }
 /* 2. 跑马灯 */
 .amb-marquee { position:relative; background:var(--color-darker-green); color:var(--color-white); overflow:hidden; }
@@ -90,7 +90,7 @@
 .amb-character__part { position:absolute; height:auto; }
 /* 5. 固定入口；为页面与 Footer 预留空间 */
 .amb-actions { position:fixed; z-index:45; bottom:0; left:0; right:0; padding:8px 14px calc(8px + env(safe-area-inset-bottom)); background:var(--color-picnic-date); display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.amb-actions .amb-apply { font-size:var(--text-ambassador-action); }
+.amb-actions .amb-apply { font-size:clamp(14px, 1.6vw, 28px); }
 .amb-apply--linen { background:var(--color-linen-sheet); }
 .amb-apply--linen:hover { background:var(--color-darker-linen); }
 body:has(.site-header.is-open) .amb-actions { visibility:hidden; }

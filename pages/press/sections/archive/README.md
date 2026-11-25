@@ -14,7 +14,7 @@
 
 卡片按 `publishedAt` 升序排序，再依次占据 slot-1 至 slot-6；布局与内容标识分开，方便换刊而不改定位。顺序为 2025-11、2026-01、2026-05、2026-06、2026-07、2026-10。旧刊在上方、同层旧刊在左，最新十月刊位于最下方偏右。六张卡片直接链接到已核对的 LinkedIn 文章，在新标签打开。三周年与 Version 2.5 封面替换原来的两周年、Hot Boyfriend Summer；来源为新提供的 Figma Team Workspace。
 
-首屏复用 `createNewsletterSubscriber()` 与 `content/shared/newsletter.json` 的 Supabase 服务。邮箱使用浏览器原生校验；提交中禁用按钮并防止重复提交；仅服务成功时显示成功消息，失败允许重试。Footer 表单独立工作，状态不混用。
+首屏复用 `createNewsletterSubscriber()` 与 `content/shared/newsletter.json` 的 Supabase 服务。提交状态与 Footer 共用 `mountNewsletterForm()`，保留 Press 自己的成功文案。邮箱使用浏览器原生校验；提交中禁用按钮并防止重复提交；仅服务成功时显示成功消息，失败允许重试。Footer 表单独立工作，状态不混用。
 
 ## 响应式与可访问性
 桌面使用 1728px 设计画布比例，≤767px 使用 402px 手机排布及独立标题、背景素材。文件夹图层不接收指针事件，卡片为原生链接；键盘聚焦时卡片抬至前方，焦点可见。标题有替代文本，纯装饰隐藏于辅助技术；提交状态通过 `aria-live` 反馈。减少动态效果时停用背景视差及卡片位移旋转动画。
@@ -35,4 +35,4 @@ Summer Calling（slot-4）下移至下一层文件夹能覆盖其底边的位置
 - 布局与动效：`styles/press/index.css`。
 - 挂载与订阅：`scripts/press/index.js`。
 - 素材：`assets/images/press/archive/`。
-- 页面字号：`styles/foundations/tokens.css` 的 `--text-press-*`；仅为本页设计映射，不作为最终全站品牌规范。
+- 页面字号：`styles/press/index.css` 中的订阅输入、提交按钮与介绍段落规则；仅为本页设计映射，不作为最终全站品牌规范。

@@ -1,4 +1,5 @@
 // 目录：1. 数据加载 2. 页面与共享组件
+import { readJSON } from '../shared/data.js';
 import { mountMenuBar } from '../../components/menu-bar/menu-bar.js';
 import { mountFooter } from '../../components/footer/footer.js';
 import { renderFAQ } from '../../components/faq/faq.js';
@@ -8,16 +9,11 @@ import { downloadContent } from '../../content/download/page.js';
 import { mountPointerParallax } from '../shared/pointer-parallax.js';
 import { createNewsletterSubscriber } from '../shared/newsletter.js';
 import { renderDownloadHero } from '../../pages/download/sections/hero/hero.js';
-async function readJSON(path) {
-  const response = await fetch(new URL(path, import.meta.url));
-  if (!response.ok) throw new Error(`Could not load ${path}`);
-  return response.json();
-}
 const [navigation, hero, faq, newsletter, background] = await Promise.all([
-  readJSON('../../content/shared/navigation.json'), readJSON('../../content/home/hero.json'),
-  readJSON('../../content/contact/faq.json'),
-  readJSON('../../content/shared/newsletter.json').catch(() => ({ enabled: false })),
-  readJSON('../../content/shared/pre-footer-background.json')
+  readJSON('content/shared/navigation.json'), readJSON('content/home/hero.json'),
+  readJSON('content/shared/faq.json'),
+  readJSON('content/shared/newsletter.json').catch(() => ({ enabled: false })),
+  readJSON('content/shared/pre-footer-background.json')
 ]);
 document.querySelector('#main').innerHTML = renderDownloadHero(hero.downloadHref, downloadContent.version) + renderFAQ();
 mountMenuBar(document.querySelector('#site-header'), { items: navigation.items, currentPage: 'download' });

@@ -53,6 +53,8 @@
 完整哈希、尺寸和体积见 `animation-report.json`，源文件交接与去重依据见 `source/README.md`。
 
 ## 位置与交互
+三卡的专属标题字号在 pre-footer.css 内维护，桌面与手机保持原值；不再为每个标题在全站表新增变量。
+
 - 原始画布 3439×1080，显示区裁至等效高 920，移除脚底以下多余留白，不缩短动画时间；字样下沿和角色脚底靠近 Footer 接缝；动画容器保留溢出，使下缘叶子能覆盖 Footer。
 - `images/garden/ground.svg` 提取原站静态插画的草坪路径，填色 #3D8054，与 `--color-picnic-date` 一致。SVG 两侧路径延伸至画布外，消除左边细小露底；字样本身保留原动画较深的绿。`images/garden/bushes.svg` 使用用户更新的原文件，左右两份 img 分别以半幅 clip-path 裁切并独立定位，左 / 右向 Footer 延伸 6vw / 2vw；不改变 SVG 路径。Pre-footer 建立 z-index:1 层叠上下文，灌木和透明视频 / Canvas 绘于 Footer 之上，均 pointer-events:none，不阻挡订阅或链接。布局参数仍待设计稿确认。
 - 云朵复用 `scripts/shared/pointer-parallax.js`，视口鼠标 X ±2vw、Y 0–4vw，平滑跟随；云组 bottom 从 24vw 调为 25vw，整体略上移，位移幅度保持；减少动态效果 / 粗指针下归零，销毁组件时解绑。

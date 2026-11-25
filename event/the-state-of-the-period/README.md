@@ -35,7 +35,7 @@ Figma 文件 `xKlCUK40XPwLkxbY9JOWIZ`，页面 `5:6`，活动分区 `39:140961`�
 - 主图、标题和 Logo：images/。
 - 桌面 / 手机布局：styles/page.css。
 - 报名交互与共享组件挂载：scripts/page.js。
-- 字体、颜色和字号：styles/foundations/fonts.css / tokens.css 中 period 专属变量。
+- 字体注册：styles/foundations/fonts.css；活动与 Footer 共用颜色：tokens.css；活动专属字体选择和字号：本目录 styles/page.css。
 - Footer：共享组件的 period 变体；通过 homeHref 支持嵌套活动路径，导航链接按站点根目录解析，兼容仓库子路径部署。
 
 ## 验证

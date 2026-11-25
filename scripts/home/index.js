@@ -1,4 +1,5 @@
 // 目录：1. 数据加载 2. 首页及共享组件挂载
+import { readJSON } from '../shared/data.js';
 import { mountMenuBar } from '../../components/menu-bar/menu-bar.js';
 import { mountFooter } from '../../components/footer/footer.js';
 import { createNewsletterSubscriber } from '../shared/newsletter.js';
@@ -10,17 +11,12 @@ import { mountUserComments } from './user-comments.js';
 import { userCommentsSource } from '../../content/home/user-comments-source.js';
 import { renderFAQ } from '../../components/faq/faq.js';
 import { mountFAQ } from '../shared/faq.js';
-async function readJSON(path) {
-  const response = await fetch(new URL(path, import.meta.url));
-  if (!response.ok) throw new Error(`Could not load ${path}`);
-  return response.json();
-}
 const [navigation, hero, newsletter, logos, faq] = await Promise.all([
-  readJSON('../../content/shared/navigation.json'),
-  readJSON('../../content/home/hero.json'),
-  readJSON('../../content/shared/newsletter.json').catch(() => ({enabled:false})),
+  readJSON('content/shared/navigation.json'),
+  readJSON('content/home/hero.json'),
+  readJSON('content/shared/newsletter.json').catch(() => ({enabled:false})),
   loadMarqueeLogos().catch(() => []),
-  readJSON('../../content/contact/faq.json')
+  readJSON('content/shared/faq.json')
 ]);
 document.querySelector('#main').innerHTML = renderHero(hero, logos) + renderUserComments() + renderFAQ({ variant: 'linen' });
 mountMenuBar(document.querySelector('#site-header'), {items:navigation.items, currentPage:'home'});

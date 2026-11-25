@@ -7,6 +7,8 @@
 - 修改位置
 
 ## 文件与素材
+普通链接与桌面 Download 共用 --text-small（默认 14px），手机版大菜单保持原构图字号。
+
 menu-bar.js 管理结构和交互；menu-bar.css 管理显示。hamburger-img.svg 是底部装饰，hamburger-focus.svg 是当前页面装饰，均使用用户上传原文件。目录由 `menu bar` 规范化为 `menu-bar`。
 
 ## 接入接口

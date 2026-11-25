@@ -1,4 +1,5 @@
 // 目录：1. 默认 Pre-footer 与 Footer 结构 2. 订阅适配接口 3. 背景变体与清理
+import { mountNewsletterForm } from '../../scripts/shared/newsletter.js';
 import { escapeHTML, linkAttributes } from '../../scripts/shared/dom.js';
 import { renderPreFooter } from '../pre-footer/pre-footer.js';
 import { mountPreFooter } from '../pre-footer/player.js';
@@ -21,19 +22,7 @@ export function mountFooter(host, { items, legal, social, variant = 'brand', sub
   const footer = host.querySelector('footer');
   const form = footer.querySelector('form');
   const status = footer.querySelector('[role="status"]');
-  form.addEventListener('submit', async event => {
-    event.preventDefault();
-    if (!subscribe) { status.textContent = 'Newsletter signup is not connected yet. Please try again later.'; return; }
-    const button = form.querySelector('button');
-    button.disabled = true; status.textContent = 'Submitting…';
-    try {
-      await subscribe(form.elements.email.value, {signal:controller.signal});
-      if (controller.signal.aborted) return;
-      status.textContent = 'Thanks for joining! We’ll only send you things we’d want to read ourselves, pinky promise.';
-      form.reset();
-    } catch { if (!controller.signal.aborted) status.textContent = 'Oops! Something went wrong. Please try again.'; }
-    finally { button.disabled = false; }
-  }, {signal:controller.signal});
+  mountNewsletterForm(form, status, subscribe, { signal: controller.signal });
   function setVariant(value) {
     if (!['brand','dark','light','period'].includes(value)) throw new Error('Unknown footer variant');
     footer.dataset.variant = value;

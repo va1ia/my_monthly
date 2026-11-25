@@ -1,83 +1,68 @@
-# 公司网站
+# My Monthly 网站
 
 ## 目录
 - 本地预览
-- 当前状态
+- 页面入口
 - 文件结构
-- 素材放置
-- 后续开发
+- 共享功能与数据
+- 维护与验证
+- 后续事项
 
 ## 本地预览
-在本目录运行 `python3 scripts/tools/preview.py`，浏览器访问 http://127.0.0.1:4173/。这是无需安装依赖的 HTML/CSS/JavaScript 模块预览，不要直接双击 HTML（模块和 JSON 需要 HTTP）。
+运行 `python3 scripts/tools/preview.py`，访问 http://127.0.0.1:4173/。项目使用原生 HTML / CSS / JavaScript 模块，无需安装依赖。请通过 HTTP 预览，直接双击 HTML 无法正常加载模块与 JSON。素材清单自动同步方式见 [工具说明](scripts/tools/README.md)。
 
-根 index.html 已接入首页 landing section：背景视差、滚动碰杯、三条产品价值 tag 和 Logo marquee。Logo 文件夹自动同步见 assets/images/home/logo-marquee/README.md；清单由脚本生成，无需手改。组件预览移到 component-preview.html；其中页面选择器可切换当前页装饰，背景选择器可检查 Footer 三种变体。
+## 页面入口
+| 页面 | 入口 | 维护说明 |
+| --- | --- | --- |
+| 首页 | [index.html](index.html) | [分区](pages/home/README.md) · [交互](scripts/home/README.md) |
+| Contact | [contact.html](contact.html) | [卡片](pages/contact/sections/cards/README.md) · [表单](pages/contact/sections/form/README.md) |
+| Download | [download.html](download.html) | [首屏](pages/download/sections/hero/README.md) |
+| Newsletter | [press.html](press.html) | [归档与订阅](pages/press/sections/archive/README.md) |
+| Shop | [shop.html](shop.html) | [展示墙](pages/shop/sections/merch/README.md) · [购物车](pages/shop/sections/product-dialog/README.md) |
+| Ambassador | [ambassador.html](ambassador.html) | [页面说明](pages/ambassador/README.md) |
+| FAQ | [faq.html](faq.html) | [完整 FAQ](pages/faq/README.md) |
+| 法律页面 | [Terms](terms-of-service.html) · [Privacy](privacy-policy.html) | [文档组件](components/legal-document/README.md) |
+| 活动索引 | [event.html](event.html) | [页面说明](pages/event/README.md) |
+| 活动详情 | [The State of the Period](event/the-state-of-the-period/) | [活动与报名](event/the-state-of-the-period/README.md) |
 
-Contact 联系卡片、We hear you 表单与 Q&A 已实现，预览 http://127.0.0.1:4173/contact.html。Supabase 与 Zapier 留言邮件分流已连接并通过真实运行验证；见 [Contact 接入](docs/contact.md)。
-
-Q&A 支持两列 Google Sheet CSV 自动读取，已连接 MM Website Copy 的 Q&A: Preview 工作表；问答条目无背景色，相关色块动画与颜色配置已删除。首页、Contact 与 Download 共用 FAQ；首页 FAQ 固定显示 Darker Linen，Contact / Download 的整页换色在桌面 Pre-footer、手机 FAQ 快进入视口（提前 80px）时开始，配置在 content/shared/pre-footer-background.json。见 [Q&A 说明](pages/contact/sections/faq/README.md)。
-
-Shop 商品展示墙、商品弹窗、收藏和本地购物车已实现，预览 http://127.0.0.1:4173/shop.html；商品 SVG 独立放在 assets/images/shop/products/，按编号替换后自动更新。说明见 [Shop 展示墙](pages/shop/sections/merch/README.md)；Stripe 美国配送收款接口已预留但未开启，见 [收款接入](docs/shop-checkout.md)。
-
-响应式 Pre-footer 默认加入普通页面 Footer 前（目前 Home / Contact / Download / Shop）；文章与活动页自动排除，后续新增普通页面接入共享 Footer 即可，不需单独挂载。默认同步叠加的透明视频约 16.0 MB（V2，3440×1080，20 秒；MP4 后备约 6.1 MB），独立对照页为 http://127.0.0.1:4173/pre-footer-preview.html，可对照新版原始 JSON，固定同步叠加循环。新版源文件保留在 components/pre-footer/source/，静态插画按 images/cards/ 与 images/garden/ 归类，手机纵向排列三卡，花园使用独立两行构图（1648×890、10.75 秒，透明视频约 4.2 MB），资源切换由 components/pre-footer/media-sources.js 管理。见 [Pre-footer 说明](components/pre-footer/README.md)。
-
-首页评论区已加入手机 SVG、整组等高的弧线循环评论与非手机端鼠标背景视差；已连接 Google Sheet 第三个工作表 Home: user comments，每 60 秒同步，无新增本地 JSON。见 [评论区说明](pages/home/sections/user-comments/README.md)。
-
-## 当前状态
-Ambassador Program 已实现，入口 [ambassador.html](ambassador.html)：云朵眼神 / 滚动视差、无限 Marquee、封面掉落后横向展开的文件夹、图钉纸张微动效与底部固定申请 / Instagram 入口。全站 Pre-footer 的 Ambassador 卡片进入本页；复用共享 Footer，保留本页专属人物结尾。见 [页面说明](pages/ambassador/README.md)。
-
-完整 FAQ 页面已实现，入口 `faq.html`，由现有简略 FAQ 的链接进入。背景与 Privacy Policy 一致，GT Eesti 大标题、共享折叠问题列表及 Contact 入口，下接与法律页面相同的 Pre-footer / Footer。绑定 MM Website Copy 的 Q&A: All，每 60 秒同步，无本地问答副本；见 [页面说明](pages/faq/README.md)。
-
-活动详情页 The State of the Period 已实现，入口 `event/the-state-of-the-period/`：按原站桌面 / 手机版布局，标题使用指定 Figma SVG，品牌标识与图片保存于活动目录，复用导航和深红 Footer，不显示 Pre-footer。报名已接入现有 Supabase 的独立 event_registrations 表；见 [活动页说明](event/the-state-of-the-period/README.md)。
-
-Terms of Service 与 Privacy Policy 已实现，入口为 `terms-of-service.html` / `privacy-policy.html`。文案使用用户指定 MM Website Copy 对应工作表的快照，排版参考原网站；移除 Share 区域，Footer 法律链接已指向新版页面。复用全站导航、Pre-footer 和 Footer；见 [法律文档组件](components/legal-document/README.md)。
-
-Press 订阅与 newsletter 归档页已实现，入口 [press.html](press.html)：桌面 / 手机独立构图、共享背景鼠标视差、六张卡片的上移旋转动效及对应 LinkedIn 跳转，订阅复用现有服务。导航 Press 已接入本地页面，底部自动复用现有 Pre-footer / Footer。见 [分区说明](pages/press/sections/archive/README.md)。
-
-首页 landing、导航和 Footer 已按参考站及用户截图实现；使用上传的 Logo、插画、社交图标和字体。首页评论区与桌面 / 手机 Pre-footer 已实现，其余后续分区待开发，未配置部署。Newsletter 已连接 Supabase 保存名单（本地预览与 GitHub Pages 来源）；尚未接入邮件发送服务。共享链接配置见 content/shared/README.md。
+技术预览：[共享组件](component-preview.html) · [Pre-footer 动画对照](pre-footer-preview.html)。
 
 ## 文件结构
 ```text
-assets/                       全站和品牌页面素材
-  fonts/                      授权字体文件
-  icons/                      Wordmark、favicon 和共享图标
-  images/shared/              非图标类共享图片
-  images/home/                首页图片，hero/ 和 logo-marquee/
-  images/contact/             联系卡片与背景，form/ 为表单装饰
-components/                   共享组件，每个组件独立目录和说明
-content/home/        首页文案、数据，按分区命名
-pages/home/          首页结构，按分区组织
-scripts/home/        首页交互，按分区组织
-scripts/shared/               共享交互工具
-styles/                       全站样式及品牌页面分区样式
-  foundations/               变量、字体、重置、文字、布局
-  home/             首页分区样式
-  shared.css                 全站共享样式入口
-  home/index.css          首页样式入口
-event/<slug>/                单个活动全部专属文件
-article/<slug>/              单篇文章全部专属文件
-templates/                   新增品牌页面、活动和文章的模板
-docs/                        结构、设计接入、组件索引等说明
+assets/                  字体、共享图标、按页面与分区分类的图片
+components/<component>/  已实现的共享组件及各自说明、专属素材
+pages/<page>/            页面结构，复杂页面再按 sections/<section>/ 分区
+styles/<page>/           页面样式；index.css 为统一入口
+styles/foundations/      通用变量、字体注册、重置、文字与布局
+scripts/<page>/          页面挂载与专属交互
+scripts/shared/          共享数据读取、订阅、FAQ、视差等工具
+scripts/tools/           预览与素材同步工具
+content/<page>/          页面文案与配置
+content/shared/          跨页面共用的数据与配置
+event/<slug>/            单个活动的全部专属代码、数据与素材
+article/<slug>/          单篇文章的全部专属文件
+templates/               新增页面、活动、文章的约定与模板
+supabase/                表单服务端函数与数据库迁移
+docs/                    架构、组件索引、接入及验证说明
+docs/history/            旧修改记录，供追溯使用
 ```
 
-## 素材放置
-- 字体 → `assets/fonts/`；授权和字重说明见该目录 README。
-- Wordmark、favicon、共享图标 → `assets/icons/`。
-- 其他共用图片 → `assets/images/shared/`。
-- 首页图片 → `assets/images/home/<section>/`。
-- 活动或文章专属图片 → 对应页面自己的 `images/`，不散落到公共素材目录。
-- Figma 链接、分区讲解 → `docs/design-handoff.md`。
+详细归属、命名与复用规则见 [架构说明](docs/architecture.md)。字体授权见 [字体目录](assets/fonts/README.md)；设计交接和待确认值见 [设计交接](docs/design-handoff.md)。
 
-## 后续开发
-1. 填写设计交接文档，上传图片和字体。
-2. 确认技术框架、部署位置及 URL 规则。
-3. 将 Figma 文字和颜色映射到全站基础样式。
-4. 优先实现共享组件，再按分区实现首页。
-5. 按 `docs/acceptance.md` 检查响应式和可访问性；本次首屏检查见 `docs/hero-verification.md`。
+## 共享功能与数据
+- 全站组件从 [组件索引](docs/components.md) 查找；普通页面由 Footer 自动挂载 Pre-footer，文章和活动排除，Ambassador 使用自己的结尾。
+- 导航、订阅、简略 FAQ 和滚动换色配置放在 [共享数据](content/shared/README.md)。顶部当前显示 Newsletter / Contact / Download，Footer 另有 State of Period。
+- Home / Contact / Download 共用 Q&A: Preview；完整 FAQ 独立读取 Q&A: All。同步与失败后备见 [FAQ 组件](components/faq/README.md)。
+- 共享 JSON 读取与 Newsletter 表单状态只维护一份，入口见 [共享工具](scripts/shared/README.md)。
+- 订阅名单、Contact 留言和活动报名已接入 Supabase；分别见 [订阅接入](docs/newsletter.md)、[Contact 接入](docs/contact.md) 和活动说明。订阅邮件发送服务尚未接入。
+- Shop 的收藏和购物车在本机保存，真实付款未开启；见 [收款接入](docs/shop-checkout.md)。
 
-新增页面和命名规则见 [架构规范](docs/architecture.md)；组件查找见 [组件索引](docs/components.md)。
+## 维护与验证
+通用文字保留正文、较大正文、小字、辅助字和通用标题；先复用，特殊尺寸留在所属 CSS。现行规则更新到对应 README，逐次微调记录放在历史文档中。
 
-Supabase 订阅接口已部署并通过本地预览真实提交验证，GitHub Pages 公开网页也已验证通过；接入步骤见 [部署说明](docs/newsletter.md)。
+新增内容先查已有组件和共享工具。仅为实际需求创建文件与目录，避免没有行为的转发层；不为整理目录引入框架或依赖。页面改动按 [验收要求](docs/acceptance.md) 检查响应式、键盘、替代文本和对比度；只运行相关验证。
 
-Download 页面已实现，入口 download.html：绿色首屏、双端手机素材、首页背景鼠标视差与共享 FAQ（同一 Google Sheet）。导航 Download 已指向本地页面，暂只显示 App Store。
-
-Event 页面入口 event.html，当前显示活动待更新状态，复用导航与 Footer。News 菜单文案暂改为 Newsletter，页面标题同步更新；About / Event / Shop 暂时从导航和 Footer 页面列表隐藏。顶部显示 Newsletter / Contact / Download；Footer 在 Download 下方另加 State of Period，直接进入现有活动详情页。
+## 后续事项
+- 核对尚未确认的 Figma 数值，保留现有页面效果与用户手动调整。
+- 按实际需求确定后续框架、正式部署流程与 URL 规则。
+- 开启 Shop 付款前完成收款说明中的配置与验证。

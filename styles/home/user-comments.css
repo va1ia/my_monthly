@@ -45,7 +45,7 @@
   border-radius: 1vw;
   background: var(--color-white);
   box-shadow: var(--shadow-home-comment);
-  font-size: var(--text-home-comment);
+  font-size: clamp(11px, 1vw, 16px);
   line-height: 1.45;
 }
 .home-comments__card-title { margin: 0 0 .5em; font: inherit; font-weight: 500; line-height: 1.2; font-size: 1.2em; }
@@ -60,7 +60,7 @@
   .home-comments { height: 199vw; min-height: 0; }
   .home-comments__phone { width: 73%; top: 17%; }
   .home-comments__group { top: 71%; gap: 11vw; transform: translateY(-50%); }
-  .home-comments__card { flex-basis: 52vw; width: 52vw; min-height: 37vw; padding: 3.3vw; border-radius: 3vw; }
+  .home-comments__card { font-size: clamp(10px, 2.5vw, 16px); flex-basis: 52vw; width: 52vw; min-height: 37vw; padding: 3.3vw; border-radius: 3vw; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-comments__pattern { transform: none; }

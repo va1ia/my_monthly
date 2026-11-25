@@ -9,7 +9,7 @@
 .menu-bar__brand { flex: 0 0 auto; position: relative; z-index: 2; }
 .menu-bar__brand img { width: 96px; height: auto; }
 .menu-bar__links { list-style: none; margin: 0; padding: 0; display: flex; gap: 32px; align-items: center; }
-.menu-bar__link { position: relative; display: block; color: inherit; text-decoration: none; font-size: 14px; padding: 10px 0; white-space: nowrap; }
+.menu-bar__link { position: relative; display: block; color: inherit; text-decoration: none; font-size: var(--text-small); padding: 10px 0; white-space: nowrap; }
 .menu-bar__link > span { position: relative; z-index: 1; }
 .menu-bar__link:not(.menu-bar__link--download) > span::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 180ms ease; }
 .menu-bar__link:hover > span::after, .menu-bar__link[aria-current="page"] > span::after, .menu-bar__link:focus-visible > span::after { transform: scaleX(1); }
@@ -20,7 +20,7 @@
 .menu-bar__toggle, .menu-bar__illustration { display: none; }
 .site-header :focus-visible { outline: 2px solid currentColor; outline-offset: 7px; border-radius: 3px; }
 @media (min-width: 992px) {
-  .menu-bar__link--download { overflow: hidden; isolation: isolate; font-size: 13px; font-weight: 500; }
+  .menu-bar__link--download { overflow: hidden; isolation: isolate; font-size: var(--text-small); font-weight: 500; }
   .menu-bar__link--download::before { content: ''; position: absolute; width: 36px; height: 36px; left: -36px; top: calc(50% - 18px); border-radius: 50%; background: var(--color-sunset-blush); transform: scale(1); transition: transform 300ms ease; pointer-events: none; }
   .menu-bar__link--download:hover::before, .menu-bar__link--download:focus-visible::before { transform: scale(9); transition-timing-function: cubic-bezier(.25, .46, .45, .94); }
 }

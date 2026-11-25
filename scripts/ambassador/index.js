@@ -1,16 +1,12 @@
 // 目录：1. 页面与共享组件 2. 云朵眼神与视差 3. 文件夹滚动 4. 跑马灯
+import { readJSON } from '../shared/data.js';
 import { mountMenuBar } from '../../components/menu-bar/menu-bar.js';
 import { mountFooter } from '../../components/footer/footer.js';
 import { createNewsletterSubscriber } from '../shared/newsletter.js';
 import { renderAmbassador } from '../../pages/ambassador/page.js';
-const readJSON = async path => {
-  const response = await fetch(new URL(path, import.meta.url));
-  if (!response.ok) throw new Error(`Could not load ${path}`);
-  return response.json();
-};
 const [navigation, data, newsletter] = await Promise.all([
-  readJSON('../../content/shared/navigation.json'), readJSON('../../content/ambassador/page.json'),
-  readJSON('../../content/shared/newsletter.json').catch(()=>({enabled:false}))
+  readJSON('content/shared/navigation.json'), readJSON('content/ambassador/page.json'),
+  readJSON('content/shared/newsletter.json').catch(()=>({enabled:false}))
 ]);
 document.querySelector('#main').innerHTML = renderAmbassador(data);
 mountMenuBar(document.querySelector('#site-header'), { items:navigation.items, currentPage:'ambassador' });

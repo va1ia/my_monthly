@@ -1,11 +1,10 @@
 // 目录：1. 挂载共享组件 2. 动画模式对照
+import { readJSON } from '../shared/data.js';
 import { mountMenuBar } from '../../components/menu-bar/menu-bar.js';
 import { mountFooter } from '../../components/footer/footer.js';
 import { renderPreFooter } from '../../components/pre-footer/pre-footer.js';
 import { mountPreFooter } from '../../components/pre-footer/player.js';
-const response = await fetch(new URL('../../content/shared/navigation.json', import.meta.url));
-if (!response.ok) throw new Error('Navigation could not be loaded');
-const navigation = await response.json();
+const navigation = await readJSON('content/shared/navigation.json');
 mountMenuBar(document.querySelector('#site-header'), {items:navigation.items,currentPage:'home'});
 mountFooter(document.querySelector('#site-footer'), { ...navigation, preFooter: false });
 document.querySelector('#pre-footer-demo').innerHTML = renderPreFooter();

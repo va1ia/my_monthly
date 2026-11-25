@@ -5,7 +5,7 @@
 .contact-form__pattern img { width: 100%; -webkit-mask-image: linear-gradient(to bottom, #000 70%, #0008 85%, transparent 100%); mask-image: linear-gradient(to bottom, #000 70%, #0008 85%, transparent 100%); }
 .contact-form__panel { display: flex; justify-content: space-between; gap: 32px; width: 88vw; max-width: 1100px; border-radius: 24px; margin: 8vw 0; padding: min(3.3vw, 54px) min(3.3vw, 54px) min(3vw, 40px); background: var(--color-morning-fog); }
 .contact-form__intro { width: 38%; }
-.contact-form__intro h1 { margin: 0 0 6px; font-size: var(--text-contact-title); font-weight: 500; line-height: 1.2; }
+.contact-form__intro h1 { margin: 0 0 6px; font-size: clamp(36px, 3.2vw, 56px); font-weight: 500; line-height: 1.2; }
 .contact-form__intro p { margin: 0; line-height: 1.5; }
 .contact-form__body { width: 54%; max-width: 100%; }
 .contact-form__fields { display: flex; flex-wrap: wrap; justify-content: space-between; gap: clamp(16px, 1.6vw, 28px) 8px; }
@@ -20,8 +20,7 @@
 .contact-form__field--select::after { content: ''; position: absolute; right: 22px; top: 50%; width: 8px; height: 8px; border-right: 2px solid var(--color-white); border-bottom: 2px solid var(--color-white); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
 .contact-form__field select { appearance: none; -webkit-appearance: none; padding-right: 48px; border-color: var(--color-picnic-date); color: var(--color-white); background: var(--color-picnic-date); cursor: pointer; }
 .contact-form__field textarea { height: clamp(288px, 28vw, 480px); padding-top: clamp(12px, 1.4vw, 24px); resize: vertical; }
-.contact-form__submit { min-height: clamp(40px, 4vw, 64px); min-width: clamp(172px, 17vw, 280px); border: 1.5px solid var(--color-darker-green); border-radius: 10px; padding: 9px 20px; margin-top: 6px; background: var(--color-lighter-sunset); color: var(--color-darker-green); cursor: pointer; font-size: var(--text-body); font-weight: 400; }
-.contact-form__submit { position: relative; isolation: isolate; overflow: hidden; -webkit-text-stroke: .5px currentColor; }
+.contact-form__submit { min-height: clamp(40px, 4vw, 64px); min-width: clamp(172px, 17vw, 280px); border: 1.5px solid var(--color-darker-green); border-radius: 10px; padding: 9px 20px; margin-top: 6px; background: var(--color-lighter-sunset); color: var(--color-darker-green); cursor: pointer; font-size: var(--text-body); font-weight: 400; position: relative; isolation: isolate; overflow: hidden; -webkit-text-stroke: .5px currentColor; }
 /* 同导航 Download：圆形色块从左侧展开，文字保持在上层。 */
 .contact-form__submit::before { content: ''; position: absolute; z-index: -1; width: 36px; height: 36px; left: -36px; top: calc(50% - 18px); border-radius: 50%; background: var(--color-sunset-blush); transform: scale(1); transition: transform 300ms ease; pointer-events: none; }
 .contact-form__submit:not(:disabled):hover::before, .contact-form__submit:not(:disabled):focus-visible::before { transform: scale(18); transition-timing-function: cubic-bezier(.25, .46, .45, .94); }
@@ -41,6 +40,7 @@
   .contact-form__pattern img { height: 100%; object-fit: cover; object-position: top; -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - clamp(40px, 12vw, 64px)), transparent 100%); mask-image: linear-gradient(to bottom, #000 calc(100% - clamp(40px, 12vw, 64px)), transparent 100%); }
   .contact-form__panel { flex-direction: column; gap: 10vw; border-radius: min(5vw, 24px); padding: 10vw 6vw 11vw; margin: 18vw 0 16vw; }
   .contact-form__intro, .contact-form__body { width: 100%; }
+  .contact-form__intro h1 { font-size: 9vw; }
   .contact-form__fields { gap: 16px 8px; }
   .contact-form__field input, .contact-form__field textarea, .contact-form__field select { height: 44px; }
   .contact-form__field--first { width: calc(60% - 4px); }

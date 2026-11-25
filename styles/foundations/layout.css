@@ -1,4 +1,4 @@
-/* 目录：1. 内容容器 2. 分区间距 */
+/* 目录：1. 内容容器 2. 分区间距 3. 可访问性辅助 */
 .container {
   width: min(100% - var(--page-gutter) * 2, var(--content-max));
   margin-inline: auto;
