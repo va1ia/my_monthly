@@ -6,3 +6,6 @@ verify_jwt = false
 
 [functions.shop-checkout]
 verify_jwt = false
+
+[functions.event-register]
+verify_jwt = false

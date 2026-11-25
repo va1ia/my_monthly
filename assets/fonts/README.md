@@ -13,6 +13,7 @@
 
 | 文件 | CSS 字重 | 样式 | 状态 |
 | --- | --- | --- | --- |
+| `bona-nova/bona-nova-regular.ttf` | 400 | normal | 活动页参照原站使用；SIL OFL 1.1 授权见相邻 OFL.txt |
 | `bbh-sans-bogle/bbh-sans-bogle-regular.ttf` | 400 | normal | 已注册为 BBH Sans Bogle，预留给 Ambassador 页面 |
 | `GT-Eesti-Display-Medium.woff2` | 500 | normal | 已注册 |
 | `garabosse/Garabosse-Gaillard·e.woff2` | 待确认 | 待确认 | Shop 招牌暂用独立 family（400），最终用途待确认 |

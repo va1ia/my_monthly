@@ -14,7 +14,7 @@
 
 Contact 联系卡片、We hear you 表单与 Q&A 已实现，预览 http://127.0.0.1:4173/contact.html。Supabase 与 Zapier 留言邮件分流已连接并通过真实运行验证；见 [Contact 接入](docs/contact.md)。
 
-Q&A 支持两列 Google Sheet CSV 自动读取，已连接 MM Website Copy 的 Q&A: Preview 工作表；颜色独立 JSON，按顺序逐条对应。首页、Contact 与 Download 共用 FAQ；首页 FAQ 固定显示 Darker Linen，Contact / Download 的整页换色在桌面 Pre-footer、手机 FAQ 快进入视口（提前 80px）时开始，配置在 content/shared/pre-footer-background.json。见 [Q&A 说明](pages/contact/sections/faq/README.md)。
+Q&A 支持两列 Google Sheet CSV 自动读取，已连接 MM Website Copy 的 Q&A: Preview 工作表；问答条目无背景色，相关色块动画与颜色配置已删除。首页、Contact 与 Download 共用 FAQ；首页 FAQ 固定显示 Darker Linen，Contact / Download 的整页换色在桌面 Pre-footer、手机 FAQ 快进入视口（提前 80px）时开始，配置在 content/shared/pre-footer-background.json。见 [Q&A 说明](pages/contact/sections/faq/README.md)。
 
 Shop 商品展示墙、商品弹窗、收藏和本地购物车已实现，预览 http://127.0.0.1:4173/shop.html；商品 SVG 独立放在 assets/images/shop/products/，按编号替换后自动更新。说明见 [Shop 展示墙](pages/shop/sections/merch/README.md)；Stripe 美国配送收款接口已预留但未开启，见 [收款接入](docs/shop-checkout.md)。
 
@@ -23,6 +23,12 @@ Shop 商品展示墙、商品弹窗、收藏和本地购物车已实现，预览
 首页评论区已加入手机 SVG、整组等高的弧线循环评论与非手机端鼠标背景视差；已连接 Google Sheet 第三个工作表 Home: user comments，每 60 秒同步，无新增本地 JSON。见 [评论区说明](pages/home/sections/user-comments/README.md)。
 
 ## 当前状态
+Ambassador Program 已实现，入口 [ambassador.html](ambassador.html)：云朵眼神 / 滚动视差、无限 Marquee、封面掉落后横向展开的文件夹、图钉纸张微动效与底部固定申请 / Instagram 入口。全站 Pre-footer 的 Ambassador 卡片进入本页；复用共享 Footer，保留本页专属人物结尾。见 [页面说明](pages/ambassador/README.md)。
+
+完整 FAQ 页面已实现，入口 `faq.html`，由现有简略 FAQ 的链接进入。背景与 Privacy Policy 一致，GT Eesti 大标题、共享折叠问题列表及 Contact 入口，下接与法律页面相同的 Pre-footer / Footer。绑定 MM Website Copy 的 Q&A: All，每 60 秒同步，无本地问答副本；见 [页面说明](pages/faq/README.md)。
+
+活动详情页 The State of the Period 已实现，入口 `event/the-state-of-the-period/`：按原站桌面 / 手机版布局，标题使用指定 Figma SVG，品牌标识与图片保存于活动目录，复用导航和深红 Footer，不显示 Pre-footer。报名已接入现有 Supabase 的独立 event_registrations 表；见 [活动页说明](event/the-state-of-the-period/README.md)。
+
 Terms of Service 与 Privacy Policy 已实现，入口为 `terms-of-service.html` / `privacy-policy.html`。文案使用用户指定 MM Website Copy 对应工作表的快照，排版参考原网站；移除 Share 区域，Footer 法律链接已指向新版页面。复用全站导航、Pre-footer 和 Footer；见 [法律文档组件](components/legal-document/README.md)。
 
 Press 订阅与 newsletter 归档页已实现，入口 [press.html](press.html)：桌面 / 手机独立构图、共享背景鼠标视差、六张卡片的上移旋转动效及对应 LinkedIn 跳转，订阅复用现有服务。导航 Press 已接入本地页面，底部自动复用现有 Pre-footer / Footer。见 [分区说明](pages/press/sections/archive/README.md)。
@@ -74,4 +80,4 @@ Supabase 订阅接口已部署并通过本地预览真实提交验证，GitHub P
 
 Download 页面已实现，入口 download.html：绿色首屏、双端手机素材、首页背景鼠标视差与共享 FAQ（同一 Google Sheet）。导航 Download 已指向本地页面，暂只显示 App Store。
 
-Event 页面入口 event.html，当前显示活动待更新状态，复用导航与 Footer。News 菜单文案暂改为 Newsletter，页面标题同步更新；About / Event / Shop 暂时从导航和 Footer 页面列表隐藏，当前两处均显示 Newsletter / Contact / Download。
+Event 页面入口 event.html，当前显示活动待更新状态，复用导航与 Footer。News 菜单文案暂改为 Newsletter，页面标题同步更新；About / Event / Shop 暂时从导航和 Footer 页面列表隐藏。顶部显示 Newsletter / Contact / Download；Footer 在 Download 下方另加 State of Period，直接进入现有活动详情页。

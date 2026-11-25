@@ -1,6 +1,7 @@
 /* 目录：1. 背景变体 2. 桌面布局 3. 表单与链接 4. 移动端布局 */
 .site-footer { --footer-bg: var(--color-picnic-date); --footer-fg: var(--color-morning-fog); background: var(--footer-bg); color: var(--footer-fg); padding: 44px 4vw calc(20px + env(safe-area-inset-bottom, 0px)); font-family: var(--font-body); }
 .site-footer[data-variant="dark"] { --footer-bg: var(--color-darker-green); --footer-fg: var(--color-linen-sheet); }
+.site-footer[data-variant="period"] { --footer-bg: var(--color-period-dark); --footer-fg: var(--color-morning-fog); border-radius: 24px 24px 0 0; }
 .site-footer[data-variant="light"] { --footer-bg: var(--color-linen-sheet); --footer-fg: var(--color-darker-green); }
 .site-footer__main { display: grid; grid-template-columns: 1.5fr .65fr .85fr; gap: 8vw; max-width: 1440px; margin-inline: auto; }
 .site-footer__newsletter { max-width: 360px; min-width: 0; }

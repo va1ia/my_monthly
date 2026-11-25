@@ -1,0 +1,5 @@
+{
+  "enabled": true,
+  "endpoint": "https://gfeutgwgqjsgegravjxk.supabase.co/functions/v1/event-register",
+  "publishableKey": "sb_publishable_cyTgGfk3pZTBj1H4uR1yIA_K8EN5e7n"
+}

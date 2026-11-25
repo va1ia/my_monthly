@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="The State of the Period — Investor x Founder Roundtable. Self-advocacy, digital health innovation, and community-driven care.">
+  <title>The State of the Period — My Monthly</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg">
+  <link rel="stylesheet" href="../../styles/shared.css">
+  <link rel="stylesheet" href="./styles/page.css">
+  <script type="module" src="./scripts/page.js"></script>
+</head>
+<body class="period-event">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-header"></div>
+  <main id="main" tabindex="-1">
+    <section class="period-landing" aria-labelledby="period-title">
+      <img class="period-landing__photo" src="./images/hero.jpg" alt="A woman in a brown suit standing beside a red chair piled with books." fetchpriority="high">
+      <div class="period-landing__panel">
+        <header class="period-landing__heading">
+          <h1 id="period-title"><img src="./images/title.svg" alt="The $tate of the Period:" width="604" height="168"></h1>
+          <p class="period-landing__subtitle">Investor x Founder<br>Roundtable</p>
+        </header>
+        <div class="period-registration">
+          <form class="period-registration__form" aria-label="The State of the Period registration" aria-describedby="period-consent">
+            <div class="visually-hidden" aria-hidden="true"><label for="period-website">Leave this field empty</label><input id="period-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+            <label class="visually-hidden" for="period-name">Name (required)</label>
+            <input id="period-name" name="name" type="text" autocomplete="name" placeholder="*Name" maxlength="120" required>
+            <label class="visually-hidden" for="period-role">Which one best describes you? (required)</label>
+            <div class="period-registration__select">
+              <select id="period-role" name="role" required>
+                <option value="" disabled selected>* Which one best describes you?</option>
+                <option value="Investor">Investor</option>
+                <option value="Founder">Founder</option>
+                <option value="Influencer">Influencer</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <label class="visually-hidden" for="period-email">Email (required)</label>
+            <input id="period-email" name="email" type="email" autocomplete="email" placeholder="*Email" maxlength="254" required>
+            <label class="visually-hidden" for="period-social">Social Handle (LinkedIn, Instagram, etc.) (required)</label>
+            <input id="period-social" name="social" type="text" placeholder="*Social Handle (Linkedin, Instagram, etc.)" maxlength="500" required>
+            <button type="submit" disabled>Submit</button>
+            <noscript><p>Please enable JavaScript to register for this event.</p></noscript>
+          </form>
+          <p class="period-registration__status" role="status" aria-live="polite" tabindex="-1"></p>
+        </div>
+        <p class="period-landing__consent" id="period-consent">By providing your name and email address, you consent to receive communications from us via email. We will use your contact details to send you event-related materials. Additionally, you may receive updates regarding our future events. You may opt out of these communications at any time by following the unsubscribe instructions provided in our emails.</p>
+      </div>
+    </section>
+    <section class="period-about" aria-label="About the roundtable">
+      <img class="period-about__brands" src="./images/brand-lockup.svg" width="977" height="241" alt="Led by three women-owned brands: monthly, My Monthly, and Sunny." loading="lazy">
+      <div class="period-about__copy">
+        <p>In response to medical gaslighting and delayed diagnoses, we bring together self-advocacy, digital health innovation, and community-driven care.</p>
+        <p>We aren't just waiting for the medical industry to catch up; we are building the platforms and networks needed to take control of our own health today.</p>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+</body>
+</html>

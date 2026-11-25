@@ -1,7 +1,7 @@
 /* 目录：1. 电脑版布局 2. 卡片与链接 3. 动画及背景 4. 焦点、手机版与减少动画
    按用户 2026-10-30 截图还原，精确布局值待 Figma 确认。 */
 /* 1. 电脑版布局 */
-.pre-footer { position: relative; z-index: 1; isolation: isolate; margin-bottom: -1px; padding-top: clamp(28px, 3vw, 52px); overflow: visible; background: linear-gradient(180deg, transparent, var(--color-pre-footer-sky) 32%, var(--color-pre-footer-sky) calc(100% - 2px), var(--color-picnic-date) calc(100% - 2px)) var(--color-darker-linen); }
+.pre-footer { position: relative; z-index: 1; isolation: isolate; margin-bottom: -1px; padding-top: clamp(28px, 3vw, 52px); overflow: visible; background: linear-gradient(180deg, transparent, var(--color-pre-footer-sky) 32%, var(--color-pre-footer-sky) calc(100% - 2px), var(--color-picnic-date) calc(100% - 2px)) var(--pre-footer-base-bg, var(--color-darker-linen)); }
 /* 顶部直接透出正在过渡的页面底色，每一帧都与 FAQ 连续；独立页面保留浅色底。 */
 .scroll-background .pre-footer { background-color: transparent; }
 .pre-footer__cards { position: relative; z-index: 2; width: min(76.5%, 1120px); margin-inline: auto; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 4.2vw, 64px); }
@@ -89,6 +89,10 @@
   img.pre-footer__clouds { display: none; }
   .pre-footer__clouds--mobile { position: relative; display: block; height: auto; aspect-ratio: 1552 / 500; margin-top: -8vw; bottom: auto; transform: none; overflow: visible;}
   .pre-footer__garden { margin-top: 4vw; }
+  /* 两丛灌木分别以靠近屏幕边缘的底角为锚点放大。 */
+  .pre-footer__bushes { transform: scale(1.6); }
+  .pre-footer__bushes--left { transform-origin: left bottom; }
+  .pre-footer__bushes--right { transform-origin: right bottom; }
   .pre-footer__motion-toggle { right: 10px; bottom: 4px; min-height: 32px; padding: 5px 10px; font-size: var(--text-small); opacity: 1; }
 }
 

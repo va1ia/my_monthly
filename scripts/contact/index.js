@@ -14,11 +14,11 @@ async function readJSON(path) {
   if (!response.ok) throw new Error(`Could not load ${path}`);
   return response.json();
 }
-const [navigation, content, form, newsletter, faq, faqColors, background] = await Promise.all([
+const [navigation, content, form, newsletter, faq, background] = await Promise.all([
   readJSON('../../content/shared/navigation.json'), readJSON('../../content/contact/page.json'),
   readJSON('../../content/contact/form.json').catch(() => ({ enabled: false })),
   readJSON('../../content/shared/newsletter.json').catch(() => ({ enabled: false })),
-  readJSON('../../content/contact/faq.json'), readJSON('../../content/contact/faq-colors.json'), readJSON('../../content/shared/pre-footer-background.json')
+  readJSON('../../content/contact/faq.json'), readJSON('../../content/shared/pre-footer-background.json')
 ]);
 document.querySelector('#main').innerHTML = renderCards(content) + renderContactForm(content.form) + renderFAQ();
 mountMenuBar(document.querySelector('#site-header'), { items: navigation.items, currentPage: 'contact' });
@@ -26,6 +26,6 @@ mountFooter(document.querySelector('#site-footer'), { ...navigation, subscribe: 
 mountContactMotion(document.querySelector('.contact-cards'));
 mountContactForm(document.querySelector('.contact-form'), createContactSubmitter(form));
 
-mountFAQ(document.querySelector('.contact-faq'), faq, faqColors);
+mountFAQ(document.querySelector('.contact-faq'), faq);
 
 mountScrollBackground(document.body, background);

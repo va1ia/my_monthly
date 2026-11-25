@@ -1,0 +1,28 @@
+{
+  "applyUrl": "https://o092eqv9xj4.typeform.com/to/OndLKDi7",
+  "instagramUrl": "https://www.instagram.com/reel/DdpP7GZzW8t/",
+  "marquee": "Join our Instagram Channel to get early access to the SF in fall!",
+  "introTitle": "What is MM College Ambassador Program?",
+  "intro": "Master real-world marketing and build a standout portfolio, all while still in school! The My Monthly Ambassador Program gives you hands-on experience executing brand collaborations and content creation, including running sponsored campus events. By the end of the program, you'll have earned proof of your creative impact and a career-ready resume.",
+  "eligibilityTitle": "You're PERFECT for the Program if you are ...",
+  "eligibility": [
+    "Authentic, Empathetic, open-minded, and passionate about women’s health",
+    "18 or older",
+    "Active on social media, with 1,500+ engaged followers across your primary platforms",
+    "Already following My Monthly and interested in staying connected with the brand",
+    "Bonus points if you’re an actual user of My Monthly!"
+  ],
+  "learningTitle": "Content You'll Learn to Perfect",
+  "learning": [
+    { "title": "Day-in-the-Life & Vlogs", "body": "Show authentic moments of how you use the app to manage your schedule, cycle, or relationship routines alongside campus life." },
+    { "title": "Educational & “Spokesperson” Clips", "body": "Casual, talk-to-camera videos talking about women's/menstrual health, breaking down key features of the app, and answering common questions from your followers." },
+    { "title": "Memes, Trends & Short-Form Video", "body": "Produce high-energy TikToks and Instagram Reels translating period humor, relatable couple dynamics, or student life using our brand assets." },
+    { "title": "Event & Activation Coverage", "body": "Recaps, behind-the-scenes preparation, and live coverage of on-campus pop-ups, speed dating nights, or club partnerships." }
+  ],
+  "learningEnd": "By the end of the program, you’ll have built a standout portfolio with real-world experience!",
+  "perks": [
+    { "title": "Brand Exposure", "body": "We'll feature you on our Instagram feed, through blog interviews, and in our creator spotlight series.", "icon": "megaphone", "pin": "yellow" },
+    { "title": "Exclusive Merch & Care Drops", "body": "We'll keep you stocked with fresh merch and exclusive gear.", "icon": "shirt", "pin": "pink" },
+    { "title": "VIP Access", "body": "Get tickets to local events and receive unreleased product drops.", "icon": "heart", "pin": "lime" }
+  ]
+}

@@ -14,7 +14,7 @@
 
 footer.js 管理结构和接口，footer.css 管理样式。桌面为订阅/Logo、页面链接、法律/社交三列；手机为居中订阅区和下方两列，隐藏大 Logo。社交图标复用 assets/icons/ 原文件，通过 mask 继承各版本前景色。社交图标整组在当前 -4px 基础上再左移 4px，合计 -8px 作视觉对齐；悬停时图标以 180ms 过渡放大至 1.1 倍，点击区域不变，减少动画偏好下取消过渡。
 
-页面链接与顶部菜单使用同一份 navigation.json 和 hiddenInMenu 过滤规则，目前仅显示 Newsletter、Contact、Download。About / Event / Shop 暂时隐藏；法律链接由 legal 列表独立维护，指向新版 terms-of-service.html 与 privacy-policy.html。
+页面链接与顶部菜单使用同一份 navigation.json，默认按 hiddenInMenu 过滤；showInFooter: true 可让隐藏于顶部菜单的项目仅显示在 Footer。目前 Footer 依次显示 Newsletter、Contact、Download、State of Period，最后一项进入现有活动详情页，沿用同一链接样式与交互。About / Event / Shop 暂时隐藏；法律链接由 legal 列表独立维护，指向新版 terms-of-service.html 与 privacy-policy.html。
 
 页面导航和法律链接统一使用 400 字重；不显示下划线，悬停时以元素正中心为原点，在 180ms 内放大至 1.1 倍，移出还原。键盘焦点保留外框，减少动画偏好下即时切换。
 
@@ -27,6 +27,7 @@ page-policy.js 为唯一判定入口：
 - event.html / events.html、article.html / articles.html 及 event/、events/、article/、articles/ 路径段自动排除，兼容站点子目录部署。
 - 自定义 URL 的活动 / 文章页必须传 pageType:'event' / 'article'；活动索引入口也显式声明，避免改路由后误加。
 - preFooter:false 只用于组件预览等技术页面或显式不挂载的调用；不能用 preFooter:true 绕过文章 / 活动排除。
+- Ambassador Program 按本页 Figma 使用 Perks / 人物专属结尾，显式关闭通用 Pre-footer，继续复用本 Footer 与订阅服务。
 - pre-footer-preview.html 已手动挂载供测试，因此关闭 Footer 自动挂载；component-preview.html 只测试 Footer 变体，也显式关闭。
 
 Footer 的 destroy() 同时销毁自动挂载的 Pre-footer（视频、观察器及鼠标监听），然后清空 host。订阅状态始终限定在 .site-footer 内，避免与 Pre-footer 的状态提示混用。
@@ -51,6 +52,9 @@ footer.setVariant('light');
 - brand（默认）：参考站绿色背景，米色 Logo。
 - dark：菜单深绿背景，米色 Logo。
 - light：浅米色背景，绿色 Logo。
+- period：The State of the Period 活动页深红背景，浅色 Logo；颜色引用全站 tokens 中的 period 局部变量。顶部两个角按原站使用 24px 圆角，底部保持直角，桌面 / 手机一致。
+
+`homeHref` 可选（默认 `./`），用于嵌套活动页和文章页正确返回站点首页。调用方同步将 navigation.json 的相对链接解析为项目根路径。
 
 切换接口同步更新颜色与 Logo。新增背景时同步 JS 允许值、CSS 变量映射和本说明。
 

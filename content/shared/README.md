@@ -6,12 +6,12 @@
 - Pre-footer 背景切换
 
 ## 配置字段
-navigation.json 的 items 用于主导航和 Footer。每项含 id、label、href，可选 external（新窗口，附 noopener noreferrer）与 hiddenInMenu（同时从主导航和 Footer 页面列表隐藏）。legal 为法律链接；social 为 label、href、icon，icon 对应 assets/icons/ 中的文件名。
+navigation.json 的 items 用于主导航和 Footer。每项含 id、label、href，可选 external（新窗口，附 noopener noreferrer）与 hiddenInMenu（默认同时从主导航和 Footer 页面列表隐藏）；showInFooter: true 可单独保留 Footer 入口。legal 为法律链接；social 为 label、href、icon，icon 对应 assets/icons/ 中的文件名。
 
 ## 当前链接状态
 Newsletter 指向 ./press.html，保留 news 标识；Contact / Download 指向各自本地页面。Shop 已指向 ./shop.html，Event 指向 ./event.html，但当前均暂时隐藏。About 保留未启用的 ?page=about 占位，不显示于主导航或 Footer；正式接入时须替换为真实页面。法律与社交链接继续保留原站目标。
 
-About / Event / Shop 当前设为 hiddenInMenu: true；桌面、手机主导航和 Footer 页面列表均同步过滤，只显示 Newsletter / Contact / Download；恢复时删除该字段或设为 false。
+About / Event / Shop 当前设为 hiddenInMenu: true；桌面、手机主导航只显示 Newsletter / Contact / Download；恢复时删除该字段或设为 false。State of Period 设为 hiddenInMenu: true、showInFooter: true，仅在 Footer 的 Download 下方显示，指向 ./event/the-state-of-the-period/。
 
 Newsletter 为当前临时显示名，页面浏览器标题同步为 Newsletter — My Monthly；press.html 及其类型目录不改名。Terms of Service / Privacy Policy 将在后续搭建，当前仍使用独立 legal 列表。
 

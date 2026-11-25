@@ -13,6 +13,8 @@ cards.js 的 renderCards(content) 接收 content/contact/page.json，样式在 s
 
 卡片悬停轻微降低饱和度和亮度，邮箱悬停透明度降至 .65；邮箱键盘焦点同样反馈。减少动画时取消过渡。
 
+粉色 Help Center 卡片说明中的 FAQ / FAQs 文字直接链接到 ./faq.html，复用现有正文链接的下划线、悬停及键盘焦点反馈；文案仍作为纯文本转义后，仅将 FAQ 关键词替换为固定站内链接。
+
 ## 来源
 https://mymonthly.io/contact 的公开 HTML、CSS、Webflow ix2 数据。布局为测量值，待 Figma 确认。
 

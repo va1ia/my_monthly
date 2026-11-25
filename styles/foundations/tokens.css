@@ -1,7 +1,23 @@
 /* 目录：1. 字体 2. 颜色 3. 间距与布局
   颜色采用 Figma 色板；页面字号、间距待 Figma 确认。 */
 :root {
+  /* Ambassador Program：本页 Figma 映射，不扩展为全站品牌规范。 */
+  --font-ambassador-heading: "BBH Sans Bogle", "GT Eesti Display", sans-serif;
+  --text-ambassador-apply: clamp(20px, 3.5svh, 44px);
+  --text-ambassador-action: clamp(14px, 1.6vw, 28px);
+  --color-ambassador-folder: #946843;
   /* 1. 字体 */
+  /* The State of the Period 原站局部值，不作为全站品牌规范。 */
+  --font-period-serif: "Bona Nova", Georgia, serif;
+  --text-period-subtitle: 1.5vw;
+  --text-period-subtitle-mobile: 2vh;
+  --text-period-consent: .75rem;
+  --text-period-consent-tablet: .6875rem;
+  --text-period-consent-mobile: .53125rem;
+  --text-period-description: 2.6vw;
+  --text-period-description-mobile: 2.8vh;
+  --color-period-red: #a03a2c;
+  --color-period-dark: #4c1e13;
   /* Shop 招牌按截图暂用 Garabosse Gaillard·e，非最终品牌映射。 */
   --font-shop-sign: "Garabosse Gaillarde", Georgia, serif;
   --text-shop-product: clamp(26px, 3vw, 34px);
@@ -17,6 +33,7 @@
   --text-legal-title: 2.5rem;
   --text-legal-body: 1.0625rem;
   --text-small: 0.875rem;
+  --text-full-faq-title: clamp(56px, 8vw, 120px);
   /* Press 订阅框按本页 Figma 稿映射，非新增全站品牌字号。 */
   --text-press-email: clamp(16px, 1.5vw, 24px);
   --text-press-submit: clamp(32px, 3vw, 52px);

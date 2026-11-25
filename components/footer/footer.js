@@ -4,7 +4,7 @@ import { renderPreFooter } from '../pre-footer/pre-footer.js';
 import { mountPreFooter } from '../pre-footer/player.js';
 import { shouldShowPreFooter } from './page-policy.js';
 const asset = name => new URL(`../../assets/icons/${name}.svg`, import.meta.url).href;
-export function mountFooter(host, { items, legal, social, variant = 'brand', subscribe, year = new Date().getFullYear(), pageType = 'auto', preFooter = true }) {
+export function mountFooter(host, { items, legal, social, variant = 'brand', subscribe, year = new Date().getFullYear(), pageType = 'auto', preFooter = true, homeHref = './' }) {
   const controller = new AbortController();
   const includePreFooter = shouldShowPreFooter({ pageType, preFooter }, host.ownerDocument.location.pathname);
   const id = `newsletter-${crypto.randomUUID()}`;
@@ -12,9 +12,9 @@ export function mountFooter(host, { items, legal, social, variant = 'brand', sub
     <div class="site-footer__newsletter"><h2>Subscribe to<br>our newsletter</h2>
       <form class="site-footer__form"><label class="visually-hidden" for="${id}">Email address</label><input id="${id}" type="email" name="email" autocomplete="email" placeholder="Yourname@email.com" required aria-describedby="${id}-status"><button type="submit" aria-label="Subscribe to newsletter">→</button></form>
       <p class="site-footer__status" id="${id}-status" role="status" aria-live="polite"></p>
-      <a class="site-footer__brand" href="./" aria-label="My Monthly home"><img width="207" height="45" alt="My Monthly"></a>
+      <a class="site-footer__brand" ${linkAttributes({href:homeHref})} aria-label="My Monthly home"><img width="207" height="45" alt="My Monthly"></a>
     </div>
-    <nav class="site-footer__navigation" aria-label="Footer navigation">${items.filter(item => !item.hiddenInMenu).map(item=>`<a ${linkAttributes(item)}>${escapeHTML(item.label)}</a>`).join('')}</nav>
+    <nav class="site-footer__navigation" aria-label="Footer navigation">${items.filter(item => !item.hiddenInMenu || item.showInFooter).map(item=>`<a ${linkAttributes(item)}>${escapeHTML(item.label)}</a>`).join('')}</nav>
     <div class="site-footer__right"><nav class="site-footer__legal" aria-label="Legal">${legal.map(item=>`<a ${linkAttributes(item)}>${escapeHTML(item.label)}</a>`).join('')}</nav>
     <div class="site-footer__social">${social.map(item=>`<a ${linkAttributes({...item,external:true})} aria-label="${escapeHTML(item.label)}"><span class="site-footer__social-icon" style="--social-icon: url('${asset(item.icon)}')" aria-hidden="true"></span></a>`).join('')}</div></div>
     </div><p class="site-footer__copyright">© Copyright My Monthly ${escapeHTML(year)}. All Rights Reserved.</p></footer>`;
@@ -35,7 +35,7 @@ export function mountFooter(host, { items, legal, social, variant = 'brand', sub
     finally { button.disabled = false; }
   }, {signal:controller.signal});
   function setVariant(value) {
-    if (!['brand','dark','light'].includes(value)) throw new Error('Unknown footer variant');
+    if (!['brand','dark','light','period'].includes(value)) throw new Error('Unknown footer variant');
     footer.dataset.variant = value;
     host.querySelector('.site-footer__brand img').src = asset(value === 'light' ? 'wordmark-green' : 'wordmark-beige');
   }

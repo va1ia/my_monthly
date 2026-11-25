@@ -1,5 +1,5 @@
-/* 目录：1. 分区与便签 2. 折叠与擦入动效 3. 手机与键盘 */
-.contact-faq { --faq-item-radius: 12px; color: var(--color-before-dawn); padding: clamp(20px, 4vw, 60px) 0; position: relative; }
+/* 目录：1. 分区与便签 2. 折叠与分隔线 3. 手机与键盘 */
+.contact-faq { --faq-divider-inset: 12px; color: var(--color-before-dawn); padding: clamp(20px, 4vw, 60px) 0; position: relative; }
 .contact-faq--linen { background-color: var(--color-darker-linen); }
 .contact-faq__inner { width: 88%; max-width: 1200px; margin-inline: auto; display: grid; grid-template-columns: 32% minmax(0, 1fr); gap: 8%; align-items: start; }
 .contact-faq__note { position: relative; aspect-ratio: 559 / 394; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 40px 36px 40px; background: url('../../assets/images/contact/faq/text-frame.svg') center / 100% 100% no-repeat; }
@@ -12,13 +12,9 @@
 .contact-faq__note a:focus-visible { outline: 2px solid var(--color-darker-green); outline-offset: 4px; }
 .contact-faq__item { position: relative; isolation: isolate; border-bottom: 1.5px solid transparent; padding: 20px 28px; }
 .contact-faq__item:last-child { border-bottom: 0; }
-.contact-faq__item::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: var(--faq-item-radius); background: var(--faq-color); opacity: 0; clip-path: inset(0 0 100% 0); transition: clip-path 360ms cubic-bezier(.22, 1, .36, 1), opacity 300ms ease; pointer-events: none; }
-/* 线段两端与圆角切点共用半径，展开与收起时都保持对齐。 */
-.contact-faq__item::after { content: ''; position: absolute; left: var(--faq-item-radius); right: var(--faq-item-radius); bottom: -1.5px; height: 1.5px; background: currentColor; pointer-events: none; }
+/* 保留原有分隔线两端的 12px 内缩。 */
+.contact-faq__item::after { content: ''; position: absolute; left: var(--faq-divider-inset); right: var(--faq-divider-inset); bottom: -1.5px; height: 1.5px; background: currentColor; pointer-events: none; }
 .contact-faq__item:last-child::after { display: none; }
-.contact-faq__item[open]::before { opacity: 1; clip-path: inset(0); transition-duration: 440ms, 0s; }
-.contact-faq__item[open] .contact-faq__answer { animation: faq-answer-in 320ms 80ms ease both; }
-@keyframes faq-answer-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @supports (interpolate-size: allow-keywords) {
   .contact-faq__item { interpolate-size: allow-keywords; }
   .contact-faq__item::details-content { block-size: 0; overflow: clip; transition: block-size 360ms cubic-bezier(.22, 1, .36, 1), content-visibility 360ms allow-discrete; }
@@ -48,4 +44,4 @@
   .contact-faq__item summary { font-size: var(--text-faq-question-mobile); gap: 4vw; }
   .contact-faq__answer { padding-inline: 5vw; }
 }
-@media (prefers-reduced-motion: reduce) { .contact-faq__icon::after, .contact-faq__note a, .contact-faq__item::before, .contact-faq__item::details-content { transition: none; } .contact-faq__item[open] .contact-faq__answer { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .contact-faq__icon::after, .contact-faq__note a, .contact-faq__item::details-content { transition: none; } }

@@ -7,19 +7,36 @@
 ## 组件清单
 | 组件 | 说明 | 变体 | 状态 |
 | --- | --- | --- | --- |
+| Ambassador Program（页面专属） | [页面说明](../pages/ambassador/README.md) | 桌面 / 手机；减少动画 | 云朵眼神与视差、无缝公告、原生纵向驱动文件夹横移、图钉纸张旋转、固定申请入口 |
 | Legal document | [组件说明](../components/legal-document/README.md) | 桌面 / 手机 | 服务条款与隐私政策共用；表格文案快照、原站排版、无 Share |
 | Press archive（页面专属） | [分区说明](../pages/press/sections/archive/README.md) | 桌面 / 手机；统一 20px / 3° 抬起；减少动画 | 六篇文章按日期排序；三周年和十月 Version 2.5 封面、链接已更新；共享订阅与背景视差 |
 | Menu bar | [组件说明](../components/menu-bar/README.md) | 桌面 / 手机；当前页标记 | 已实现 |
 | Pre-footer | [组件说明](../components/pre-footer/README.md) | 桌面双列 / 手机单列；视频 / 原始 JSON；同步叠加循环 | 普通页面由 Footer 默认挂载；文章 / 活动排除；手机使用独立两行花园动画 |
-| Footer | [组件说明](../components/footer/README.md) | brand / dark / light | 已实现；Supabase 名单收集已连接 |
+| Footer | [组件说明](../components/footer/README.md) | brand / dark / light / period | 已实现；Supabase 名单收集已连接；Download 下方显示 State of Period |
 | Home hero（页面专属） | [分区说明](../pages/home/sections/hero/README.md) | 桌面 / 平板 / 手机；减少动画 | 已实现背景视差、碰杯、tag 和 marquee；下载徽章使用原站左上位移及实色阴影 |
 | Contact cards（页面专属） | [分区说明](../pages/contact/sections/cards/README.md) | 桌面 / 平板 / 手机 | 卡片、背景视差已实现；手机按截图排列，悬停变灰 |
-| 共享 FAQ（Home / Contact / Download） | [分区说明](../pages/contact/sections/faq/README.md) | SVG 底图 + HTML 文案 / FAQ 链接预留；向下擦入与整页换色 | 已实现；Google Sheet Q&A: Preview 已连接 |
+| 共享 FAQ（Home / Contact / Download） | [分区说明](../pages/contact/sections/faq/README.md) | SVG 底图 + HTML 文案 / FAQ 链接；无展开色块，整页换色独立管理 | 已实现；Google Sheet Q&A: Preview 已连接 |
 | Contact form（页面专属） | [分区说明](../pages/contact/sections/form/README.md) | 等待 / 成功 / 失败 | Supabase 已连接；表单按截图修正，Zapier 分流已连接 |
 | Home user comments（页面专属） | [分区说明](../pages/home/sections/user-comments/README.md) | 桌面 / 手机；整组等高、弧线循环、非手机鼠标视差、减少动画 | 已实现；Home: user comments 已连接，每 60 秒同步 |
 | Button | [组件说明](../components/button/README.md) | 待设计确认 | 目录预留 |
 
 ## 新增与变更
+Pre-footer 手机两侧 bushes 统一放大 1.6 倍，分别以左下 / 右下角固定，复用原 SVG；所有页面共用。
+
+FAQ 页接入默认共享 Pre-footer，与法律页面共用 --pre-footer-base-bg 指定 article-cream 顶部底色，不复制动画或卡片素材。
+
+所有简略 FAQ 已删除展开背景色块与擦入 / 擦出 / 淡出代码、答案入场关键帧、颜色配置文件及所有调用方调色板参数；完整 FAQ 同步清理无用覆盖。保留折叠、分隔线、加减号、键盘操作及表格同步。
+
+完整 FAQ 的表格同步新增 COMING SOON 分区边界，仅显示标记上方问答；标记和下方草稿不显示，简略 FAQ 不受影响。
+
+Contact 粉色卡片中的 FAQ 文字增加完整 FAQ 页面链接；完整 FAQ 去掉展开背景色，底部 Contact 提示与问题栏文字左边缘对齐，移除破折号并以 :) 结尾。
+
+共享 FAQ 新增 full 变体：[完整 FAQ 页面](../pages/faq/README.md)，GT Eesti 大标题替代便签，绑定 Q&A: All，复用现有折叠与同步逻辑；可选加载状态 / 重试节点，旧版 Preview 数据源保持独立。
+
+Footer period 变体：按原活动页样式为顶部两个角增加 24px 圆角，桌面 / 手机共用。
+
+The State of the Period：[活动页说明](../event/the-state-of-the-period/README.md)，原站桌面双栏 / 手机表单优先布局，Figma SVG 标题及品牌素材，复用共享组件；Footer 增加 period 深红变体及可选 homeHref，支持嵌套路径。
+
 Pre-footer 手机三朵云各放大 1.5 倍，通过 SVG use 复用原路径并移回视口内；缩短卡片与花园间距，最上方云与 Events 卡片轻微重叠。
 
 法律页 Pre-footer 顶部底色在两个页面共用的 legal-document.css 中设为 article-cream，与正文一致；保留原共享渐变及动画素材。
@@ -30,7 +47,7 @@ Newsletter 订阅区：弧形标题缩至容器 90% 并居中，说明小字上�
 
 Newsletter 介绍文字：one 与 LinkedIn 使用 Graphik SemiBold Italic（600 / italic），LinkedIn 常驻下划线、悬停透明度 .65，保留公司主页直达链接，桌面 / 手机共用。
 
-临时导航：Press 显示名改为 Newsletter，Event 与 About / Shop 一同隐藏；Footer 页面列表使用与 Menu bar 相同的 hiddenInMenu 规则，只显示 Newsletter / Contact / Download。法律链接独立保留。Footer 三个社交图标在当前基础上再左移 4px（合计 -8px），桌面 / 手机同步。
+临时导航：Press 显示名改为 Newsletter，Event 与 About / Shop 一同隐藏；顶部显示 Newsletter / Contact / Download，Footer 通过 showInFooter 在 Download 下方额外显示 State of Period，沿用现有文字链接样式。法律链接独立保留。Footer 三个社交图标在当前基础上再左移 4px（合计 -8px），桌面 / 手机同步。
 
 Press 归档微调：slot-1 稍上移、slot-4 稍下移，桌面 / 手机同步；介绍文字恢复原站灰绿色 #999f88。
 
@@ -40,13 +57,11 @@ Pre-footer 手机布局：≤991px 三卡纵向排列，保留桌面文案和整
 
 Pre-footer 默认规则：共享 Footer 自动在普通页面挂载一份，Home / Home / Contact / Download / Shop 已统一；文章 / 活动路径及 pageType:article / event 排除，技术预览通过 preFooter:false 关闭。首页不再单独重复渲染，销毁 Footer 时一并清理播放器。详见 Footer 说明和 docs/architecture.md。
 
-共享 FAQ：仅收起背景色块时叠加 300ms 透明度淡出；展开不淡入，保留原有擦入。
 
-共享 FAQ：色块收起时增加 360ms 反向擦出，展开保留 440ms 擦入；支持中途反向切换和减少动态效果。
 
 共享 FAQ：回答正文增加对称左右内边距（12–28px 随屏宽调整），比问题标题进一步内缩，Home / Contact / Download 共用。
 
-共享 FAQ：横线两端按色块圆角半径内缩至切点，Home / Contact / Download 和各屏宽同步，保留折叠交互及原行距。
+共享 FAQ：横线两端保留 12px 内缩，Home / Contact / Download 和各屏宽同步，保留折叠交互及原行距。
 
 Contact Form：背景 pattern 底部 30% 渐变淡出至透明，桌面 / 手机共用图片蒙版，保留面板及输入内容不透明。
 

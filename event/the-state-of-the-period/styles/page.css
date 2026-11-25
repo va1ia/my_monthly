@@ -1,0 +1,49 @@
+/* 目录：1. 页面与桌面双栏 2. 报名表单 3. 品牌与说明 4. 手机布局
+   按原网页实测，仅标题替换为用户指定的 Figma SVG。 */
+/* 1. 页面与桌面双栏 */
+.period-event { background: var(--color-period-red); }
+.period-landing { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; }
+.period-landing__photo { width: 100%; height: 100%; min-height: 0; object-fit: cover; border-radius: 24px; }
+.period-landing__panel { min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; border-radius: 24px; color: var(--color-period-red); background: var(--color-morning-fog); }
+.period-landing__heading { width: 100%; text-align: center; }
+.period-landing__heading h1 { display: grid; place-items: center; width: 72%; height: 10vw; margin: 10vw auto 0; }
+.period-landing__heading h1 img { width: 84%; height: auto; }
+.period-landing__subtitle { margin: 2vw 0 8vw; font-size: var(--text-period-subtitle); font-style: italic; line-height: 1.2; text-transform: uppercase; }
+.period-landing__consent { width: 92%; margin: 0 0 3.2vw; font-size: var(--text-period-consent); font-weight: 300; line-height: 1.4; text-align: center; }
+/* 2. 报名表单 */
+.period-registration { width: 72%; margin-bottom: 3.2vw; }
+.period-registration__form[hidden] { display: none; }
+.period-registration__form { display: flex; flex-direction: column; align-items: center; }
+.period-registration__form input, .period-registration__form select { display: block; width: 100%; min-width: 0; height: 38px; margin: 0 0 10px; padding: 8px 12px; border: 0; border-bottom: 1px solid currentColor; border-radius: 0; color: inherit; background: transparent; font-family: var(--font-period-serif); font-size: var(--text-small); line-height: 20px; }
+.period-registration__form input::placeholder { color: inherit; opacity: 1; }
+.period-registration__select { position: relative; width: 100%; }
+.period-registration__form select { appearance: none; padding-right: 26px; }
+.period-registration__select::after { content: ''; position: absolute; right: 5px; top: 14px; width: 6px; height: 6px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg); pointer-events: none; }
+.period-registration__form button { margin-top: 20px; padding: 9px 60px; border: 0; color: var(--color-white); background: var(--color-period-red); font-family: var(--font-period-serif); font-size: var(--text-small); line-height: 20px; cursor: pointer; }
+.period-registration__form button:hover { background: var(--color-period-dark); }
+.period-registration__form button:disabled { opacity: .6; cursor: wait; }
+.period-registration :focus-visible { outline: 2px solid var(--color-period-red); outline-offset: 4px; }
+.period-registration__status { margin: 16px 0 0; font-size: var(--text-small); }
+.period-registration__status:empty { display: none; }
+/* 3. 品牌与说明 */
+.period-about { display: flex; flex-direction: column; align-items: center; color: var(--color-morning-fog); }
+.period-about__brands { width: 52%; margin: 6vw 0 5vw; }
+.period-about__copy { width: 72%; margin-bottom: 8vw; font-family: var(--font-period-serif); font-size: var(--text-period-description); line-height: 1.25; }
+.period-about__copy p { margin: 0; }
+.period-about__copy p + p { margin-top: 1.25em; }
+/* 4. 手机布局：与原站相同，表单在前，照片在后。 */
+@media (max-width: 991px) {
+  .period-landing__consent { font-size: var(--text-period-consent-tablet); }
+  .period-about__copy { width: 80%; }
+}
+@media (max-width: 479px) {
+  .period-landing { display: flex; flex-direction: column-reverse; }
+  .period-landing__photo { width: 100%; height: auto; aspect-ratio: 1; object-position: 50% 0%; }
+  .period-landing__heading h1 { width: 80%; height: 12vh; margin-top: 16vh; }
+  .period-landing__heading h1 img { width: 100%; }
+  .period-landing__subtitle { margin: 2.8vh 0 10vh; font-size: var(--text-period-subtitle-mobile); }
+  .period-registration { margin-bottom: 4vh; }
+  .period-landing__consent { width: 88%; margin-bottom: 3.2vh; font-size: var(--text-period-consent-mobile); }
+  .period-about__brands { width: 80%; margin: 10vw 0 8vw; }
+  .period-about__copy { width: 86%; margin-bottom: 12vw; font-size: var(--text-period-description-mobile); }
+}

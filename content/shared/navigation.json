@@ -32,6 +32,13 @@
       "id": "download",
       "label": "Download",
       "href": "./download.html"
+    },
+    {
+      "id": "state-of-period",
+      "label": "State of Period",
+      "href": "./event/the-state-of-the-period/",
+      "hiddenInMenu": true,
+      "showInFooter": true
     }
   ],
   "legal": [

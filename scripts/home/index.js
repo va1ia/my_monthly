@@ -15,13 +15,12 @@ async function readJSON(path) {
   if (!response.ok) throw new Error(`Could not load ${path}`);
   return response.json();
 }
-const [navigation, hero, newsletter, logos, faq, faqColors] = await Promise.all([
+const [navigation, hero, newsletter, logos, faq] = await Promise.all([
   readJSON('../../content/shared/navigation.json'),
   readJSON('../../content/home/hero.json'),
   readJSON('../../content/shared/newsletter.json').catch(() => ({enabled:false})),
   loadMarqueeLogos().catch(() => []),
-  readJSON('../../content/contact/faq.json'),
-  readJSON('../../content/contact/faq-colors.json')
+  readJSON('../../content/contact/faq.json')
 ]);
 document.querySelector('#main').innerHTML = renderHero(hero, logos) + renderUserComments() + renderFAQ({ variant: 'linen' });
 mountMenuBar(document.querySelector('#site-header'), {items:navigation.items, currentPage:'home'});
@@ -29,4 +28,4 @@ mountFooter(document.querySelector('#site-footer'), {...navigation, subscribe:cr
 mountHeroMotion(document.querySelector('.home-hero'));
 mountMarquee(document.querySelector('.home-hero__marquee'), logos);
 mountUserComments(document.querySelector('.home-comments'), userCommentsSource);
-mountFAQ(document.querySelector('.contact-faq'), faq, faqColors);
+mountFAQ(document.querySelector('.contact-faq'), faq);

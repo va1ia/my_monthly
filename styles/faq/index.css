@@ -1,0 +1,27 @@
+/* 目录：1. 复用 FAQ 2. 页面与标题 3. 加载状态和联系入口 4. 手机布局 */
+@import "../../components/faq/faq.css";
+/* 2. 页面与标题：与 Privacy Policy 共用背景色。 */
+.faq-page { --pre-footer-base-bg: var(--color-article-cream); background: var(--color-article-cream); }
+.contact-faq--full { padding: clamp(150px, 13vw, 200px) 0 40px; }
+.full-faq__title { margin: 0; font-family: var(--font-heading); font-size: var(--text-full-faq-title); font-weight: 500; line-height: 1; }
+.full-faq__questions { min-width: 0; }
+.contact-faq--full .contact-faq__list { overflow-wrap: anywhere; }
+/* 3. 状态与联系入口 */
+.full-faq__status { margin: 0 0 20px; }
+.full-faq__status:empty { display: none; }
+.full-faq__retry { margin-bottom: 24px; padding: 10px 20px; border: 1px solid currentColor; border-radius: 999px; color: var(--color-darker-green); background: transparent; cursor: pointer; }
+.full-faq__contact { padding-bottom: clamp(64px, 8vw, 120px); text-align: left; }
+.full-faq__contact p { grid-column: 2; margin: 0; padding-inline: 28px; }
+.full-faq__contact a { color: var(--color-darker-green); text-underline-offset: .2em; }
+.full-faq__contact a:hover { opacity: .7; }
+.full-faq__contact a:focus-visible, .full-faq__retry:focus-visible { outline: 2px solid var(--color-darker-green); outline-offset: 5px; }
+/* 4. 与现有 FAQ 相同，991px 以下标题在上、问题在下。 */
+@media (max-width: 991px) {
+  .full-faq__title { margin-bottom: 36px; text-align: center; }
+  .full-faq__contact p { padding-inline: 12px; }
+}
+@media (max-width: 767px) {
+  .contact-faq--full { padding-top: 136px; padding-bottom: 28px; }
+  .full-faq__title { margin-bottom: 32px; }
+  .full-faq__contact p { padding-inline: 3.5vw; }
+}

@@ -1,7 +1,6 @@
 /* 目录：1. 文档背景与标题 2. 正文与列表 3. 手机布局
    布局按原版网页实测，尚未作为最终 Figma 品牌规范。 */
-.legal-page { background: var(--color-article-cream); }
-.legal-page .pre-footer { background-color: var(--color-article-cream); }
+.legal-page { --pre-footer-base-bg: var(--color-article-cream); background: var(--color-article-cream); }
 .legal-document { padding: clamp(220px, 13.2vw, 224px) 7% 100px; }
 .legal-document__header { text-align: center; margin-bottom: 55px; }
 .legal-document__header h1 { margin: 0 0 12px; color: var(--color-darker-green); font-size: var(--text-legal-title); font-weight: 500; line-height: 1.3; }

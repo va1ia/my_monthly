@@ -11,7 +11,7 @@ export function renderCards({ cards }) {
       <img class="contact-cards__illustration" src="${asset(card.variant)}" alt="" width="460" height="${card.variant === 'sad' ? 433 : 518}">
       <div class="contact-cards__text"><h2>${escapeHTML(card.title)}</h2><div class="contact-cards__copy">
         <p>${escapeHTML(card.description)}${card.variant === 'loved' ? ` <a href="mailto:${escapeHTML(card.email)}">${escapeHTML(card.email)}</a>${escapeHTML(card.afterEmail)}` : ''}</p>
-        <p>${card.variant === 'sad' ? `Contact <a href="mailto:${escapeHTML(card.email)}?subject=Brand%20Collab%20Inquiry">${escapeHTML(card.email)}</a> to learn more.` : escapeHTML(card.note)}</p>
+        <p>${card.variant === 'sad' ? `Contact <a href="mailto:${escapeHTML(card.email)}?subject=Brand%20Collab%20Inquiry">${escapeHTML(card.email)}</a> to learn more.` : escapeHTML(card.note).replace(/\bFAQs?\b/g, '<a href="./faq.html">$&</a>')}</p>
       </div></div>
     </article>`).join('')}</div>
   </section>`;

@@ -13,7 +13,7 @@ page.json 对应 cards / form。variant 对应上传的 sad.svg / loved.svg。fo
 form.json：enabled 控制提交，url 为现有 Supabase 项目，publishableKey 为浏览器公开 key。不要放入私密 key 或 Zapier webhook。部署见 ../../docs/contact.md。
 
 ## Q&A
-faq.json：csvUrl 为 Google Sheet 可公开读取的 CSV 地址（已连接 MM Website Copy / Q&A: Preview，gid=0），refreshSeconds 为刷新间隔，items 为本地后备文案。faq-colors.json 按行序提供 colors，数量不足使用 fallback，不循环。详见 ../../pages/contact/sections/faq/README.md。
+faq.json：csvUrl 为 Google Sheet 可公开读取的 CSV 地址（已连接 MM Website Copy / Q&A: Preview，gid=0），refreshSeconds 为刷新间隔，items 为本地后备文案。问题条目无背景色，不再加载独立颜色配置。详见 ../../pages/contact/sections/faq/README.md。
 
 ## 整页背景
 整页背景配置已迁移到 content/shared/pre-footer-background.json，供 Contact / Download 统一使用；字段说明见 ../../scripts/shared/README.md。

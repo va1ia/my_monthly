@@ -1,0 +1,149 @@
+/* 目录：1. 页面与首屏 2. 跑马灯 3. 文件夹滚动 4. Perks 5. 固定入口 6. 手机与减少动画 */
+/* 1. 页面与首屏 */
+.ambassador-page { background:var(--color-before-dawn); padding-bottom:calc(76px + env(safe-area-inset-bottom)); }
+.ambassador-page #main { overflow:clip; }
+.amb-program h2,.amb-perks h2 { font-family:var(--font-ambassador-heading); font-weight:400; text-transform:uppercase; letter-spacing:.02em; }
+.amb-hero { height:min(72.1vw,calc(100svh - 116px)); max-height:1246px; min-height:650px; background:var(--color-blue); position:relative; overflow:clip; }
+.amb-hero__title { position:absolute; width:min(58.26%,calc((100svh - 116px)*.824)); max-width:1007px; aspect-ratio:1007 / 831; left:50%; top:12%; transform:translateX(-50%); }
+.amb-hero__part { position:absolute; height:auto; }
+.amb-hero__cloud { position:absolute; height:auto; pointer-events:none; }
+.amb-hero__cloud--top { width:min(25.1%,35svh); top:6.2%; right:-2%; transform:rotate(9.98deg); }
+.amb-hero__cloud--left { width:min(20.1%,28svh); top:39%; left:-2.2%; transform:scaleX(-1); }
+.amb-hero__cloud--bottom { width:min(18.03%,25svh); top:68.7%; right:-3%; transform:scaleY(-1); }
+.amb-hero__friend { position:absolute; width:min(13.65%,19.5svh); left:calc(50% - min(40vw,53svh)); top:67.8%; transform:translateY(var(--cloud-drift,0px)) rotate(-4.88deg); pointer-events:none; }
+.amb-hero__friend-body { width:100%; height:auto; }
+.amb-hero__eyes { position:absolute; width:22%; left:48%; top:27%; transform:translate(var(--eye-x,0px),var(--eye-y,0px)) rotate(16.49deg); }
+.amb-hero__eyes img { width:100%; height:auto; }
+.amb-apply { display:flex; align-items:center; justify-content:center; min-height:48px; padding:12px 24px; background:var(--color-lighter-sunset); color:var(--color-before-dawn); border:2px solid var(--color-before-dawn); border-radius:100px; text-decoration:none; line-height:1.1; transition:background .18s, transform .18s; }
+.amb-apply:hover { background:var(--color-sunset-blush); transform:translateY(-2px); }
+.amb-apply:focus-visible,.amb-program__controls button:focus-visible,.amb-marquee__pause:focus-visible,.amb-perk__paper:focus-visible { outline:3px solid var(--color-before-dawn); outline-offset:4px; }
+.amb-hero__apply { position:absolute; left:50%; top:82.5%; transform:translateX(-50%); width:min(32.1%,46svh); font-size:var(--text-ambassador-apply); }
+.amb-hero__apply:hover { transform:translate(-50%,-2px); }
+/* 2. 跑马灯 */
+.amb-marquee { position:relative; background:var(--color-darker-green); color:var(--color-white); overflow:hidden; }
+.amb-marquee>a { color:inherit; text-decoration:none; display:block; padding:10px 0; }
+.amb-marquee__track { display:flex; width:max-content; animation:amb-marquee 40s linear infinite; }
+.amb-marquee__group { display:flex; flex-shrink:0; gap:16px; align-items:center; padding-right:16px; }
+.amb-marquee__group span { white-space:nowrap; text-transform:uppercase; font-style:italic; font-size:var(--text-small); }
+.amb-marquee__group img { width:14px; height:auto; }
+.amb-marquee:hover .amb-marquee__track,.amb-marquee:focus-within .amb-marquee__track,.amb-marquee.is-paused .amb-marquee__track { animation-play-state:paused; }
+.amb-marquee__pause { position:absolute; inset:0 0 0 auto; width:42px; border:0; border-left:1px solid var(--color-linen-sheet); color:var(--color-linen-sheet); background:var(--color-darker-green); cursor:pointer; }
+.amb-marquee__pause:focus-visible { outline-color:var(--color-white); outline-offset:-4px; }
+@keyframes amb-marquee { to { transform:translateX(-50%); } }
+/* 3. 文件夹滚动；不接管 wheel/touch，所有阶段使用原生纵向滚动 */
+.amb-content { background:var(--color-before-dawn); }
+.amb-program { position:relative; height:auto; }
+.amb-program__sticky { height:100svh; position:sticky; top:0; display:flex; align-items:center; padding:90px 0 120px; overflow:clip; }
+.amb-program__track { display:flex; flex-shrink:0; gap:10vw; align-items:center; padding-left:var(--track-inset,7vw); will-change:transform; }
+.amb-dossier { position:relative; width:min(86vw,calc((100svh - 260px)*1.088),1320px); aspect-ratio:1531 / 1408; flex-shrink:0; container-type:inline-size; }
+.amb-dossier__pink { position:absolute; width:41%; height:87%; top:1.3%; left:48%; background:var(--color-lighter-sunset); transform:rotate(-1.69deg); }
+.amb-dossier__green { position:absolute; width:41%; height:85%; top:5%; right:0; background:var(--color-picnic-date); }
+.amb-dossier__clip { position:absolute; width:5.64%; height:auto; top:5%; left:10%; transform:rotate(-15.57deg); }
+.amb-dossier__paper { position:absolute; left:3.7%; right:0; top:12.3%; bottom:8%; padding:8% 7.3% 5%; background:var(--color-linen-sheet); color:var(--color-darker-green); }
+.amb-dossier h2,.amb-learning h2 { font-size:7.84cqw; line-height:1.15; margin:0; }
+.amb-dossier__paper h2 { color:var(--color-picnic-date); max-width:90%; }
+.amb-dossier__paper ul { margin-top:5%; padding-left:5%; font-size:2.88cqw; line-height:1.3; }
+.amb-dossier__paper li { margin-bottom:1.4%; }
+.amb-dossier__clip-front { position:absolute; width:2.64%; height:auto; top:15.6%; left:13.7%; transform:rotate(-15.57deg) scaleY(-1); }
+.amb-dossier__cover { position:absolute; z-index:2; left:0; right:0; top:13%; height:87%; will-change:transform; }
+.amb-dossier__cover-art { position:absolute; width:79.93%; height:auto; left:50%; top:50%; transform:translate(-50%,-50%) rotate(90deg); }
+.amb-dossier__cover-copy { position:relative; height:100%; padding:11% 7.3% 8%; display:flex; flex-direction:column; justify-content:space-between; color:var(--color-linen-sheet); }
+.amb-dossier__cover-copy h2 { max-width:100%; }
+.amb-dossier__cover-copy p { font-size:2.88cqw; line-height:1.5; margin:0; color:var(--color-white); }
+.amb-learning { display:grid; grid-template-columns:1fr 1fr; flex-shrink:0; width:min(148vw,calc((100svh - 300px)*2.12),2200px); padding:clamp(15px,3vw,56px); position:relative; container-type:inline-size; }
+.amb-learning__folder { position:absolute; top:0; width:50%; height:100%; object-fit:fill; }
+.amb-learning__folder--left { left:0; }
+.amb-learning__folder--right { right:0; }
+.amb-learning::before { content:''; position:absolute; inset:9% 4% 7%; background:var(--color-lighter-sunset); transform:rotate(-2deg); z-index:1; }
+.amb-learning__sheet { z-index:2; }
+.amb-learning__sheet { position:relative; background:var(--color-morning-fog); color:var(--color-darker-green); padding:4%; display:flex; flex-direction:column; }
+.amb-learning__sheet+.amb-learning__sheet { background:linear-gradient(90deg,#e2e2d3,transparent 14%),var(--color-morning-fog); }
+.amb-learning h2 { font-size:5cqw; color:var(--color-picnic-date); margin-bottom:10%; }
+.amb-learning ul { font-size:1.83cqw; line-height:1.5; padding-left:7%; margin:0; }
+.amb-learning li { margin-bottom:5%; }
+.amb-learning__end { margin:12% 4% 0 12%; font-size:1.91cqw; line-height:1.5; font-style:italic; }
+.amb-program__controls { position:absolute; left:50%; bottom:calc(88px + env(safe-area-inset-bottom)); transform:translateX(-50%); display:flex; gap:8px; white-space:nowrap; }
+.amb-program__controls button { color:var(--color-linen-sheet); background:transparent; border:1px solid var(--color-linen-sheet); border-radius:24px; padding:9px 15px; font-size:var(--text-small); cursor:pointer; min-height:44px; }
+.amb-program__controls button[aria-current="step"] { background:var(--color-linen-sheet); color:var(--color-before-dawn); }
+.amb-program__controls button:focus-visible { outline-color:var(--color-lighter-sunset); }
+/* 4. Perks */
+.amb-perks { position:relative; padding:8vw 0 23vw; overflow:clip; }
+.amb-perks__pattern { position:absolute; width:105%; max-width:none; height:auto; top:0; left:-2.5%; pointer-events:none; }
+.amb-perks__board { position:relative; width:71%; margin:auto; padding:3% 3% 5%; background:var(--color-picnic-date); border:clamp(10px,2vw,34px) solid var(--color-ambassador-folder); border-radius:24px; outline:2px solid var(--color-before-dawn); box-shadow:inset 0 0 0 2px var(--color-before-dawn); transform:rotate(-1.14deg); container-type:inline-size; }
+.amb-perks__board>h2 { margin:0 0 5%; color:var(--color-white); text-align:center; font-size:10.4cqw; line-height:1.1; }
+.amb-perks__notes { display:grid; grid-template-columns:1fr 1fr; gap:8% 7%; padding:0 3%; }
+.amb-perk { position:relative; }
+.amb-perk--0 { grid-column:1/-1; width:46.5%; justify-self:center; }
+.amb-perk__paper { padding:12% 10% 10%; min-height:100%; background:var(--color-linen-sheet); color:var(--color-before-dawn); border:2px solid var(--color-before-dawn); border-radius:3px; text-align:center; transform-origin:50% 0; transition:transform .38s cubic-bezier(.2,.8,.2,1); }
+.amb-perk--0 .amb-perk__paper { transform:rotate(.2deg); }
+.amb-perk--1 .amb-perk__paper { transform:rotate(-.6deg); }
+.amb-perk--2 .amb-perk__paper { transform:rotate(.4deg); }
+.amb-perk__paper:hover,.amb-perk__paper:focus-visible { transform:rotate(-3deg); }
+.amb-perk:nth-child(2) .amb-perk__paper:hover,.amb-perk:nth-child(2) .amb-perk__paper:focus-visible { transform:rotate(3deg); }
+.amb-perk__icon { width:31%; height:auto; margin:0 auto 10%; }
+.amb-perk h3 { font-family:var(--font-body); font-size:2.87cqw; line-height:1.2; font-weight:500; text-transform:uppercase; margin:0 0 5%; }
+.amb-perk p { font-size:2.08cqw; line-height:1.4; margin:0; }
+.amb-perk__pin { position:absolute; width:14%; height:auto; top:0; left:50%; transform:translate(-50%,-65%) rotate(16deg); pointer-events:none; }
+.amb-perks__ground { position:absolute; width:124%; max-width:none; height:auto; left:-6%; top:calc(100% - 7vw); pointer-events:none; }
+.amb-perks__blue { position:absolute; width:28%; height:auto; left:6.8%; bottom:-1.8vw; pointer-events:none; }
+.amb-character { position:absolute; width:29%; aspect-ratio:500 / 565; right:7%; bottom:2vw; pointer-events:none; }
+.amb-character__part { position:absolute; height:auto; }
+/* 5. 固定入口；为页面与 Footer 预留空间 */
+.amb-actions { position:fixed; z-index:45; bottom:0; left:0; right:0; padding:8px 14px calc(8px + env(safe-area-inset-bottom)); background:var(--color-picnic-date); display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.amb-actions .amb-apply { font-size:var(--text-ambassador-action); }
+.amb-apply--linen { background:var(--color-linen-sheet); }
+.amb-apply--linen:hover { background:var(--color-darker-linen); }
+body:has(.site-header.is-open) .amb-actions { visibility:hidden; }
+/* 6. 手机与减少动画 */
+@media(max-width:767px) {
+  .amb-hero { height:calc(100svh - 116px); min-height:550px; max-height:850px; }
+  .amb-hero__title { width:92.7%; height:auto; max-width:none; top:24%; }
+  .amb-hero__apply { width:69%; top:74%; font-size:var(--text-larger); }
+  .amb-hero__cloud--top { width:33%; top:6%; right:-11%; }
+  .amb-hero__cloud--left { width:24%; top:22%; left:-5%; }
+  .amb-hero__cloud--bottom { width:24%; top:86%; right:0; }
+  .amb-hero__friend { width:19.5%; left:5%; top:83%; }
+  .amb-marquee__group span { font-size:var(--text-small); }
+  .amb-dossier { width:92vw; min-height:385px; }
+  .amb-dossier__cover-copy p,.amb-dossier__paper ul { font-size:var(--text-body); }
+  .amb-learning { width:184vw; }
+  .amb-learning ul { font-size:max(var(--text-body),2cqw); }
+  .amb-learning__end { font-size:2.1cqw; }
+  .amb-program__track { gap:8vw; }
+  .amb-program__controls { bottom:calc(86px + env(safe-area-inset-bottom)); gap:6px; }
+  .amb-program__controls button { padding:9px 12px; }
+  .amb-program__controls button span { display:none; }
+  .amb-perks { padding:14vw 0 32vw; }
+  .amb-perks__board { width:80%; padding:6% 7% 9%; border-width:9px; border-radius:12px; }
+  .amb-perks__board>h2 { font-size:13cqw; margin-bottom:12%; }
+  .amb-perks__notes { grid-template-columns:1fr; gap:35px; padding:0 12%; }
+  .amb-perk--0 { width:100%; }
+  .amb-perk__paper { padding:14% 10% 12%; }
+  .amb-perk h3 { font-size:5.4cqw; }
+  .amb-perk p { font-size:4.3cqw; }
+  .amb-perks__blue { width:29%; left:4%; }
+  .amb-character { width:32%; right:5%; }
+  .amb-actions { gap:6px; padding-left:6px; padding-right:6px; }
+  .amb-actions .amb-apply { padding:12px 6px; font-size:var(--text-small); }
+}
+@media(max-height:580px) and (min-width:768px) { .amb-dossier { width:58vw; } .amb-learning { width:110vw; } }
+@media(prefers-reduced-motion:reduce) {
+  .amb-marquee__track { animation:none; }
+  .amb-marquee__pause { display:none; }
+  .amb-apply,.amb-perk__paper { transition:none; }
+  .amb-perk__paper:hover,.amb-perk__paper:focus-visible { transform:none; }
+  .amb-program { height:auto!important; padding:80px 0; }
+  .amb-program__sticky { position:relative; height:auto; display:block; overflow:visible; }
+  .amb-program__track { display:flex; flex-direction:column; padding:0 4vw; gap:50px; transform:none!important; }
+  .amb-dossier { width:min(92vw,1100px); aspect-ratio:auto; padding-top:12%; display:flex; flex-direction:column; }
+  .amb-dossier__paper { position:relative; inset:auto; padding:8%; }
+  .amb-dossier__cover { position:relative; inset:auto; height:auto; margin-bottom:40px; }
+  .amb-dossier__cover-art { display:none; }
+  .amb-dossier__cover-copy { background:var(--color-ambassador-folder); padding:8%; border-radius:20px; gap:40px; }
+  .amb-learning { width:min(92vw,1600px); }
+  .amb-program__controls { display:none; }
+  .amb-dossier__paper ul,.amb-dossier__cover-copy p { font-size:var(--text-body); }
+  .amb-learning { grid-template-columns:1fr; }
+  .amb-learning h2 { font-size:clamp(30px,5vw,70px); }
+  .amb-learning ul,.amb-learning__end { font-size:var(--text-body); }
+}
