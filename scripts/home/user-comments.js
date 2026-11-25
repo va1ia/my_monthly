@@ -22,7 +22,7 @@ export function mountUserComments(section, source = {}) {
   const track = section.querySelector('.home-comments__group');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const controller = new AbortController();
-  let originals, cards, count, spacing, radius, offset = 0, frame = 0, lastTime = 0;
+  let originals, cards, count, spacing = 0, radius = 0, viewportWidth = 0, cardWidth = 0, offset = 0, frame = 0, lastTime = 0;
   let visible = false, busy = false, timer, signature = '';
   const parallax = mountPointerParallax(section);
 
@@ -32,6 +32,7 @@ export function mountUserComments(section, source = {}) {
     originals = [...track.children];
     count = originals.length;
     // 少量评论同样补足整个视口；副本不重复读给屏幕阅读器。
+    if (!count) { cards = []; spacing = 0; sync(); return; }
     const repeats = Math.max(1, Math.ceil(8 / count));
     for (let repeat = 1; repeat < repeats; repeat++) {
       for (const original of originals) {
@@ -46,13 +47,16 @@ export function mountUserComments(section, source = {}) {
     layout();
   }
   function layout() {
-    const width = section.clientWidth;
+    viewportWidth = section.clientWidth;
+    cardWidth = originals[0]?.offsetWidth || 0;
     // 读取真实 gap，手机与桌面的 CSS 间距都用于同一圆弧计算。
-    spacing = originals[0].offsetWidth + (parseFloat(getComputedStyle(track).columnGap) || 0);
-    radius = width < 768 ? width * 2.4 : width * 1.5;
-    draw();
+    spacing = cardWidth > 0 ? cardWidth + (parseFloat(getComputedStyle(track).columnGap) || 0) : 0;
+    radius = viewportWidth < 768 ? viewportWidth * 2.4 : viewportWidth * 1.5;
+    if (spacing > 0 && radius > 0) draw();
+    sync();
   }
   function draw() {
+    if (!cards?.length || !(spacing > 0) || !(radius > 0)) return;
     const length = cards.length * spacing;
     cards.forEach((card, index) => {
       const distance = (index - offset) * spacing;
@@ -60,11 +64,11 @@ export function mountUserComments(section, source = {}) {
       const angle = Math.asin(Math.max(-.85, Math.min(.85, x / radius)));
       const y = radius * (1 - Math.cos(angle));
       // Flex group 统一卡片高度；减去流内横坐标后映射到圆弧。
-      card.style.transform = `translate(${x - index * spacing - originals[0].offsetWidth / 2}px, ${y}px) rotate(${angle * 180 / Math.PI}deg)`;
-      card.style.visibility = Math.abs(x) > section.clientWidth / 2 + spacing ? 'hidden' : 'visible';
+      card.style.transform = `translate(${x - index * spacing - cardWidth / 2}px, ${y}px) rotate(${angle * 180 / Math.PI}deg)`;
+      card.style.visibility = Math.abs(x) > viewportWidth / 2 + spacing ? 'hidden' : 'visible';
     });
   }
-  function canAnimate() { return !reduced.matches && visible && !document.hidden; }
+  function canAnimate() { return !reduced.matches && visible && !document.hidden && cards?.length > 0 && spacing > 0 && radius > 0; }
   function tick(time) {
     frame = 0;
     if (!canAnimate()) { lastTime = 0; return; }
@@ -79,20 +83,26 @@ export function mountUserComments(section, source = {}) {
   }
   // 3. 评论持续滚动；仅后台、离开视口及减少动画偏好时停止。
   const listen = (target, type, listener) => target.addEventListener(type, listener, { signal: controller.signal });
-  listen(document, 'visibilitychange', sync);
+  listen(document, 'visibilitychange', () => { if (document.hidden) sync(); else layout(); });
+  listen(window, 'pageshow', layout);
   listen(reduced, 'change', sync);
   const resize = new ResizeObserver(layout);
   const intersection = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; sync(); });
-  collect(); sync(); resize.observe(section); intersection.observe(section);
+  collect(); sync(); resize.observe(section); resize.observe(track); intersection.observe(section);
+  document.fonts?.ready.then(() => { if (!controller.signal.aborted) layout(); });
 
   // 4. 空链接不请求；失败保留已有内容，成功后替换初始快照。
   async function refresh() {
     if (!source.csvUrl || busy || document.hidden) return;
     busy = true;
+    const requestController = new AbortController();
+    const abort = () => requestController.abort();
+    controller.signal.addEventListener('abort', abort, {once:true});
+    const timeout = setTimeout(abort, 15000);
     try {
       const url = new URL(source.csvUrl);
       if (url.protocol !== 'https:' || url.hostname !== 'docs.google.com' || !url.pathname.startsWith('/spreadsheets/')) throw new Error('Expected Google Sheets CSV URL');
-      const response = await fetch(url, { cache: 'no-store', signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15000)]) });
+      const response = await fetch(url, { cache: 'no-store', signal: requestController.signal });
       if (!response.ok) throw new Error('Review source unavailable');
       const csv = await response.text();
       if (csv.length > 1000000 || csv.trimStart().startsWith('<')) throw new Error('Invalid CSV');
@@ -106,7 +116,7 @@ export function mountUserComments(section, source = {}) {
       section.dataset.sourceState = 'connected';
     } catch {
       if (!controller.signal.aborted) section.dataset.sourceState = 'unavailable';
-    } finally { busy = false; }
+    } finally { clearTimeout(timeout); controller.signal.removeEventListener('abort', abort); busy = false; }
   }
   if (source.csvUrl) {
     refresh();

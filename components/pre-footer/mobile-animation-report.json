@@ -26,11 +26,14 @@
       1648,
       889
     ],
-    "paddingBottom": 1
+    "paddingBottom": 1,
+    "mp4ColorSpace": "bt709",
+    "mp4ColorRange": "tv",
+    "mp4ColorTransfer": "iec61966-2-1"
   },
   "video": {
     "file": "garden-mobile.mp4",
-    "bytes": 1920832,
+    "bytes": 1950387,
     "durationSeconds": 10.75
   },
   "transparentVideo": {

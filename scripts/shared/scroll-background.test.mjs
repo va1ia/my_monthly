@@ -12,6 +12,7 @@ function layout(t, width, height = 1000) {
     if (descriptor) Object.defineProperty(globalThis, name, descriptor); else delete globalThis[name];
   } });
   const faq = { top: 450, visible: true, getClientRects() { return this.visible ? [{}] : []; }, getBoundingClientRect() { return { top: this.top }; } };
+  let second = { ...faq, top: 750 };
   const footer = { ...faq, top: 1070 };
   const properties = new Map();
   const classes = new Set();
@@ -22,16 +23,16 @@ function layout(t, width, height = 1000) {
   let resize, disconnected = false, nextFrame = 0;
   const frames = new Map();
   Object.assign(globalThis, {
-    window: new EventTarget(), innerHeight: height,
-    document: { querySelector: selector => selector === '.contact-faq' ? faq : selector === '.pre-footer' ? footer : null, fonts: { ready: Promise.resolve() } },
+    window: Object.assign(new EventTarget(), {scrollY:0}), innerHeight: height,
+    document: { querySelector: selector => selector === '.contact-faq' ? faq : selector === '.pre-footer' ? footer : selector === '.contact-faq__item:nth-child(2) > summary' ? second : null, fonts: { ready: Promise.resolve() } },
     matchMedia: query => ({ matches: query.includes('min-width') ? width >= 768 : width <= 767 }),
     ResizeObserver: class { constructor(callback) { resize = callback; } observe() {} disconnect() { disconnected = true; } },
     requestAnimationFrame: callback => { frames.set(++nextFrame, callback); return nextFrame; },
     cancelAnimationFrame: id => frames.delete(id),
   });
   const flush = () => { const pending = [...frames.values()]; frames.clear(); pending.forEach(callback => callback()); };
-  return { target, faq, footer, color: () => target.style.getPropertyValue('--page-background'),
-    resize: () => { resize(); flush(); }, scroll: () => { window.dispatchEvent(new Event('scroll')); flush(); },
+  return { target, faq, footer, anchor: width <= 767 ? second : faq, replaceSecond: element => { second = element; }, color: () => target.style.getPropertyValue('--page-background'),
+    resize: () => { resize(); flush(); }, scroll: (delta = 1) => { window.scrollY += delta; window.dispatchEvent(new Event('scroll')); flush(); },
     disconnected: () => disconnected };
 }
 
@@ -57,20 +58,20 @@ test('FAQ expansion moved the old footer trigger; the FAQ trigger stays linen th
 for (const width of [390, 767, 768, 820, 1440]) {
   test(`${width}px: correct trigger, reverse scrolling, hidden section and cleanup`, t => {
     const view = layout(t, width);
-    const threshold = width <= 767 ? 1080 : 500;
-    view.faq.top = threshold + 1;
+    const threshold = width <= 767 ? 1000 : 500;
+    view.anchor.top = threshold + 1;
     view.target.style.setProperty('--page-background', 'original');
     const fixed = mountScrollBackground(view.target, config);
     assert.equal(view.color(), 'var(--color-picnic-date)');
-    view.faq.top = threshold;
+    view.anchor.top = threshold;
     view.scroll();
     assert.equal(view.color(), 'var(--color-darker-linen)');
     assert.equal(view.target.style.getPropertyValue('--page-background-duration'), '2000ms');
-    view.faq.top = threshold + 1;
-    view.scroll();
+    view.anchor.top = threshold + 1;
+    view.scroll(-1);
     assert.equal(view.color(), 'var(--color-picnic-date)');
     assert.equal(view.target.style.getPropertyValue('--page-background-duration'), '700ms');
-    view.faq.top = 0; view.faq.visible = false;
+    view.anchor.top = 0; view.anchor.visible = false;
     view.resize();
     assert.equal(view.color(), 'var(--color-picnic-date)');
     fixed.destroy();
@@ -79,3 +80,21 @@ for (const width of [390, 767, 768, 820, 1440]) {
     assert.equal(view.disconnected(), true);
   });
 }
+
+
+test('mobile waits for question two, retains linen during answer expansion and resolves refreshed question nodes', t => {
+  const view = layout(t, 390);
+  view.faq.top = 100;
+  view.anchor.top = 1001;
+  const fixed = mountScrollBackground(view.target, config);
+  assert.equal(view.color(), 'var(--color-picnic-date)');
+  view.anchor.top = 999; view.scroll();
+  assert.equal(view.color(), 'var(--color-darker-linen)');
+  view.anchor.top = 1300; view.resize(); view.scroll();
+  assert.equal(view.color(), 'var(--color-darker-linen)', 'layout changes and downward scrolling do not reverse the color');
+  view.scroll(-1);
+  assert.equal(view.color(), 'var(--color-picnic-date)');
+  view.replaceSecond({ ...view.anchor, top: 990 }); view.resize();
+  assert.equal(view.color(), 'var(--color-darker-linen)', 'uses the replacement summary after FAQ refresh');
+  fixed.destroy();
+});

@@ -31,7 +31,8 @@ export function renderPreFooter() {
       <div class="pre-footer__raw" hidden aria-hidden="true"><div data-lottie-part="1"></div><div data-lottie-part="2"></div></div>
       <img class="pre-footer__bushes pre-footer__bushes--left" data-pre-footer-src="${asset('images/garden/bushes.svg')}" alt="" aria-hidden="true">
       <img class="pre-footer__bushes pre-footer__bushes--right" data-pre-footer-src="${asset('images/garden/bushes.svg')}" alt="" aria-hidden="true">
-      <button class="pre-footer__motion-toggle" type="button" aria-pressed="false" aria-label="Pause garden animation">Pause animation</button>
+      <svg class="pre-footer__bushes pre-footer__bushes--left pre-footer__bushes--mobile" viewBox="0 -16 1728 205" aria-hidden="true" focusable="false"><use href="${asset('images/garden/bushes.svg')}#bush-left"/></svg>
+      <svg class="pre-footer__bushes pre-footer__bushes--right pre-footer__bushes--mobile" viewBox="0 -16 1728 205" aria-hidden="true" focusable="false"><use href="${asset('images/garden/bushes.svg')}#bush-right"/></svg>
     </div>
     <p class="pre-footer__status visually-hidden" role="status" aria-live="polite"></p>
   </section>`;

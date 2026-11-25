@@ -9,7 +9,7 @@
 - 样式维护
 
 ## 品牌页面
-Ambassador Program 入口为 `ambassador.html`，结构 `pages/ambassador/page.js`、样式 `styles/ambassador/index.css`、入口 `scripts/ambassador/index.js`、数据 `content/ambassador/page.json`，素材按 `assets/images/ambassador/{hero,program,perks}/` 分区。复用 Menu bar / Footer；本页按 Figma 使用专属 Perks 人物结尾，显式关闭通用 Pre-footer，避免重复花园。全站 Pre-footer 的 Ambassador 卡片进入本页；申请表地址保留在本页配置。
+Ambassador Program 入口为 `ambassador.html`，结构 `pages/ambassador/page.js`、样式 `styles/ambassador/index.css`、入口 `scripts/ambassador/index.js`、数据 `content/ambassador/page.json`，素材按 `assets/images/ambassador/{hero,program,perks}/` 分区。复用 Menu bar / Footer；本页按 Figma 使用专属 Perks 人物结尾，显式关闭通用 Pre-footer，避免重复花园。两个申请入口挂载到 main 与 Footer 之间的 ambassador-actions 占位区域，在 Footer 顶部停靠；人物绿色角色使用单个整组 SVG。全站 Pre-footer 的 Ambassador 卡片进入本页；申请表地址保留在本页配置。
 
 完整 FAQ 入口为 `faq.html`，结构 pages/faq/page.js、样式 styles/faq/index.css、脚本 scripts/faq/index.js、来源 content/faq/source.json。复用共享 FAQ 的 full 变体与读取器，独立绑定 Q&A: All；底部复用默认 Pre-footer / Footer，与法律页面共用 --pre-footer-base-bg 设置奶油色顶部衔接。简略 FAQ 保持原 Q&A: Preview 数据源。
 
@@ -44,7 +44,7 @@ Pre-footer 采用桌面双列与 ≤991px 单列三卡，桌面 / 手机均按�
 
 Pre-footer 为 components/pre-footer/ 中的共享组件，结构、样式、播放控制、source/ 中的新版原始 JSON、media/ 中桌面与手机各三份花园播放资源及 media/cards/ 中的 Loved 视频、images/cards/ 与 images/garden/ 分类静态插画及 Lottie Canvas vendor 均封装在组件内。普通页面默认由共享 mountFooter 自动挂载，Home / Contact / Download / Shop 已接入；文章和活动页面（包括 event.html 及 event/、article/ 路径）排除。page-policy.js 为统一判定入口；自定义文章 / 活动 URL 须传 `pageType: 'article'` / `'event'`，新普通页面不得再独立追加一份 Pre-footer。pre-footer-preview.html 和 component-preview.html 作为技术预览通过 preFooter:false 关闭自动挂载，前者保留手动实例用于对照。素材转换器位于 scripts/tools/prepare-pre-footer.py，原文件不修改。
 
-滚动整页换色由 scripts/shared/scroll-background.js 与 styles/scroll-background.css 复用；Contact / Download 共用 content/shared/pre-footer-background.json，以 FAQ 顶部为稳定判断点，桌面越过视口中线触发，手机保持接近视口底部（提前 80px）触发；展开答案不影响判断，隐藏分区不触发；其他场景可在页面数据目录配置。分区背景透明，不以渐变模拟换色。详见 scripts/shared/README.md。
+滚动整页换色由 scripts/shared/scroll-background.js 与 styles/scroll-background.css 复用；Contact / Download 共用 content/shared/pre-footer-background.json，桌面以 FAQ 顶部为稳定判断点，越过视口中线触发，手机延后到第二题进入视窗底边时触发；展开答案不影响判断，隐藏分区不触发；其他场景可在页面数据目录配置。分区背景透明，不以渐变模拟换色。详见 scripts/shared/README.md。
 
 真正跨页面复用的代码提取到 components/ 或 scripts/shared/；公共基础样式放 styles/foundations/。event/article 可以引用共享代码，但它们的专属文件不混入品牌页面的类型目录。素材避免为每个页面重复复制。页面目录本身不定义发布路由，后续由框架配置路由与资源路径。
 

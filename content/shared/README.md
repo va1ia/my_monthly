@@ -20,4 +20,4 @@ Newsletter 为当前临时显示名，页面浏览器标题同步为 Newsletter 
 faq.json 由 Home / Contact / Download 共用。csvUrl 为 Q&A: Preview 的公开 CSV 导出地址（gid=0），refreshSeconds 为刷新间隔（当前 60 秒、最低 30 秒），items 为包含 question / answer 的本地后备数组。完整 FAQ 页面独立使用 content/faq/source.json（Q&A: All），避免两种展示范围互相覆盖。同步、数据格式及失败行为见 [FAQ 组件](../../components/faq/README.md)。
 
 ## Pre-footer 背景切换
-Contact / Download 共用 content/shared/pre-footer-background.json：以 FAQ 顶部为稳定判断点，≥768px 越过视口中线时由 picnic-date 过渡到 darker-linen；≤767px 保持 FAQ 顶部距离视口底部 80px 时提前触发。展开或折叠答案不影响判断点，避免下方 Pre-footer 被推移时背景错误恢复绿色。向下 2000ms、上滚返回触发线之前恢复绿色为 700ms；Footer 保留独立绿色。 triggerLine 为视口比例（1 即底边），triggerOffsetPx 为提前量；sections 内同名字段可覆盖全局值（桌面使用 0.5 / 0，手机继承 1 / 80）；transitionMs / returnTransitionMs 为双向时长，default / sections 指定既有颜色变量。
+Contact / Download 共用 content/shared/pre-footer-background.json：≥768px 以 FAQ 顶部为稳定判断点，越过视口中线时由 picnic-date 过渡到 darker-linen；≤767px 延后到第二个问题的 summary 顶部进入视窗底边时触发，不再提前 80px。手机触发后，展开上方答案或向下滚动不回退底色；真正上滚退出触发点时恢复绿色，避免布局变化造成误回退。向下 2000ms、上滚返回触发线之前恢复绿色为 700ms；Footer 保留独立绿色。 triggerLine 为视口比例（1 即底边），triggerOffsetPx 为提前量；sections 内同名字段可覆盖全局值（桌面使用 0.5 / 0，手机使用 1 / 0）；transitionMs / returnTransitionMs 为双向时长，default / sections 指定既有颜色变量。

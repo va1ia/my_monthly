@@ -43,7 +43,8 @@ export function mountMenuBar(host, { items, currentPage = 'home', homeHref = './
       // 锁定 header 宿主之外的内容，保留原有 inert 状态。
       background = [...document.body.children].filter(el => el !== host && !['SCRIPT','STYLE'].includes(el.tagName)).map(el => [el, el.inert]);
       background.forEach(([el]) => { el.inert = true; });
-      panel.querySelector('[aria-current="page"]')?.focus({preventScroll:true});
+      // 触屏打开时保持按钮焦点，避免 Safari 聚焦屏外链接打断面板滑入。
+      if (restoreFocus) panel.querySelector('[aria-current="page"]')?.focus({preventScroll:true});
     } else {
       if (savedBodyStyle === null) document.body.removeAttribute('style');
       else document.body.setAttribute('style', savedBodyStyle);
@@ -54,7 +55,7 @@ export function mountMenuBar(host, { items, currentPage = 'home', homeHref = './
       if (restoreFocus) button.focus({preventScroll:true});
     }
   }
-  button.addEventListener('click', () => setOpen(!open), options);
+  button.addEventListener('click', event => setOpen(!open, event.detail === 0), options);
   panel.addEventListener('click', event => { if (event.target.closest('a')) setOpen(false); }, options);
   document.addEventListener('keydown', event => {
     if (!open) return;

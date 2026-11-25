@@ -32,8 +32,8 @@
 .home-hero__logos img { width: 100%; height: 100%; max-width: none; object-fit: contain; }
 .home-hero__marquee-toggle { position: absolute; right: 8px; bottom: 6px; border: 1px solid currentColor; border-radius: 50%; width: 28px; height: 28px; padding: 0; background: var(--color-darker-green); color: var(--color-morning-fog); cursor: pointer; opacity: 0; }
 .home-hero__marquee:hover .home-hero__marquee-toggle, .home-hero__marquee:focus-within .home-hero__marquee-toggle { opacity: 1; }
-.home-hero__marquee.is-paused .home-hero__marquee-track, .home-hero__marquee:focus-within .home-hero__marquee-track { animation-play-state: paused; }
-@keyframes home-logo-scroll { to { transform: translateX(-50%); } }
+.home-hero__marquee.is-paused .home-hero__marquee-track { animation-play-state: paused; }
+@keyframes home-logo-scroll { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
 /* 4. 中屏保留桌面构图；手机把下载入口移到插画下方。 */
 @media (min-width: 768px) and (max-width: 991px) {
   .home-hero__scene { height: 84vw; min-height: 660px; }

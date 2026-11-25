@@ -26,15 +26,16 @@ scroll-background.js 导出 mountScrollBackground(target, config, { onChange })�
 - triggerLine：0–1 的视口高度比例；分区顶部上行越过该线时应用状态，回到线下时回退。
 - triggerOffsetPx：相对触发线的像素偏移，默认 0；正数可在分区进入视口前提前切换。display:none 的分区跳过。
 - sections 中可选 triggerLine / triggerOffsetPx：覆盖全局触发线和偏移；显式 0 生效，未填时继承全局值。
+- sections 中可选 preserveOnLayoutChange：触发后仅在真实上滚时允许回退；当前状态仍须匹配 media 且节点仍可见，窗口断点变化不被锁定。
 - sections 中可选 media：CSS 媒体查询；不匹配时跳过此状态，窗口尺寸变化时重新判断。
 - transitionMs：整体颜色切换时长，默认 400ms；减少动态效果偏好下即时切换。
 - default：初始状态，colorToken 使用既有 CSS 颜色变量名称。
 - sections：按页面从上到下排列的 selector / colorToken 状态；采用最后一个越过触发线的分区，越过其末尾继续保留，直到下一状态。可附加页面专属字段（例如 footerVariant），由 onChange 处理。
 
-Contact / Download 共用 content/shared/pre-footer-background.json：以 FAQ 顶部为稳定判断点，≥768px 越过视口中线时由 picnic-date 过渡到 darker-linen；≤767px 保持 FAQ 顶部距离视口底部 80px 时提前触发。展开或折叠答案不影响判断点，避免下方 Pre-footer 被推移时背景错误恢复绿色。向下 2000ms、上滚返回触发线之前恢复绿色为 700ms；Footer 保留独立绿色。Pre-footer 顶部通过透明天空渐变直接透出 body 的过渡底色，无需另起动画，换色中也与 FAQ 无缝衔接。
+Contact / Download 共用 content/shared/pre-footer-background.json：≥768px 以 FAQ 顶部为稳定判断点，越过视口中线时由 picnic-date 过渡到 darker-linen；≤767px 延后到第二个问题的 summary 顶部进入视窗底边时触发，不再提前 80px。手机触发后，展开上方答案或向下滚动不回退底色；真正上滚退出触发点时恢复绿色，避免布局变化造成误回退。向下 2000ms、上滚返回触发线之前恢复绿色为 700ms；Footer 保留独立绿色。Pre-footer 顶部通过透明天空渐变直接透出 body 的过渡底色，无需另起动画，换色中也与 FAQ 无缝衔接。
 
 ## 接入与清理
-页面结构及共享 Footer（含 Pre-footer）挂载后调用 mountScrollBackground；onChange 初次及状态变化时执行。滚动和窗口变化合并为每帧一次读取，ResizeObserver 与字体加载完成时重算，兼容恢复滚动位置。返回 refresh() 主动重算及 destroy()，后者移除监听、观察器并恢复原内联变量和类。页面卸载时调用 destroy()。
+页面结构及共享 Footer（含 Pre-footer）挂载后调用 mountScrollBackground；onChange 初次及状态变化时执行。滚动和窗口变化合并为每帧一次读取，ResizeObserver 与字体加载完成时重算，兼容恢复滚动位置。每次重算重新查找 selector，以支持 FAQ 同步后替换的第二题节点与初次尚未插入的条目。返回 refresh() 主动重算及 destroy()，后者移除监听、观察器并恢复原内联变量和类。页面卸载时调用 destroy()。
 
 ## CSV 解析
 csv.js 的 parseCSV(text) 为 Contact FAQ 和首页评论区共用，支持 BOM、引号、逗号、CRLF 和多行单元格；FAQ 保留 parseCSV 再导出，不更改调用接口。
@@ -49,4 +50,4 @@ pointer-parallax.js 导出 mountPointerParallax(section)，写入 --pattern-x / 
 
 2026-11-25 结构整理：13 个页面在 390 / 820 / 1440px 与整理前逐页比较，文字、字体、颜色、行高和元素尺寸一致，均无横向溢出；菜单与 FAQ 的键盘展开 / 关闭和焦点检查通过。Newsletter 浏览器模拟验证邮箱校验、独立提交、成功清空与失败保留；不代表对真实订阅服务的再次联调。
 
-`node --test scripts/shared/scroll-background.test.mjs` 使用模拟布局复现旧 Pre-footer 判断点被展开答案推移后的回绿，并验证新 FAQ 判断点在展开 / 折叠时保持浅色；覆盖 390 / 767 / 768 / 820 / 1440px 的触发边界、上滚恢复、隐藏分区与销毁清理。此为逻辑回归验证，不等同浏览器页面测试。2026-11-25 本轮浏览器验证因 Tabbit 注册指向已不存在的程序路径而未执行。
+`node --test scripts/shared/scroll-background.test.mjs` 使用模拟布局复现旧 Pre-footer 判断点被展开答案推移后的回绿，并验证新 FAQ 判断点在展开 / 折叠时保持浅色；覆盖 390 / 767 / 768 / 820 / 1440px 的触发边界、上滚恢复、隐藏分区与销毁清理。此为逻辑回归验证，不等同浏览器页面测试。最初修复时 Tabbit 注册失效，未执行页面验证；后续第二题触发调整已用独立 Chrome / WebKit 通过页面回归，见 docs/pre-footer-verification.md 的手机颜色与草丛章节。

@@ -45,23 +45,19 @@ function renderProgram(data) {
           <div class="amb-learning__sheet"><ul>${learning.slice(2).join('')}</ul><p class="amb-learning__end">${escapeHTML(data.learningEnd)}</p></div>
         </article>
       </div>
-      <div class="amb-program__controls" aria-label="Program sections"><button type="button" data-program-step="0" aria-label="Show program overview">01 <span>Overview</span></button><button type="button" data-program-step="1" aria-label="Show who can apply">02 <span>Who can apply</span></button><button type="button" data-program-step="2" aria-label="Show what you will learn">03 <span>What you'll learn</span></button></div>
     </div>
   </section>`;
 }
 
 function renderPerks(data) {
   const cards = data.perks.map((perk,i)=>`<div class="amb-perk amb-perk--${i}"><article class="amb-perk__paper" tabindex="0" aria-labelledby="amb-perk-${i}">${image('perks',perk.icon,'amb-perk__icon')}<h3 id="amb-perk-${i}">${escapeHTML(perk.title)}</h3><p>${escapeHTML(perk.body)}</p></article>${image('perks',`pin-${perk.pin}`,'amb-perk__pin')}</div>`).join('');
-  // 原稿右侧角色由独立原始图层组成，不将插画重绘为 CSS。
-  const character = [
-    ['character-group14',0,23.2,100,0],['character-group15',36,74,48.74,0],
-    ['character-vector',22.1,26,64.5,0],['character-vector1',23,11,68,12.81],
-    ['character-group16',40.5,46,29.17,0],['character-vector2',50.3,55.4,3.15,0],
-    ['character-group17',38.3,52.3,12.1,13.5],['character-group18',56.3,55.8,12.1,13.5]
-  ].map(([name,x,y,w,rotation])=>image('perks',name,'amb-character__part',`left:${x}%;top:${y}%;width:${w}%;transform:rotate(${rotation}deg)`)).join('');
-  return `<section class="amb-perks" aria-labelledby="amb-perks-title">${image('perks','perks-pattern','amb-perks__pattern')}<div class="amb-perks__board"><h2 id="amb-perks-title">Program Perks</h2><div class="amb-perks__notes">${cards}</div></div>${image('perks','perks-ground','amb-perks__ground')}${image('perks','character-blue','amb-perks__blue')}<div class="amb-character" aria-hidden="true">${character}</div></section>`;
+  return `<section class="amb-perks" aria-labelledby="amb-perks-title">${image('perks','perks-pattern','amb-perks__pattern')}<div class="amb-perks__board"><h2 id="amb-perks-title">Program Perks</h2><div class="amb-perks__notes">${cards}</div></div>${image('perks','perks-ground','amb-perks__ground')}${image('perks','character-blue','amb-perks__blue')}${image('perks','character-green','amb-character')}</section>`;
 }
 
 export function renderAmbassador(data) {
-  return `${renderHero(data)}<div class="amb-content">${renderProgram(data)}${renderPerks(data)}</div><nav class="amb-actions" aria-label="Ambassador application links"><a class="amb-apply" href="${escapeHTML(data.applyUrl)}" ${external}>Apply Here</a><a class="amb-apply amb-apply--linen" href="${escapeHTML(data.instagramUrl)}" ${external}>Explore on Instagram</a></nav>`;
+  return `${renderHero(data)}<div class="amb-content">${renderProgram(data)}${renderPerks(data)}</div>`;
+}
+
+export function renderAmbassadorActions(data) {
+  return `<nav class="amb-actions" aria-label="Ambassador application links"><a class="amb-apply" href="${escapeHTML(data.applyUrl)}" ${external}>Apply Here</a><a class="amb-apply amb-apply--linen" href="${escapeHTML(data.instagramUrl)}" ${external}>Explore on Instagram</a></nav>`;
 }

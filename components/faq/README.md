@@ -19,7 +19,7 @@ faq.js / faq.css 为 Home、Contact 与 Download 共用结构和样式；scripts
 
 所有简略与完整 FAQ 均不再生成展开色块。已删除背景伪元素、clip-path 擦入 / 擦出、透明度淡出、答案入场关键帧、--faq-color 内联变量、颜色校验和独立颜色配置文件；renderFAQItems(items) / mountFAQ(section, config) 不再接收调色板。
 
-页面底色仍由原整页换色独立管理：Contact / Download 共用 content/shared/pre-footer-background.json：以 FAQ 顶部为稳定判断点，≥768px 越过视口中线时由 picnic-date 过渡到 darker-linen；≤767px 保持 FAQ 顶部距离视口底部 80px 时提前触发。展开或折叠答案不影响判断点，避免下方 Pre-footer 被推移时背景错误恢复绿色。向下 2000ms、上滚返回触发线之前恢复绿色为 700ms；Footer 保留独立绿色。
+页面底色仍由原整页换色独立管理：Contact / Download 共用 content/shared/pre-footer-background.json：≥768px 以 FAQ 顶部为稳定判断点，越过视口中线时由 picnic-date 过渡到 darker-linen；≤767px 延后到第二个问题的 summary 顶部进入视窗底边时触发，不再提前 80px。手机触发后，展开上方答案或向下滚动不回退底色；真正上滚退出触发点时恢复绿色，避免布局变化造成误回退。向下 2000ms、上滚返回触发线之前恢复绿色为 700ms；Footer 保留独立绿色。
 
 首页使用 renderFAQ({ variant: 'linen' })：contact-faq--linen 固定使用 --color-darker-linen，桌面与手机均不从绿色渐变；默认 variant 仍透明，供 Contact / Download 整页换色使用。条目保持透明。
 

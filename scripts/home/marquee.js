@@ -64,6 +64,7 @@ export function mountMarquee(marquee, initialLogos = []) {
     if (nextWidth !== width) { width = nextWidth; layout(); }
   });
   observer.observe(marquee);
+  window.addEventListener('pageshow', () => { layout(); refresh(); }, {signal:controller.signal});
   window.addEventListener('focus', refresh, {signal:controller.signal});
   document.addEventListener('visibilitychange', refresh, {signal:controller.signal});
   const timer = setInterval(refresh, 15000);

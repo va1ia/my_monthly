@@ -15,9 +15,11 @@
       "colorToken": "--color-darker-linen"
     },
     {
-      "selector": ".contact-faq",
+      "selector": ".contact-faq__item:nth-child(2) > summary",
       "media": "(max-width: 767px)",
-      "colorToken": "--color-darker-linen"
+      "colorToken": "--color-darker-linen",
+      "triggerOffsetPx": 0,
+      "preserveOnLayoutChange": true
     }
   ]
 }

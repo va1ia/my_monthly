@@ -50,6 +50,7 @@
 .pre-footer__ground { position: absolute; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; }
 .pre-footer__ground { z-index: 0; }
 .pre-footer__bushes { position: absolute; z-index: 2; left: 0; bottom: -2vw; width: 100%; height: auto; max-width: none; pointer-events: none; }
+.pre-footer__bushes--mobile { display: none; }
 .pre-footer__bushes--left { bottom: -4vw; clip-path: inset(0 50% 0 0); }
 .pre-footer__bushes--right { clip-path: inset(0 0 0 50%); }
 /* 原画布高 1080，裁掉脚底以下空白；动画按原比例播放。 */
@@ -61,11 +62,8 @@
 .pre-footer__raw > div { position: absolute; inset: 0; }
 .pre-footer__raw canvas { display: block; width: 100%; height: 100%; }
 .pre-footer [hidden] { display: none; }
-.pre-footer__motion-toggle { position: absolute; z-index: 3; bottom: 18px; right: 18px; min-height: 36px; padding: 6px 14px; border: 1px solid var(--color-morning-fog); border-radius: 999px; background: var(--color-darker-green); color: var(--color-morning-fog); font: 400 var(--text-small)/1.4 var(--font-body); cursor: pointer; opacity: 0; transition: opacity 160ms ease; }
-.pre-footer__garden:hover .pre-footer__motion-toggle, .pre-footer__garden:focus-within .pre-footer__motion-toggle { opacity: 1; }
 /* 4. 可访问性与设备范围 */
 .pre-footer :focus-visible { outline: 3px solid var(--color-before-dawn); outline-offset: 5px; }
-.pre-footer__garden :focus-visible { outline-color: var(--color-morning-fog); }
 /* 手机和平板采用同一列卡片；末尾使用独立手机版花园构图。 */
 @media (max-width: 991px) {
   .pre-footer { padding-top: clamp(24px, 5vw, 44px); overflow-x: clip; }
@@ -89,15 +87,14 @@
   img.pre-footer__clouds { display: none; }
   .pre-footer__clouds--mobile { position: relative; display: block; height: auto; aspect-ratio: 1552 / 500; margin-top: -8vw; bottom: auto; transform: none; overflow: visible;}
   .pre-footer__garden { margin-top: 4vw; }
-  /* 两丛灌木分别以靠近屏幕边缘的底角为锚点放大。 */
-  .pre-footer__bushes { transform: scale(1.6); }
+  /* 手机引用原路径并给上下留出描边空间；两侧外扩 2px，消除像素取整漏边。 */
+  img.pre-footer__bushes { display: none; }
+  .pre-footer__bushes--mobile { --pre-footer-bush-fill: var(--color-picnic-date); display: block; width: calc(100% + 4px); left: -2px; aspect-ratio: 1728 / 205; clip-path: none; transform: scale(1.6); }
   .pre-footer__bushes--left { transform-origin: left bottom; }
   .pre-footer__bushes--right { transform-origin: right bottom; }
-  .pre-footer__motion-toggle { right: 10px; bottom: 4px; min-height: 32px; padding: 5px 10px; font-size: var(--text-small); opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .pre-footer__loved-spark { animation: none; }
-  .pre-footer__arrow::before, .pre-footer__arrow > span, .pre-footer__motion-toggle, .pre-footer__download-card, .pre-footer__ambassador-card, .pre-footer__events-card { transition: none; }
-  .pre-footer__motion-toggle { opacity: 1; }
+  .pre-footer__arrow::before, .pre-footer__arrow > span, .pre-footer__download-card, .pre-footer__ambassador-card, .pre-footer__events-card { transition: none; }
 }

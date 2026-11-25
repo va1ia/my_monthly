@@ -12,12 +12,12 @@
 ## 内容和 Google Sheet
 2026-10-27 从 https://mymonthly.io/ 的 .reviewscontainer 提取六条唯一评论，排除第二组滚动副本；均为五星，无作者与年份，不自行补充。已连接 [MM Website Copy → Home: user comments](https://docs.google.com/spreadsheets/d/1lllEhCLX2yxzz5jNIgq3TxdKBSewufZc2xWGsXnGUgU/edit?gid=999999)，第三个工作表，gid=999999。未新增本地 JSON；结构模块保留原站初始快照，作为首次加载及请求失败时的回退。
 
-表头为 `title,date,rating,body`，可调整列顺序；rating 为 1–5 整数，title / body 必填，最多 100 条。content/home/user-comments-source.js 的 csvUrl 已配置该工作表公开 CSV 导出地址；按 gid 定位，修改 tab 名称不会影响连接。每 60 秒读取（后台暂停），失败保留上次内容；CSV 支持带逗号、引号、多行文本。正文按纯文本转义，不执行表格中的 HTML。Sheet 接入后覆盖初始快照。
+表头为 `title,date,rating,body`，可调整列顺序；rating 为 1–5 整数，title / body 必填，最多 100 条。content/home/user-comments-source.js 的 csvUrl 已配置该工作表公开 CSV 导出地址；按 gid 定位，修改 tab 名称不会影响连接。每 60 秒读取（后台暂停），请求超时与组件销毁通过独立 AbortController 取消，不依赖较新的 AbortSignal.any / timeout，以兼容旧版 WebKit。失败保留上次内容；CSV 支持带逗号、引号、多行文本。正文按纯文本转义，不执行表格中的 HTML。Sheet 接入后覆盖初始快照。
 
 ## 弧线与交互
 参考 https://codepen.io/GreenSock/pen/eYEXmJm 的圆周定位和切线旋转思路，自行用原生 JS 实现浅弧线，不增加 GSAP / 框架依赖。中央卡片端正，两侧随圆弧下沉并倾斜；每秒约 22px，首条居中为 First ever?!?。少量评论补足宽度。视觉轨道对辅助技术隐藏，另提供唯一评论列表。
 
-按原站 reviewscontainer 的 group 排列方式，所有卡片置于同一横向 Flex group，用 align-items: stretch 保持等宽等高，高度由组内最长内容共同决定，保留完整文字和弧线。已移除悬停暂停、暂停按钮及左右切换；仅后台、离开视口和减少动画偏好停止自动滚动。mountUserComments 返回 refresh() / destroy()，清理请求、观察器与动画帧。
+按原站 reviewscontainer 的 group 排列方式，所有卡片置于同一横向 Flex group，用 align-items: stretch 保持等宽等高，高度由组内最长内容共同决定，保留完整文字和弧线。已移除悬停暂停、暂停按钮及左右切换；仅后台、离开视口和减少动画偏好停止自动滚动。布局宽度或卡片宽度为 0 时暂缓动画，待 ResizeObserver 得到有效尺寸后恢复；不把无效 spacing 写入 offset，空列表也安全停止。监听分区及轨道尺寸，字体加载完成、pageshow（含历史返回）和前台恢复时重算布局并重新调度。逐帧绘制复用测量后的宽度，避免逐卡读写布局。mountUserComments 返回 refresh() / destroy()，清理请求、观察器与动画帧。
 
 非手机端（≥768px 且支持精细鼠标）复用 scripts/shared/pointer-parallax.js，与首屏同样映射 X ±2vw、Y 0–4vw，并平滑跟随；手机及减少动画模式静止。Contact 也直接引用共享实现，行为不变。
 

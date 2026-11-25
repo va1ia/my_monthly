@@ -61,11 +61,16 @@ def background(size=SIZE, ground_height=547):
     return image
 
 
-def encoder(ffmpeg, destination, size=SIZE):
+def encoder(ffmpeg, destination, size=SIZE, color_space=None):
     transparent = destination.suffix == '.webm'
     codec = ['-c:v','libvpx-vp9','-crf','22','-b:v','0','-cpu-used','4',
              '-row-mt','1','-auto-alt-ref','0','-pix_fmt','yuva420p'] if transparent else [
              '-c:v','libx264','-crf','18','-preset','medium','-pix_fmt','yuv420p','-movflags','+faststart']
+    if color_space and not transparent:
+        # 明确 RGB→YUV 矩阵；网页源图使用 sRGB transfer，避免 Safari 额外提亮。
+        codec += ['-vf', f'scale=out_color_matrix={color_space}:out_range=tv',
+                  '-colorspace', color_space, '-color_primaries', color_space,
+                  '-color_trc', 'iec61966-2-1', '-color_range', 'tv']
     return subprocess.Popen([ffmpeg, '-hide_banner', '-loglevel', 'error', '-y',
         '-f', 'rawvideo', '-pix_fmt', 'rgba' if transparent else 'rgb24', '-s', f'{size[0]}x{size[1]}', '-r', '24', '-i', 'pipe:0',
         '-an', *codec, str(destination)], stdin=subprocess.PIPE)
@@ -127,7 +132,7 @@ def build_mobile(ffmpeg):
         plate = background((1648, 889), ground_height=466)
         padded_plate = Image.new('RGBA', size, GREEN)
         padded_plate.paste(plate, (0, 0))
-        processes = [encoder(ffmpeg, path, size) for path in paths]
+        processes = [encoder(ffmpeg, path, size, color_space='bt709') for path in paths]
         try:
             for index, frame in enumerate(frames):
                 merged = Image.new('RGBA', size)
@@ -149,7 +154,7 @@ def build_mobile(ffmpeg):
         report = {
             'sources': [source_report], 'outputSize': list(size), 'fps': 24,
             'displayCropHeight': 889,
-            'encoding': {'vp9Crf': 22, 'h264Crf': 18, 'sourceFrameSize': [1648, 889], 'paddingBottom': 1},
+            'encoding': {'vp9Crf': 22, 'h264Crf': 18, 'sourceFrameSize': [1648, 889], 'paddingBottom': 1, 'mp4ColorSpace': 'bt709', 'mp4ColorTransfer': 'iec61966-2-1', 'mp4ColorRange': 'tv'},
             'video': {'file': paths[0].name, 'bytes': paths[0].stat().st_size, 'durationSeconds': source_report['durationSeconds']},
             'transparentVideo': {'file': paths[1].name, 'bytes': paths[1].stat().st_size, 'durationSeconds': source_report['durationSeconds']},
             'poster': {'file': 'garden-mobile-poster.webp', 'bytes': (output / 'garden-mobile-poster.webp').stat().st_size},

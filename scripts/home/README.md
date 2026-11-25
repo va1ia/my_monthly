@@ -14,10 +14,10 @@
 `hero.js` 导出 `mountHeroMotion(element)`，提供滚动碰杯、错层 tag、桌面鼠标视差和 marquee 暂停；返回 `destroy()` 清理事件及动画帧。支持减少动画偏好。参数出处和行为见 Hero README。
 
 ## Marquee
-`marquee.js` 加载自动清单、检查更新、响应容器宽度变化并生成无缝轨道，返回 refresh()/destroy()。复制项对辅助技术隐藏，空素材时隐藏滚动带，少量素材时补足可视宽度；滚动暂停继续由 Hero 动画模块的按钮管理。
+`marquee.js` 加载自动清单、检查更新、响应容器宽度变化并生成无缝轨道，返回 refresh()/destroy()。复制项对辅助技术隐藏，空素材时隐藏滚动带，少量素材时补足可视宽度；滚动暂停继续由 Hero 动画模块的按钮管理，不以 focus-within 暂停；pageshow 时重新布局和刷新，兼容历史返回。
 
 ## User comments
-user-comments.js 提供等高 Flex group 圆弧布局、持续循环播放、共享鼠标背景视差与 Sheet CSV 同步。支持减少动画和后台暂停；返回 refresh()/destroy()。详见 pages/home/sections/user-comments/README.md。
+user-comments.js 提供等高 Flex group 圆弧布局、持续循环播放、共享鼠标背景视差与 Sheet CSV 同步。支持减少动画和后台暂停；防止零尺寸 / 空列表导致无效动画坐标，布局、字体、历史返回及前台恢复后重新调度；CSV 请求不依赖 AbortSignal.any / timeout。返回 refresh()/destroy()。详见 pages/home/sections/user-comments/README.md。
 
 ## FAQ 与整页换色
 首页在评论区后挂载共享 renderFAQ / mountFAQ，加载 content/shared/faq.json；样式由 styles/home/index.css 引用共享组件。首页使用 renderFAQ({ variant: 'linen' })，固定显示 Darker Linen；不挂载整页滚动背景控制器，也不请求换色配置。手机和桌面一致，与 Pre-footer 默认浅色顶部衔接。Contact / Download 保留原渐变。

@@ -1,4 +1,4 @@
-// 目录：1. 懒加载播放器 2. 视频与原始 Lottie 对照 3. 可见性、暂停与清理
+// 目录：1. 懒加载播放器 2. 视频与原始 Lottie 对照 3. 可见性、减少动态效果与清理
 import { preFooterMedia } from './media-sources.js';
 import { mountPointerParallax } from '../../scripts/shared/pointer-parallax.js';
 const resource = path => new URL(path, import.meta.url).href;
@@ -24,16 +24,15 @@ export function mountPreFooter(section) {
   const video = section.querySelector('.pre-footer__video');
   const loved = section.querySelector('.pre-footer__loved-video');
   const raw = section.querySelector('.pre-footer__raw');
-  const toggle = section.querySelector('.pre-footer__motion-toggle');
   const status = section.querySelector('.pre-footer__status');
   const mode = 'overlay';
   let source = 'video', ready = false, loading = false, failed = false;
-  let visible = false, near = false, paused = false, allowMotion = false, generation = 0;
+  let visible = false, near = false, generation = 0;
   let format = video.canPlayType('video/webm; codecs="vp9"') ? 'webm' : 'mp4';
   let players = [], activePart = 0, loops = 0, rawController;
   let lovedVisible = false, lovedFormat = loved.canPlayType('video/webm; codecs="vp9"') ? 'webm' : 'mp4';
 
-  function canPlay() { return visible && !document.hidden && !paused && (!reduced.matches || allowMotion); }
+  function canPlay() { return visible && !document.hidden && !reduced.matches; }
   function emit() {
     const playing = ready && canPlay();
     const state = failed ? 'error' : loading ? 'loading' : ready ? (playing ? 'playing' : 'paused') : 'idle';
@@ -43,19 +42,16 @@ export function mountPreFooter(section) {
     section.dataset.animationState = state;
     section.dataset.animationPart = source === 'lottie' ? String(activePart + 1) : 'combined';
     section.dataset.animationLoops = loops;
-    toggle.setAttribute('aria-pressed', String(!playing));
-    toggle.setAttribute('aria-label', playing ? 'Pause garden animation' : 'Play garden animation');
-    toggle.textContent = playing ? 'Pause animation' : 'Play animation';
     section.dispatchEvent(new CustomEvent('prefooterstate', {detail:{source,mode,state,loops,part:activePart + 1,duration:gardenMedia().durationSeconds}}));
   }
   function update() {
-    const lovedMotion = lovedVisible && !document.hidden && !paused && (!reduced.matches || allowMotion);
+    const lovedMotion = lovedVisible && !document.hidden && !reduced.matches;
     section.dataset.lovedMotion = lovedMotion ? 'playing' : 'paused';
     if (lovedMotion && loved.readyState >= 2) loved.play().catch(() => {});
     else loved.pause();
     const play = canPlay() && ready;
     if (source === 'video') {
-      if (play) video.play().catch(() => { paused = true; emit(); });
+      if (play) video.play().catch(() => {});
       else video.pause();
     } else {
       players.forEach((player, index) => {
@@ -246,13 +242,8 @@ export function mountPreFooter(section) {
     ensureLoaded(); players.forEach(player => player.resize());
     update();
   }, options);
-  reduced.addEventListener('change', () => { allowMotion = false; update(); }, options);
+  reduced.addEventListener('change', update, options);
   document.addEventListener('visibilitychange', update, options);
-  toggle.addEventListener('click', () => {
-    const willPause = ready && canPlay();
-    paused = willPause; allowMotion = !willPause;
-    ensureLoaded(); update();
-  }, options);
   emit();
   return {
     select,
