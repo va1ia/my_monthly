@@ -45,6 +45,7 @@
 .pre-footer__calendar { position: absolute; z-index: 1; width: 8vw; max-width: 31%; right: 0; bottom: 0; pointer-events: none; }
 /* 3. 动画及背景 */
 .pre-footer__clouds { position: absolute; z-index: 1; width: 98%; max-width: none; bottom: 25vw; left: 1%; pointer-events: none; transform: translate3d(var(--pattern-x, 0vw), var(--pattern-y, 0vw), 0); }
+.pre-footer__clouds--mobile { display: none; }
 .pre-footer__garden { position: relative; z-index: 0; margin-top: 6vw; aspect-ratio: var(--garden-aspect-ratio, 3439 / 920); background: linear-gradient(var(--color-pre-footer-sky) 94%, var(--color-picnic-date) 94%); overflow: visible; }
 .pre-footer__ground { position: absolute; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; }
 .pre-footer__ground { z-index: 0; }
@@ -84,9 +85,10 @@
   .pre-footer__arrow > span { font-size: clamp(32px, 9.5vw, 48px); }
   .pre-footer__calm { width: 62%; right: -16%; height: auto; }
   .pre-footer__calendar { width: 28%; height: auto; }
-  /* 云层直接使用 PC 完整原图，保留数量、形状及内部相对坐标。 */
-  .pre-footer__clouds { bottom: calc(100vw * 889 / 1648 + 4vw); transform: none; }
-  .pre-footer__garden { margin-top: 50vw; }
+  /* 复用原 SVG 的三条路径，分别放大 1.5 倍并移回视口内。 */
+  img.pre-footer__clouds { display: none; }
+  .pre-footer__clouds--mobile { position: relative; display: block; height: auto; aspect-ratio: 1552 / 500; margin-top: -8vw; bottom: auto; transform: none; overflow: visible;}
+  .pre-footer__garden { margin-top: 4vw; }
   .pre-footer__motion-toggle { right: 10px; bottom: 4px; min-height: 32px; padding: 5px 10px; font-size: var(--text-small); opacity: 1; }
 }
 

@@ -23,6 +23,8 @@ Shop 商品展示墙、商品弹窗、收藏和本地购物车已实现，预览
 首页评论区已加入手机 SVG、整组等高的弧线循环评论与非手机端鼠标背景视差；已连接 Google Sheet 第三个工作表 Home: user comments，每 60 秒同步，无新增本地 JSON。见 [评论区说明](pages/home/sections/user-comments/README.md)。
 
 ## 当前状态
+Terms of Service 与 Privacy Policy 已实现，入口为 `terms-of-service.html` / `privacy-policy.html`。文案使用用户指定 MM Website Copy 对应工作表的快照，排版参考原网站；移除 Share 区域，Footer 法律链接已指向新版页面。复用全站导航、Pre-footer 和 Footer；见 [法律文档组件](components/legal-document/README.md)。
+
 Press 订阅与 newsletter 归档页已实现，入口 [press.html](press.html)：桌面 / 手机独立构图、共享背景鼠标视差、六张卡片的上移旋转动效及对应 LinkedIn 跳转，订阅复用现有服务。导航 Press 已接入本地页面，底部自动复用现有 Pre-footer / Footer。见 [分区说明](pages/press/sections/archive/README.md)。
 
 首页 landing、导航和 Footer 已按参考站及用户截图实现；使用上传的 Logo、插画、社交图标和字体。首页评论区与桌面 / 手机 Pre-footer 已实现，其余后续分区待开发，未配置部署。Newsletter 已连接 Supabase 保存名单（本地预览与 GitHub Pages 来源）；尚未接入邮件发送服务。共享链接配置见 content/shared/README.md。

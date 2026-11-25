@@ -37,11 +37,11 @@
   "legal": [
     {
       "label": "Terms of Service",
-      "href": "https://mymonthly.io/terms-of-service"
+      "href": "./terms-of-service.html"
     },
     {
       "label": "Privacy Policy",
-      "href": "https://mymonthly.io/privacy-policy"
+      "href": "./privacy-policy.html"
     }
   ],
   "social": [

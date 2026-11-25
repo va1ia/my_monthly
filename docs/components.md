@@ -7,6 +7,7 @@
 ## 组件清单
 | 组件 | 说明 | 变体 | 状态 |
 | --- | --- | --- | --- |
+| Legal document | [组件说明](../components/legal-document/README.md) | 桌面 / 手机 | 服务条款与隐私政策共用；表格文案快照、原站排版、无 Share |
 | Press archive（页面专属） | [分区说明](../pages/press/sections/archive/README.md) | 桌面 / 手机；统一 20px / 3° 抬起；减少动画 | 六篇文章按日期排序；三周年和十月 Version 2.5 封面、链接已更新；共享订阅与背景视差 |
 | Menu bar | [组件说明](../components/menu-bar/README.md) | 桌面 / 手机；当前页标记 | 已实现 |
 | Pre-footer | [组件说明](../components/pre-footer/README.md) | 桌面双列 / 手机单列；视频 / 原始 JSON；同步叠加循环 | 普通页面由 Footer 默认挂载；文章 / 活动排除；手机使用独立两行花园动画 |
@@ -19,6 +20,10 @@
 | Button | [组件说明](../components/button/README.md) | 待设计确认 | 目录预留 |
 
 ## 新增与变更
+Pre-footer 手机三朵云各放大 1.5 倍，通过 SVG use 复用原路径并移回视口内；缩短卡片与花园间距，最上方云与 Events 卡片轻微重叠。
+
+法律页 Pre-footer 顶部底色在两个页面共用的 legal-document.css 中设为 article-cream，与正文一致；保留原共享渐变及动画素材。
+
 Newsletter 说明留白：文字下移一份额外间距，文件夹及卡片整组下移两份，首屏同步增高；桌面每份 20–40px、手机 16–24px，使文字上下实际拉开，保持卡片相对位置与底部衔接。
 
 Newsletter 订阅区：弧形标题缩至容器 90% 并居中，说明小字上下各增加 8px padding，桌面 / 手机同步。

@@ -19,6 +19,11 @@ export function renderPreFooter() {
       </div>
     </div>
     <img class="pre-footer__clouds" data-pre-footer-src="${asset('images/garden/cloud.svg')}" alt="" aria-hidden="true">
+    <svg class="pre-footer__clouds pre-footer__clouds--mobile" viewBox="0 0 1552 500" fill="none" aria-hidden="true" focusable="false">
+      <use href="${asset('images/garden/cloud.svg')}#cloud-left" transform="translate(20 20) scale(1.5)"/>
+      <use href="${asset('images/garden/cloud.svg')}#cloud-right" transform="translate(-800 -20) scale(1.5)"/>
+      <use href="${asset('images/garden/cloud.svg')}#cloud-small" transform="translate(-451 0) scale(1.5)"/>
+    </svg>
     <div class="pre-footer__garden" role="group" aria-label="My Monthly garden lettering, characters and drifting leaves">
       <img class="pre-footer__ground" data-pre-footer-src="${asset('images/garden/ground.svg')}" alt="" aria-hidden="true">
       <video class="pre-footer__video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>

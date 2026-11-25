@@ -7,6 +7,8 @@
 - 命名与入口
 
 ## 品牌页面
+法律页入口为 `terms-of-service.html` / `privacy-policy.html`，各自使用 `styles/<page>/index.css`、`scripts/<page>/index.js`、`content/<page>/page.json`。跨页面结构与排版封装于 `components/legal-document/`，共享挂载逻辑位于 `scripts/shared/legal-page.js`，复用现有 Menu bar / Pre-footer / Footer。文案为用户指定 Google Sheet 的完整快照，来源与字段见相邻 README；未加入 Share 功能。
+
 Press 入口为 `press.html`；结构 `pages/press/sections/archive/`，样式 `styles/press/index.css`，脚本 `scripts/press/index.js`，数据 `content/press/archive.json`，素材 `assets/images/press/archive/`。首屏与 Footer 共用订阅适配器，背景复用 pointer-parallax；Pre-footer 由共享 Footer 自动挂载。
 
 类型目录下直接用页面名，不设 branding 中间层。每页样式入口放在自己的目录中：`styles/<page>/index.css`。

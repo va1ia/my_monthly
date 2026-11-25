@@ -13,6 +13,9 @@
   --text-shop-announcement: clamp(11px, 1.25vw, 20px);
   --font-body: "Graphik", system-ui, sans-serif;
   --font-heading: "GT Eesti Display", "Graphik", sans-serif;
+  /* 法律页按原站实测，待 Figma 确认。 */
+  --text-legal-title: 2.5rem;
+  --text-legal-body: 1.0625rem;
   --text-small: 0.875rem;
   /* Press 订阅框按本页 Figma 稿映射，非新增全站品牌字号。 */
   --text-press-email: clamp(16px, 1.5vw, 24px);
@@ -96,3 +99,5 @@
 }
 
 @media (max-width: 767px) { :root { --text-shop-sign: clamp(18px, 4.8vw, 30px); } }
+
+@media (max-width: 767px) { :root { --text-legal-title: 2rem; --text-legal-body: 1rem; } }

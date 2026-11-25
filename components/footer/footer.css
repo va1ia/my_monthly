@@ -24,21 +24,21 @@
 .site-footer :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 .site-footer__form input:focus { outline: none; box-shadow: none; }
 .site-footer__form:has(input:focus-visible) { border-bottom-width: 2px; }
-.site-footer__social { display: flex; gap: 12px; margin-top: 40px; transform: translateX(-8px); }
+.site-footer__social { display: flex; gap: 12px; margin-top: 40px; transform: translateX(-4px); }
 .site-footer__social a { display: grid; place-items: center; width: 32px; height: 36px; }
 .site-footer__social-icon { display: block; width: 25px; height: 25px; background: currentColor; mask: var(--social-icon) center / contain no-repeat; transition: transform 180ms ease; transform-origin: center center; }
 .site-footer__social a:hover .site-footer__social-icon { transform: scale(1.1); }
 .site-footer__copyright { text-align: center; font-size: 12px; line-height: 1.6; margin: 32px 0 0; }
 @media (max-width: 767px) {
-  .site-footer { padding: 28px 7vw calc(64px + env(safe-area-inset-bottom, 0px)); }
+  .site-footer { padding: 28px 7vw calc(24px + env(safe-area-inset-bottom, 0px)); }
   .site-footer__main { grid-template-columns: 1fr 1fr; gap: 38px 24px; max-width: 440px; }
   .site-footer__newsletter { grid-column: 1 / -1; width: 100%; max-width: 310px; justify-self: center; }
   .site-footer h2 { font-size: 16px; text-align: center; margin-bottom: 8px; }
   .site-footer__brand { display: none; }
-  .site-footer__navigation { padding-left: 12px; gap: 12px; }
+  .site-footer__navigation { padding-left: 12px; gap: 6px; }
   .site-footer__navigation a, .site-footer__legal a { font-size: 12px; min-height: 30px; }
-  .site-footer__legal { gap: 12px; }
-  .site-footer__social { margin-top: 20px; gap: 8px; }
-  .site-footer__copyright { margin-top: 24px; font-size: 11px; }
+  .site-footer__legal { gap: 6px; }
+  .site-footer__social { margin-top: 6px; gap: 8px; }
+  .site-footer__copyright { margin-top: 44px; font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) { .site-footer__form button, .site-footer__social-icon, .site-footer__navigation a, .site-footer__legal a { transition: none; } }
