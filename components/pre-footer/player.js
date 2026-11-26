@@ -30,7 +30,7 @@ export function mountPreFooter(section) {
   let visible = false, near = false, generation = 0;
   let format = video.canPlayType('video/webm; codecs="vp9"') ? 'webm' : 'mp4';
   let players = [], activePart = 0, loops = 0, rawController;
-  let lovedVisible = false, lovedFormat = loved.canPlayType('video/webm; codecs="vp9"') ? 'webm' : 'mp4';
+  let lovedVisible = false, lovedReady = false, lovedFailed = false;
 
   function canPlay() { return visible && !document.hidden && !reduced.matches; }
   function emit() {
@@ -47,8 +47,13 @@ export function mountPreFooter(section) {
   function update() {
     const lovedMotion = lovedVisible && !document.hidden && !reduced.matches;
     section.dataset.lovedMotion = lovedMotion ? 'playing' : 'paused';
-    if (lovedMotion && loved.readyState >= 2) loved.play().catch(() => {});
-    else loved.pause();
+    if (lovedMotion && lovedReady && !lovedFailed) {
+      loved.play().then(() => {
+        if (!controller.signal.aborted && lovedReady && !lovedFailed) section.dataset.lovedReady = 'true';
+      }).catch(() => {
+        if (!controller.signal.aborted) section.dataset.lovedReady = 'false';
+      });
+    } else loved.pause();
     const play = canPlay() && ready;
     if (source === 'video') {
       if (play) video.play().catch(() => {});
@@ -75,34 +80,47 @@ export function mountPreFooter(section) {
     const media = gardenMedia();
     video.poster = resource(media.poster);
     applyMediaGeometry();
-    if (!loved.getAttribute('src')) {
-      loved.src = resource(`./media/cards/loved.${lovedFormat}`);
+    if (!lovedFailed && !loved.getAttribute('src')) {
+      // 卡片底色固定：绿底 H.264 避免 Safari 视频合成层忽略 WebM alpha。
+      loved.poster = resource('./images/cards/loved.svg');
+      loved.muted = true;
+      loved.src = resource('./media/cards/loved.mp4?v=opaque-srgb-20261126');
       loved.load();
     }
   }
-  function lovedFallback() {
-    if (lovedFormat !== 'webm') return false;
-    lovedFormat = 'mp4';
-    loved.src = resource('./media/cards/loved.mp4');
-    loved.load();
-    return true;
+  function keepLovedPoster() {
+    if (lovedFailed) return;
+    lovedReady = false; lovedFailed = true;
+    section.dataset.lovedReady = 'false';
+    loved.pause(); loved.hidden = true;
+    loved.removeAttribute('src'); loved.load();
   }
+  loved.addEventListener('emptied', () => {
+    lovedReady = false;
+    section.dataset.lovedReady = 'false';
+  }, options);
   loved.addEventListener('loadeddata', () => {
-    if (lovedFormat === 'webm') {
-      const canvas = document.createElement('canvas');
-      canvas.width = canvas.height = 1;
-      try {
-        const context = canvas.getContext('2d', {willReadFrequently:true});
-        context.drawImage(loved, 0, 0, 1, 1, 0, 0, 1, 1);
-        if (context.getImageData(0, 0, 1, 1).data[3] > 0 && lovedFallback()) return;
-      } catch { if (lovedFallback()) return; }
-    }
+    if (controller.signal.aborted || lovedFailed) return;
+    // 先核验真实解码画面再显示视频；黑帧、读帧失败都保留静态 SVG。
+    const canvas = document.createElement('canvas');
+    canvas.width = loved.videoWidth; canvas.height = loved.videoHeight;
+    try {
+      const context = canvas.getContext('2d', {willReadFrequently:true});
+      context.drawImage(loved, 0, 0);
+      const background = getComputedStyle(section.querySelector('.pre-footer__download-card')).backgroundColor;
+      const expected = background.match(/[\d.]+/g).slice(0, 3).map(Number);
+      const corners = [[0,0], [canvas.width-1,0], [0,canvas.height-1], [canvas.width-1,canvas.height-1]];
+      const matteMatches = corners.every(([x,y]) => {
+        const pixel = context.getImageData(x,y,1,1).data;
+        return pixel[3] === 255 && expected.every((value,index) => Math.abs(value-pixel[index]) <= 16);
+      });
+      if (!matteMatches) { keepLovedPoster(); return; }
+    } catch { keepLovedPoster(); return; }
+    lovedReady = true;
     section.dataset.lovedReady = 'true';
     update();
   }, options);
-  loved.addEventListener('error', () => {
-    if (!lovedFallback()) section.dataset.lovedReady = 'false';
-  }, options);
+  loved.addEventListener('error', keepLovedPoster, options);
   function clearRaw() {
     rawController?.abort();
     rawController = null;

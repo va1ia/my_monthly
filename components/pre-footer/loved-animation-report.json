@@ -1,0 +1,28 @@
+{
+  "source": "source/loved.mov",
+  "sourceSha256": "d5b747c4569eba7636441d9ab7c1f01334b64a9ba2eae318513d66b1f1fbdad2",
+  "video": "media/cards/loved.mp4",
+  "bytes": 121149,
+  "outputSize": [
+    548,
+    642
+  ],
+  "frames": 43,
+  "fps": 24,
+  "durationSeconds": 1.7916666666666667,
+  "background": "#3d8054",
+  "crop": [
+    1098,
+    1284,
+    240,
+    70
+  ],
+  "mirror": true,
+  "encoding": {
+    "h264Crf": 18,
+    "colorSpace": "bt709",
+    "colorTransfer": "iec61966-2-1",
+    "colorRange": "tv"
+  },
+  "note": "Opaque green matte matches the fixed card background. No WebM transparency required. Original MOV preserved."
+}

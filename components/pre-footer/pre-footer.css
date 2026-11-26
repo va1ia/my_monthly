@@ -20,7 +20,7 @@
 .pre-footer__cards h2 { margin: 0; font-size: clamp(28px, 3.2vw, 44px); font-weight: 500; line-height: 1.2; }
 .pre-footer__loved-art { position: relative; width: 50%; height: 42%; min-height: 145px; }
 .pre-footer__loved-poster { width: 100%; height: 100%; object-fit: contain; }
-.pre-footer__loved-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; pointer-events: none; }
+.pre-footer__loved-video { background: var(--color-picnic-date); position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; pointer-events: none; }
 .pre-footer__loved-poster, .pre-footer__loved-video { transform: translateX(-4%) scale(1.045); transform-origin: center; }
 .pre-footer[data-loved-ready="true"] .pre-footer__loved-poster { visibility: hidden; }
 .pre-footer[data-loved-ready="true"] .pre-footer__loved-video { opacity: 1; }

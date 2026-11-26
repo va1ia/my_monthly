@@ -16,7 +16,7 @@
 
 ## 目录归类
 - source/：桌面 garden / leaves JSON、独立 garden-mobile JSON、Loved 原始 MOV 和来源说明。
-- media/：桌面 garden 与手机 garden-mobile 各自的透明视频、MP4 后备和 poster；cards/ 放 Loved 卡片的透明 WebM 与 MP4 后备。
+- media/：桌面 garden 与手机 garden-mobile 各自的透明视频、MP4 后备和 poster；cards/ 仅放 Loved 卡片的绿底 H.264 MP4；静态 SVG 为失败后备。
 - images/cards/：Loved、Loved 装饰、Calm 和 Calendar。
 - images/garden/：Cloud、Ground 和 Bushes。
 - vendor/：Lottie 对照播放器及授权；组件根目录只放代码、样式、测量报告和说明。
@@ -94,11 +94,15 @@ Pre-footer 的天空渐变从透明起步，32% 处达到天空蓝。在启用 s
 ## Loved 动态卡片
 Loved 角色及静态后备以中心为基准使用 scale 1.045（在上一版 1.1 基础上缩小 5%），并左移自身宽度的 4%（1440px 屏幕约 9px）；不改变布局占位，四个装饰、标题和下载标记保持原尺寸与位置。
 
-用户上传 love.mov 已归入 source/loved.mov（原始 ProRes 4444、透明、1440×1440、24fps、43 帧，约 1.79 秒），不在网页直接加载。media/cards/loved.webm 为透明 VP9（约 144 KB），loved.mp4 为相同卡片绿底的兼容后备（约 136 KB）。裁剪全动画边界至 crop=1098:1284:240:70 后 hflip，缩放为 548×642，保持完整动作并与旧 SVG 的心形发束朝向、脚底和原插画容器对齐；CSS 不再额外镜像。WebM CRF 22、MP4 CRF 18，无音轨。
+用户上传 love.mov 已归入 source/loved.mov（原始 ProRes 4444、透明、1440×1440、24fps、43 帧，约 1.79 秒），不在网页直接加载。2026-11-26 为避免 iPhone Safari 忽略 WebM alpha 而出现黑底，Loved 统一改为预合成卡片绿底的 media/cards/loved.mp4（121,149 字节），不再请求或保留 Loved WebM。花园的独立播放资源不受影响。
+
+沿用 crop=1098:1284:240:70、hflip、548×642 和 24fps / 43 帧，保持原动作、镜像方向及插画占位；H.264 CRF 18，无音轨。背景为 --color-picnic-date 对应 #3D8054，使用 BT.709 矩阵 / primaries、sRGB transfer、limited 范围，并通过无损重封装同时固定 H.264 VUI 和 MP4 colr，避免 Safari 额外提亮。Chrome / WebKit 首帧角落均为 60/128/83，与 CSS 61/128/84 接近。来源哈希、输出尺寸、体积、裁剪及编码字段见 loved-animation-report.json。
+
+运行 python3 scripts/tools/prepare-pre-footer.py --variant loved --ffmpeg /path/to/ffmpeg 可重建，只替换 Loved MP4，不修改原始 MOV 或其他动画。
 
 四个小装饰沿用 loved-deco.svg 的路径、原坐标和颜色，内联到 pre-footer.js 的 lovedDecorations 中以分别控制动画；更新装饰源文件时须同步这里的四条路径。各自以 4.8 / 5.6 / 5.2 / 6.2 秒 ease-in-out 循环、负延时错开，上下 ±6 个 SVG 单位（1440px 屏幕显示约 ±4px），不旋转、不缩放。
 
-Loved 与花园分别按自身可见性播放；页面隐藏或减少动态效果时自动暂停，四个装饰同步受控。减少动态效果下装饰不动，视频保留首帧。原生 loop 保留约 1.79 秒原速；鼠标和键盘仍只激活整张下载卡片。接近组件 400px 时加载卡片，花园视频延后至花园自身接近视口 400px 时加载；销毁时释放观察器、媒体和事件。WebM 解码失败或忽略透明度时自动切换 MP4，两个格式都失败则保留原静态 SVG。
+Loved 与花园分别按自身可见性播放；页面隐藏或减少动态效果时自动暂停，四个装饰同步受控。减少动态效果下装饰不动，视频保留首帧。原生 loop 保留约 1.79 秒原速；鼠标和键盘仍只激活整张下载卡片。接近组件 400px 时加载卡片，花园视频延后至花园自身接近视口 400px 时加载；销毁时释放观察器、媒体和事件。Loved 仅请求带版本号的绿底 MP4，避免复用旧缓存。视频配置 SVG poster 与 CSS 绿底；loadeddata 核验四个角落为不透明卡片绿色后才显示视频。网络错误、读帧失败、黑帧会隐藏并释放视频，保留静态 SVG；自动播放被拒绝也恢复 SVG，后续可见性变化再成功播放时才显示视频。销毁时清理事件和媒体。
 
 ## 手机版布局与素材替换
 2026-11-25：≤991px 的左右两丛 bushes 保持 1.6 倍与各自底角缩放锚点；手机通过 SVG use 引用 bushes.svg 中的 bush-left / bush-right 原路径，viewBox 为 0 -16 1728 205，补足顶部及底部描边空间，不再用半幅 clip-path 裁切。显示宽度向两侧各外扩 2px，避免小数像素漏边。手机草丛填色通过 --pre-footer-bush-fill 使用 Footer 同一 --color-picnic-date；桌面 img 保留原 #539D6C 和原定位。

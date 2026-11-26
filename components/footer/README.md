@@ -61,6 +61,8 @@ footer.setVariant('light');
 
 切换接口同步更新颜色与 Logo。新增背景时同步 JS 允许值、CSS 变量映射和本说明。
 
+有 FAQ 滚动换色的 Contact / Download 共用配置中，Footer 顶部进入视窗会将 body 整页底色切回 picnic-date；上滚退出 Footer 后恢复 FAQ 浅色。此规则覆盖手机与桌面，与下述仅手机的 html 画布管理分别作用于页面底色和视口外边缘。
+
 ## 手机页面画布
 mountFooter 同时挂载 scripts/shared/mobile-page-canvas.js，仅 ≤767px 在 html 上设置 --mobile-page-background：默认匹配当前首屏 / 分区底色，Footer 进入视窗后匹配其实际背景，菜单打开时匹配面板。监听滚动、visualViewport、页面恢复、内容高度与 Footer 变体，覆盖 Safari 页面回弹 / 视口外的白色或 beige 底色。body 的 Q&A 换色与分区背景不变；桌面移除变量，destroy 清理监听 / 观察器并恢复原值。活动页 period 变体仍使用自身深棕色，不强制改成品牌绿。
 

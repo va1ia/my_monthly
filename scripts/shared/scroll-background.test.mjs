@@ -14,6 +14,7 @@ function layout(t, width, height = 1000) {
   const faq = { top: 450, visible: true, getClientRects() { return this.visible ? [{}] : []; }, getBoundingClientRect() { return { top: this.top }; } };
   let second = { ...faq, top: 750 };
   const footer = { ...faq, top: 1070 };
+  const siteFooter = { ...faq, top: 3000 };
   const properties = new Map();
   const classes = new Set();
   const target = { style: {
@@ -24,14 +25,14 @@ function layout(t, width, height = 1000) {
   const frames = new Map();
   Object.assign(globalThis, {
     window: Object.assign(new EventTarget(), {scrollY:0}), innerHeight: height,
-    document: { querySelector: selector => selector === '.contact-faq' ? faq : selector === '.pre-footer' ? footer : selector === '.contact-faq__item:nth-child(2) > summary' ? second : null, fonts: { ready: Promise.resolve() } },
+    document: { querySelector: selector => selector === '.contact-faq' ? faq : selector === '.pre-footer' ? footer : selector === '.site-footer' ? siteFooter : selector === '.contact-faq__item:nth-child(2) > summary' ? second : null, fonts: { ready: Promise.resolve() } },
     matchMedia: query => ({ matches: query.includes('min-width') ? width >= 768 : width <= 767 }),
     ResizeObserver: class { constructor(callback) { resize = callback; } observe() {} disconnect() { disconnected = true; } },
     requestAnimationFrame: callback => { frames.set(++nextFrame, callback); return nextFrame; },
     cancelAnimationFrame: id => frames.delete(id),
   });
   const flush = () => { const pending = [...frames.values()]; frames.clear(); pending.forEach(callback => callback()); };
-  return { target, faq, footer, anchor: width <= 767 ? second : faq, replaceSecond: element => { second = element; }, color: () => target.style.getPropertyValue('--page-background'),
+  return { target, faq, footer, siteFooter, anchor: width <= 767 ? second : faq, replaceSecond: element => { second = element; }, color: () => target.style.getPropertyValue('--page-background'),
     resize: () => { resize(); flush(); }, scroll: (delta = 1) => { window.scrollY += delta; window.dispatchEvent(new Event('scroll')); flush(); },
     disconnected: () => disconnected };
 }
@@ -98,3 +99,21 @@ test('mobile waits for question two, retains linen during answer expansion and r
   assert.equal(view.color(), 'var(--color-darker-linen)', 'uses the replacement summary after FAQ refresh');
   fixed.destroy();
 });
+
+
+for (const width of [390, 1440]) {
+  test(`${width}px: footer entry restores green; scrolling back above footer restores FAQ linen`, t => {
+    const view = layout(t, width);
+    const player = mountScrollBackground(view.target, config);
+    assert.equal(view.color(), 'var(--color-darker-linen)');
+    view.siteFooter.top = 1001; view.scroll();
+    assert.equal(view.color(), 'var(--color-darker-linen)', 'does not trigger before Footer enters');
+    view.siteFooter.top = 999; view.scroll();
+    assert.equal(view.color(), 'var(--color-picnic-date)');
+    view.siteFooter.top = -200; view.scroll();
+    assert.equal(view.color(), 'var(--color-picnic-date)', 'stays green through the page end');
+    view.siteFooter.top = 1001; view.scroll(-1);
+    assert.equal(view.color(), 'var(--color-darker-linen)');
+    player.destroy();
+  });
+}

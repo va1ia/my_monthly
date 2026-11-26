@@ -44,7 +44,7 @@ Pre-footer 采用桌面双列与 ≤991px 单列三卡，桌面 / 手机均按�
 
 Pre-footer 为 components/pre-footer/ 中的共享组件，结构、样式、播放控制、source/ 中的新版原始 JSON、media/ 中桌面与手机各三份花园播放资源及 media/cards/ 中的 Loved 视频、images/cards/ 与 images/garden/ 分类静态插画及 Lottie Canvas vendor 均封装在组件内。普通页面默认由共享 mountFooter 自动挂载，Home / Contact / Download / Shop 已接入；文章和活动页面（包括 event.html 及 event/、article/ 路径）排除。page-policy.js 为统一判定入口；自定义文章 / 活动 URL 须传 `pageType: 'article'` / `'event'`，新普通页面不得再独立追加一份 Pre-footer。pre-footer-preview.html 和 component-preview.html 作为技术预览通过 preFooter:false 关闭自动挂载，前者保留手动实例用于对照。素材转换器位于 scripts/tools/prepare-pre-footer.py，原文件不修改。
 
-滚动整页换色由 scripts/shared/scroll-background.js 与 styles/scroll-background.css 复用；Contact / Download 共用 content/shared/pre-footer-background.json，桌面以 FAQ 顶部为稳定判断点，越过视口中线触发，手机延后到第二题进入视窗底边时触发；展开答案不影响判断，隐藏分区不触发；其他场景可在页面数据目录配置。分区背景透明，不以渐变模拟换色。详见 scripts/shared/README.md。
+滚动整页换色由 scripts/shared/scroll-background.js 与 styles/scroll-background.css 复用；Contact / Download 共用 content/shared/pre-footer-background.json，桌面以 FAQ 顶部为稳定判断点，越过视口中线触发，手机延后到第二题进入视窗底边时触发；展开答案不影响判断，隐藏分区不触发；Footer 进入视窗后整页恢复绿色，上滚离开后回到 FAQ 浅色；其他场景可在页面数据目录配置。分区背景透明，不以渐变模拟换色。详见 scripts/shared/README.md。
 
 真正跨页面复用的代码提取到 components/ 或 scripts/shared/；公共基础样式放 styles/foundations/。event/article 可以引用共享代码，但它们的专属文件不混入品牌页面的类型目录。素材避免为每个页面重复复制。页面目录本身不定义发布路由，后续由框架配置路由与资源路径。
 

@@ -20,6 +20,12 @@
       "colorToken": "--color-darker-linen",
       "triggerOffsetPx": 0,
       "preserveOnLayoutChange": true
+    },
+    {
+      "selector": ".site-footer",
+      "triggerLine": 1,
+      "triggerOffsetPx": 0,
+      "colorToken": "--color-picnic-date"
     }
   ]
 }

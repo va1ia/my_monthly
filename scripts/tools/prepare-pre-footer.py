@@ -76,6 +76,16 @@ def encoder(ffmpeg, destination, size=SIZE, color_space=None):
         '-an', *codec, str(destination)], stdin=subprocess.PIPE)
 
 
+def finalize_srgb(ffmpeg, path):
+    # rawvideo 的滤镜属性可能覆盖编码标记；无损重封装同时固定 H.264 VUI 与 MP4 colr。
+    tagged = path.with_name(path.stem + '-srgb.mp4')
+    subprocess.run([ffmpeg, '-hide_banner', '-loglevel', 'error', '-y', '-i', str(path),
+        '-c', 'copy', '-bsf:v', 'h264_metadata=colour_primaries=1:transfer_characteristics=13:matrix_coefficients=1:video_full_range_flag=0',
+        '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'iec61966-2-1',
+        '-color_range', 'tv', '-movflags', '+faststart', str(tagged)], check=True)
+    tagged.replace(path)
+
+
 def build(ffmpeg):
     media = SOURCE / 'media'
     media.mkdir(exist_ok=True)
@@ -151,6 +161,7 @@ def build_mobile(ffmpeg):
             for process in processes:
                 if process.poll() is None:
                     process.kill()
+        finalize_srgb(ffmpeg, paths[0])
         report = {
             'sources': [source_report], 'outputSize': list(size), 'fps': 24,
             'displayCropHeight': 889,
@@ -166,9 +177,54 @@ def build_mobile(ffmpeg):
     print(json.dumps(report, ensure_ascii=False, indent=2), flush=True)
 
 
+def build_loved(ffmpeg):
+    # 固定绿底卡片使用不透明 H.264，不依赖 Safari 的 WebM alpha 合成。
+    source = SOURCE / 'source/loved.mov'
+    size = (548, 642)
+    frame_bytes = size[0] * size[1] * 4
+    plate = Image.new('RGBA', size, GREEN)
+    with tempfile.TemporaryDirectory(prefix='.loved-build-', dir=SOURCE) as directory:
+        destination = Path(directory) / 'loved.mp4'
+        decoder = subprocess.Popen([ffmpeg, '-hide_banner', '-loglevel', 'error', '-i', str(source),
+            '-vf', 'crop=1098:1284:240:70,hflip,scale=548:642:flags=lanczos',
+            '-f', 'rawvideo', '-pix_fmt', 'rgba', 'pipe:1'], stdout=subprocess.PIPE)
+        process = encoder(ffmpeg, destination, size, color_space='bt709')
+        frames = 0
+        try:
+            while True:
+                raw = decoder.stdout.read(frame_bytes)
+                if not raw:
+                    break
+                if len(raw) != frame_bytes:
+                    raise ValueError('Incomplete Loved frame')
+                image = Image.frombytes('RGBA', size, raw)
+                process.stdin.write(Image.alpha_composite(plate, image).convert('RGB').tobytes())
+                frames += 1
+            process.stdin.close()
+            if decoder.wait() != 0 or process.wait() != 0:
+                raise RuntimeError('Loved conversion failed')
+            if frames != 43:
+                raise ValueError('Loved timing changed; expected the supplied 43-frame source')
+        finally:
+            decoder.stdout.close()
+            for child in [decoder, process]:
+                if child.poll() is None:
+                    child.kill()
+        finalize_srgb(ffmpeg, destination)
+        report = {'source': 'source/loved.mov', 'sourceSha256': hashlib.sha256(source.read_bytes()).hexdigest(),
+                  'video': 'media/cards/loved.mp4', 'bytes': destination.stat().st_size,
+                  'outputSize': list(size), 'frames': frames, 'fps': 24, 'durationSeconds': frames / 24,
+                  'background': GREEN, 'crop': [1098, 1284, 240, 70], 'mirror': True,
+                  'encoding': {'h264Crf': 18, 'colorSpace': 'bt709', 'colorTransfer': 'iec61966-2-1', 'colorRange': 'tv'},
+                  'note': 'Opaque green matte matches the fixed card background. No WebM transparency required. Original MOV preserved.'}
+        destination.replace(SOURCE / 'media/cards/loved.mp4')
+    (SOURCE / 'loved-animation-report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+    print(json.dumps(report, ensure_ascii=False, indent=2), flush=True)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--ffmpeg', default='ffmpeg')
-    parser.add_argument('--variant', choices=['desktop', 'mobile'], default='desktop')
+    parser.add_argument('--variant', choices=['desktop', 'mobile', 'loved'], default='desktop')
     args = parser.parse_args()
-    (build_mobile if args.variant == 'mobile' else build)(args.ffmpeg)
+    {'desktop': build, 'mobile': build_mobile, 'loved': build_loved}[args.variant](args.ffmpeg)

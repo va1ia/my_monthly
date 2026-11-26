@@ -25,3 +25,5 @@ prepare-pre-footer.py 仅用于用户提供的一帧一张 WebP 的两份 JSON�
 手机版：prepare-pre-footer.py --variant mobile --ffmpeg /path/to/ffmpeg，从 source/garden-mobile.json 生成 garden-mobile.webm / .mp4 / -poster.webp 及 mobile-animation-report.json。原速 24fps、258 帧 / 10.75 秒；底部补 1px 透明像素为 1648×890；不叠加桌面叶子，不覆盖桌面媒体。
 
 手机 MP4 编码明确采用 BT.709 转换矩阵与 primaries / colorspace 标签、sRGB（iec61966-2-1）transfer 和 limited（tv）范围，避免 HD 播放器用另一矩阵解释导致天空 / 草地与 CSS 色值不一致。sRGB 标签同时避免 Safari 按 BT.709 传递曲线额外提亮颜色。透明 WebM 与源帧保持原方案。
+
+Loved 卡片：prepare-pre-footer.py --variant loved --ffmpeg /path/to/ffmpeg 从 source/loved.mov 生成 media/cards/loved.mp4 和 loved-animation-report.json。43 帧 / 24fps、548×642、裁剪及 hflip 保留；Pillow 在 RGB 中合成 #3D8054，再编码为 H.264。此卡片不再输出透明 WebM。手机花园与 Loved 在编码后都无损重封装，显式将 H.264 VUI 与 MP4 colr 设为 BT.709 矩阵 / primaries、sRGB transfer 和 limited 范围，避免滤镜属性覆盖编码标记导致 Safari 提亮。
